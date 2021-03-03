@@ -1,0 +1,1738 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.1 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\datalist[entry]{none/global//global/global}
+  \entry{Li2008}{book}{}
+    \name{author}{1}{}{%
+      {{hash=LXY}{%
+         family={Li},
+         familyi={L\bibinitperiod},
+         given={Xiang-Yang},
+         giveni={X\bibinithyphendelim Y\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Cambridge University Press}%
+    }
+    \strng{namehash}{LXY1}
+    \strng{fullhash}{LXY1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb 10.1017/CBO9780511754722
+    \endverb
+    \field{isbn}{9780511754722}
+    \field{title}{{Wireless Ad Hoc and Sensor Networks}}
+    \verb{url}
+    \verb http://ebooks.cambridge.org/ref/id/CBO9780511754722
+    \endverb
+    \list{location}{1}{%
+      {Cambridge}%
+    }
+    \field{year}{2008}
+  \endentry
+
+  \entry{Meneguette2018}{book}{}
+    \name{author}{3}{}{%
+      {{hash=IR}{%
+         family={{I. Meneguette}},
+         familyi={I\bibinitperiod},
+         given={Rodolfo},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=ER}{%
+         family={{E. De Grande}},
+         familyi={E\bibinitperiod},
+         given={Robson},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=AA}{%
+         family={{A. F. Loureiro}},
+         familyi={A\bibinitperiod},
+         given={Antonio},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer International Publishing}%
+    }
+    \strng{namehash}{IRERAA1}
+    \strng{fullhash}{IRERAA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{abstract}{%
+    This book presents a timely description of currently used and proposed
+  technologies that involve the intelligent transport system to assist the
+  manager of large cities. Therefore, it describes all concepts and
+  technologies that address the challenges, bringing up a top-down approach,
+  which begins from the vehicular network and central infrastructure to a
+  distributed structure. For scientists and researchers, this book will bring
+  together the state-of-the-art of the main techniques that involve intelligent
+  transport systems to assist the manager of big cities. For practitioners and
+  professionals, this book will describe techniques which can be put into
+  practice and use to aid the development of new applications and services.
+  Concerning postgraduate students, this book will provide highlights of main
+  concerns and concepts and explain techniques that can assist students to
+  identify challenges that they can explore, contribute to, and advance the
+  current status of technology.%
+    }
+    \verb{doi}
+    \verb 10.1007/978-3-319-93332-0
+    \endverb
+    \field{isbn}{978-3-319-93331-3}
+    \field{series}{Urban Computing}
+    \field{title}{{Intelligent Transport System in Smart Cities}}
+    \verb{url}
+    \verb http://link.springer.com/10.1007/978-3-319-93332-0
+    \endverb
+    \list{location}{1}{%
+      {Cham}%
+    }
+    \verb{file}
+    \verb :C$\backslash$:/Users/comec/Google Drive/libros/redes-de-computadoras
+    \verb /redes-ad-hoc/vanet/2018{\_}Book{\_}IntelligentTransportSystemInSm.pd
+    \verb f:pdf
+    \endverb
+    \field{year}{2018}
+  \endentry
+
+  \entry{Lochert2003}{article}{}
+    \name{author}{6}{}{%
+      {{hash=LC}{%
+         family={Lochert},
+         familyi={L\bibinitperiod},
+         given={Christian},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=HH}{%
+         family={Hartenstein},
+         familyi={H\bibinitperiod},
+         given={Hannes},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=TJ}{%
+         family={Tian},
+         familyi={T\bibinitperiod},
+         given={Jing},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=FH}{%
+         family={F{\"{u}}bler},
+         familyi={F\bibinitperiod},
+         given={Holger},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=HD}{%
+         family={Hermann},
+         familyi={H\bibinitperiod},
+         given={Dagmar},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=MM}{%
+         family={Mauve},
+         familyi={M\bibinitperiod},
+         given={Martin},
+         giveni={M\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{LCHHTJ+1}
+    \strng{fullhash}{LCHHTJFHHDMM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{abstract}{%
+    Routing of data in a vehicular ad hoc network is a challenging task due to
+  the high dynamics of such a network. Recently, it was shown for the case of
+  highway traffic that position-based routing approaches can very well deal
+  with the high mobility of network nodes. However, baseline position-based
+  routing has difficulties to handle two-dimensional scenarios with obstacles
+  (buildings) and voids as it is the case for city scenarios. In this paper we
+  analyze a position-based routing approach that makes use of the navigational
+  systems of vehicles. By means of simulation we compare this approach with
+  non-position-based ad hoc routing strategies (dynamic source routing and
+  ad-hoc on-demand distance vector routing). The simulation makes use of highly
+  realistic vehicle movement patterns derived from Daimler-Chrysler's Videlio
+  traffic simulator. While DSR's performance is limited due to problems with
+  scalability and handling mobility, both AODV and the position-based approach
+  show good performances with the position-based approach outperforming AODV.%
+    }
+    \verb{doi}
+    \verb 10.1109/IVS.2003.1212901
+    \endverb
+    \field{isbn}{0780378482}
+    \field{number}{01}
+    \field{pages}{156\bibrangedash 161}
+    \field{title}{{A routing strategy for vehicular ad hoc networks in city
+  environments}}
+    \field{volume}{2000}
+    \verb{file}
+    \verb :C$\backslash$:/Users/comec/Google Drive/master/referencias/articulos
+    \verb /A{\_}Routing{\_}Strategy{\_}for{\_}Vehicular{\_}Ad{\_}Hoc{\_}Network
+    \verb s{\_}in{\_}City{\_}Environments.pdf:pdf
+    \endverb
+    \field{journaltitle}{IEEE Intelligent Vehicles Symposium, Proceedings}
+    \field{year}{2003}
+  \endentry
+
+  \entry{Brendha2017}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=BR}{%
+         family={Brendha},
+         familyi={B\bibinitperiod},
+         given={R.},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=PVSJ}{%
+         family={Prakash},
+         familyi={P\bibinitperiod},
+         given={V.\bibnamedelima Sinthu\bibnamedelima Janita},
+         giveni={V\bibinitperiod\bibinitdelim S\bibinitperiod\bibinitdelim
+  J\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {IEEE}%
+    }
+    \keyw{Architecture,Merits and Demerits,Routing Protocols,Vehicular Ad Hoc
+  Networks (VANETs)}
+    \strng{namehash}{BRPVSJ1}
+    \strng{fullhash}{BRPVSJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{abstract}{%
+    Vehicular Ad Hoc Networks (VANETs) is an essential and emerging area of
+  research in the field of Ad Hoc Networks. The main objective of deploying
+  VANET is to improve the road safety and reduce the number of accidents. In
+  VANET, routing is a difficult task because of the high mobility of nodes,
+  which causes rapid changes of topology and to deliver a packet within a
+  minimum period of time. Existing routing protocols are not sufficient to meet
+  all the issues in routing. To provide best routing protocol, it is necessary
+  to make an analysis of routing protocols in VANET. This paper starts with the
+  basic architecture of VANET and provides a detailed description of various
+  existing routing techniques with its advantages and disadvantages. Finally,
+  this paper discusses an overview of the existing routing protocols for
+  VANET.%
+    }
+    \field{booktitle}{2017 4th International Conference on Advanced Computing
+  and Communication Systems (ICACCS)}
+    \verb{doi}
+    \verb 10.1109/ICACCS.2017.8014615
+    \endverb
+    \field{isbn}{978-1-5090-4559-4}
+    \field{pages}{1\bibrangedash 7}
+    \field{title}{{A survey on routing protocols for vehicular Ad Hoc
+  networks}}
+    \verb{url}
+    \verb http://ieeexplore.ieee.org/document/8014615/
+    \endverb
+    \verb{file}
+    \verb :C$\backslash$:/Users/comec/AppData/Local/Mendeley Ltd./Mendeley Desk
+    \verb top/Downloaded/Brendha, Prakash - 2017 - A survey on routing protocol
+    \verb s for vehicular Ad Hoc networks.pdf:pdf
+    \endverb
+    \field{year}{2017}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{Korichi2018}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=KA}{%
+         family={Korichi},
+         familyi={K\bibinitperiod},
+         given={Afaf},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=ZY}{%
+         family={Zafoune},
+         familyi={Z\bibinitperiod},
+         given={Youcef},
+         giveni={Y\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {IEEE}%
+    }
+    \keyw{cluster,component,ip address auto-configuration,mobile ad hoc
+  network,mobile agent,multi-agent}
+    \strng{namehash}{KAZY1}
+    \strng{fullhash}{KAZY1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{booktitle}{2018 International Conference on Smart Communications in
+  Network Technologies (SaCoNeT)}
+    \verb{doi}
+    \verb 10.1109/SaCoNeT.2018.8585450
+    \endverb
+    \field{isbn}{978-1-5386-9493-0}
+    \field{pages}{194\bibrangedash 199}
+    \field{title}{{MAAC Protocol: Mobile Agents based Address
+  Auto-Configuration Protocol for MANET}}
+    \verb{url}
+    \verb https://ieeexplore.ieee.org/document/8585450/
+    \endverb
+    \verb{file}
+    \verb :C$\backslash$:/Users/comec/Google Drive/master/referencias/articulos
+    \verb /MAAC{\_}Protocol{\_}Mobile{\_}Agents{\_}based{\_}Address{\_}Auto{\_}
+    \verb Configuration{\_}Protocol{\_}for{\_}MANET.pdf:pdf
+    \endverb
+    \field{year}{2018}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{Marsic2013}{book}{}
+    \name{author}{1}{}{%
+      {{hash=MI}{%
+         family={Marsic},
+         familyi={M\bibinitperiod},
+         given={Ivan},
+         giveni={I\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Rutgers University}%
+    }
+    \strng{namehash}{MI1}
+    \strng{fullhash}{MI1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{booktitle}{Vasa}
+    \verb{doi}
+    \verb http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.94.8479
+    \endverb
+    \field{pages}{585}
+    \field{title}{{Computer Networks, Performance and Quality of Service}}
+    \verb{url}
+    \verb http://eceweb1.rutgers.edu/~marsic/books/CN/
+    \endverb
+    \list{location}{1}{%
+      {New Brunswick, New Jersey}%
+    }
+    \verb{file}
+    \verb :C$\backslash$:/Users/comec/Google Drive/libros/redes-de-computadoras
+    \verb /Computer{\_}Networks-Performance{\_}and{\_}Quality{\_}of{\_}Service.
+    \verb pdf:pdf
+    \endverb
+    \field{year}{2013}
+  \endentry
+
+  \entry{Dordal2014}{book}{}
+    \name{author}{1}{}{%
+      {{hash=DP}{%
+         family={Dordal},
+         familyi={D\bibinitperiod},
+         given={Peter},
+         giveni={P\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Loyola University Chicago}%
+    }
+    \strng{namehash}{DP1}
+    \strng{fullhash}{DP1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{edition}{1.9}
+    \field{title}{{An Introduction to Computer Networks}}
+    \verb{file}
+    \verb :C$\backslash$:/Users/comec/Google Drive/libros/redes-de-computadoras
+    \verb /An{\_}Introduction{\_}to{\_}Computer{\_}Networks.pdf:pdf
+    \endverb
+    \field{year}{20014}
+  \endentry
+
+  \entry{Kurose2013}{book}{}
+    \name{author}{2}{}{%
+      {{hash=KJF}{%
+         family={Kurose},
+         familyi={K\bibinitperiod},
+         given={James\bibnamedelima F.},
+         giveni={J\bibinitperiod\bibinitdelim F\bibinitperiod},
+      }}%
+      {{hash=RKW}{%
+         family={Ross},
+         familyi={R\bibinitperiod},
+         given={Keith\bibnamedelima W.},
+         giveni={K\bibinitperiod\bibinitdelim W\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Addison-Wesley Publishing Company}%
+    }
+    \keyw{internet networking www02 wwwbook wwwkap4}
+    \strng{namehash}{KJFRKW1}
+    \strng{fullhash}{KJFRKW1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{abstract}{%
+    Certain data-communication protocols hog the spotlight, but all of them
+  have a lot in common. Computer Networking: A Top-Down Approach Featuring the
+  Internet explains the engineering problems that are inherent in communicating
+  digital information from point to point. The top-down approach mentioned in
+  the subtitle means that the book starts at the top of the protocol stack--at
+  the application layer--and works its way down through the other layers, until
+  it reaches bare wire. The authors, for the most part, shun the well-known
+  seven-layer Open Systems Interconnection (OSI) protocol stack in favor of
+  their own five-layer (application, transport, network, link, and physical)
+  model. It's an effective approach that helps clear away some of the hand
+  waving traditionally associated with the more obtuse layers in the OSI model.
+  The approach is definitely theoretical--don't look here for instructions on
+  configuring Windows 2000 or a Cisco router--but it's relevant to reality, and
+  should help anyone who needs to understand networking as a programmer, system
+  architect, or even administration guru.The treatment of the network layer, at
+  which routing takes place, is typical of the overall style. In discussing
+  routing, authors James Kurose and Keith Ross explain (by way of lots of
+  clear, definition-packed text) what routing protocols need to do: find the
+  best route to a destination. Then they present the mathematics that determine
+  the best path, show some code that implements those algorithms, and
+  illustrate the logic by using excellent conceptual diagrams. Real-life
+  implementations of the algorithms--including Internet Protocol (both IPv4 and
+  IPv6) and several popular IP routing protocols--help you to make the
+  transition from pure theory to networking technologies. --David WallTopics
+  covered: The theory behind data networks, with thorough discussion of the
+  problems that are posed at each level (the application layer gets plenty of
+  attention). For each layer, there's academic coverage of networking problems
+  and solutions, followed by discussion of real technologies. Special sections
+  deal with network security and transmission of digital multimedia.%
+    }
+    \field{edition}{6th}
+    \field{isbn}{0136079679, 9780136079675}
+    \field{title}{Computer Networking: A Top-Down Approach}
+    \list{location}{1}{%
+      {USA}%
+    }
+    \field{year}{2013}
+  \endentry
+
+  \entry{Hagen2006}{book}{}
+    \name{author}{1}{}{%
+      {{hash=HS}{%
+         family={Hagen},
+         familyi={H\bibinitperiod},
+         given={Silvia},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {O’Reilly \& Associates, Inc.}%
+    }
+    \strng{namehash}{HS1}
+    \strng{fullhash}{HS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{isbn}{0596001258}
+    \field{title}{IPv6 Essentials}
+    \list{location}{1}{%
+      {USA}%
+    }
+    \field{year}{2006}
+  \endentry
+
+  \entry{RFC2460}{report}{}
+    \name{author}{2}{}{%
+      {{hash=DSE}{%
+         family={Deering},
+         familyi={D\bibinitperiod},
+         given={Stephen\bibnamedelima E.},
+         giveni={S\bibinitperiod\bibinitdelim E\bibinitperiod},
+      }}%
+      {{hash=HRM}{%
+         family={Hinden},
+         familyi={H\bibinitperiod},
+         given={Robert\bibnamedelima M.},
+         giveni={R\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {RFC Editor}%
+    }
+    \strng{namehash}{DSEHRM1}
+    \strng{fullhash}{DSEHRM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{howpublished}{Internet Requests for Comments}
+    \field{issn}{2070-1721}
+    \field{note}{\url{http://www.rfc-editor.org/rfc/rfc2460.txt}}
+    \field{number}{2460}
+    \field{title}{Internet Protocol, Version 6 (IPv6) Specification}
+    \verb{url}
+    \verb http://www.rfc-editor.org/rfc/rfc2460.txt
+    \endverb
+    \list{institution}{1}{%
+      {RFC Editor}%
+    }
+    \field{type}{RFC}
+    \field{year}{1998}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{CiscoIpv62011}{article}{}
+    \name{author}{1}{}{%
+      {{hash=C}{%
+         family={Cisco},
+         familyi={C\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{C1}
+    \strng{fullhash}{C1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{abstract}{%
+    Este libro contiene los comandos de configuracion y ejemplos utilizados en
+  el IOS de Cisco%
+    }
+    \field{number}{6387}
+    \field{title}{{Cisco IOS IPv6 Configuration Guide}}
+    \verb{url}
+    \verb http://www.cisco.com/en/US/docs/ios/ipv6/configuration/guide/12_4/ipv
+    \verb 6_12_4_book.pdf
+    \endverb
+    \verb{file}
+    \verb :C$\backslash$:/Users/comec/Google Drive/libros/redes-de-computadoras
+    \verb /IPv6{\_}Configuration{\_}Guide{\_}Cisco{\_}IOS.pdf:pdf
+    \endverb
+    \field{year}{2011}
+  \endentry
+
+  \entry{Grajzer2019}{article}{}
+    \name{author}{2}{}{%
+      {{hash=GM}{%
+         family={Grajzer},
+         familyi={G\bibinitperiod},
+         given={Monika},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=GM}{%
+         family={Glabowski},
+         familyi={G\bibinitperiod},
+         given={Mariusz},
+         giveni={M\bibinitperiod},
+      }}%
+    }
+    \keyw{IPv6,ND++,Neighbor Discovery,Neighbor Discovery++,address
+  auto-configuration,flooding optimization,mobile ad hoc networks,multipoint
+  relays,stateless address auto-configuration}
+    \strng{namehash}{GMGM1}
+    \strng{fullhash}{GMGM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{abstract}{%
+    The growing complexity of the Internet of Things (IoT) solutions along with
+  highly increased application needs call for more complex and robust
+  networking solutions. Especially the importance of autonomic,
+  self-configuration capabilities becomes particularly significant. The
+  IPv6-based mobile ad hoc networks are envisioned to be a good candidate
+  technology for the IoT networks. However, they lack efficient address
+  auto-configuration mechanisms, which could extend the IPv6 to cover the
+  requirements of such a demanding networking environment. To address this
+  challenge, we have proposed the Neighbor Discovery ++ (ND++) solution for the
+  enhanced stateless address auto-configuration. The ND++ incorporates a
+  well-performing flooding control mechanism to the basic IPv6 ND design, which
+  results in a very low protocol overhead in the order of few messages per
+  node. The presented simulation-based evaluation, performed under diversified
+  mobile scenarios, confirms the scalability and robustness of this approach
+  with regard to the key identified metrics - reliability, overhead, and
+  latency.%
+    }
+    \verb{doi}
+    \verb 10.1109/ACCESS.2019.2916175
+    \endverb
+    \field{issn}{21693536}
+    \field{pages}{61083\bibrangedash 61108}
+    \field{title}{{Neighbor Discovery ++- a Scalable and Robust Address
+  Auto-Configuration for Future Internet of Things Networks}}
+    \field{volume}{7}
+    \verb{file}
+    \verb :C$\backslash$:/Users/comec/Google Drive/master/referencias/articulos
+    \verb /Neighbour{\_}Discovery++{\_}a{\_}Sacalable{\_}and{\_}Robust{\_}Addre
+    \verb ss{\_}Auto{\_}Configuration{\_}for{\_}Future{\_}Internet{\_}of{\_}Thi
+    \verb ngs{\_}Networks.pdf:pdf
+    \endverb
+    \field{journaltitle}{IEEE Access}
+    \field{year}{2019}
+  \endentry
+
+  \entry{Nesargi2002}{article}{}
+    \name{author}{2}{}{%
+      {{hash=NS}{%
+         family={Nesargi},
+         familyi={N\bibinitperiod},
+         given={Sanket},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=PR}{%
+         family={Prakash},
+         familyi={P\bibinitperiod},
+         given={Ravi},
+         giveni={R\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {IEEE}%
+    }
+    \keyw{DHCP,Dynamic host configuration,IP-networks,MANET,Network
+  configuration,Security}
+    \strng{namehash}{NSPR1}
+    \strng{fullhash}{NSPR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{abstract}{%
+    A mobile ad hoc network (MANET) is a multi-hop wireless network capable of
+  autonomous operation. The mobility of MANET nodes can lead to frequent and
+  unpredictable topology changes. Most MANET literature assumes that network
+  related information of a node (such as its IP address, netmask, etc.) is
+  configured statically, prior to the node joining the MANET. However, not all
+  nodes have IP addresses permanently assigned to them. Such nodes rely on a
+  centralized server and use a dynamic host configuration protocol, like DHCP
+  [1], to acquire an IP address. Such a solution cannot be employed in MANETs
+  due to the unavailability of any centralized DHCP server. In this paper, we
+  first present a survey of possible solutions approaches, and discuss their
+  limitations. Then, we present a distributed dynamic host configuration
+  protocol designed to configure nodes in a MANET. We show that the proposed
+  protocol works correctly and does not have the limitations of earlier
+  approaches. Finally, we evaluate the performance of the solution through
+  simulation experiments, and conclude with a discussion of related security
+  issues.%
+    }
+    \verb{doi}
+    \verb 10.1109/INFCOM.2002.1019354
+    \endverb
+    \field{isbn}{0780374762}
+    \field{issn}{0743166X}
+    \field{number}{c}
+    \field{pages}{1059\bibrangedash 1068}
+    \field{title}{{MANETconf: Configuration of hosts in a mobile ad hoc
+  network}}
+    \field{volume}{2}
+    \verb{file}
+    \verb :C$\backslash$:/Users/comec/Google Drive/master/referencias/articulos
+    \verb /MANETconf{\_}Configuration{\_}of{\_}Hosts{\_}in{\_}a{\_}Mobile{\_}Ad
+    \verb {\_}Hoc{\_}Network.pdf:pdf
+    \endverb
+    \field{journaltitle}{Proceedings - IEEE INFOCOM}
+    \field{year}{2002}
+  \endentry
+
+  \entry{Munjal2014}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=MA}{%
+         family={Munjal},
+         familyi={M\bibinitperiod},
+         given={Amit},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=SYN}{%
+         family={Singh},
+         familyi={S\bibinitperiod},
+         given={Yatindra\bibnamedelima Nath},
+         giveni={Y\bibinitperiod\bibinitdelim N\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {IEEE}%
+    }
+    \strng{namehash}{MASYN1}
+    \strng{fullhash}{MASYN1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{booktitle}{2014 IEEE International Conference on Advanced Networks
+  and Telecommuncations Systems (ANTS)}
+    \verb{doi}
+    \verb 10.1109/ANTS.2014.7057256
+    \endverb
+    \field{isbn}{978-1-4799-5868-9}
+    \field{pages}{1\bibrangedash 3}
+    \field{title}{{An improved autoconfiguration protocol variation by
+  improvising MANETconf}}
+    \verb{url}
+    \verb http://ieeexplore.ieee.org/document/7057256/
+    \endverb
+    \verb{file}
+    \verb :C$\backslash$:/Users/comec/Google Drive/master/referencias/articulos
+    \verb /An{\_}improved{\_}autoconfiguration{\_}protocol{\_}variation{\_}by{\
+    \verb _}improvising{\_}MANETconf.pdf:pdf
+    \endverb
+    \field{year}{2014}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{Kim2007}{article}{}
+    \name{author}{3}{}{%
+      {{hash=KN}{%
+         family={Kim},
+         familyi={K\bibinitperiod},
+         given={Namhoon},
+         giveni={N\bibinitperiod},
+      }}%
+      {{hash=AS}{%
+         family={Ahn},
+         familyi={A\bibinitperiod},
+         given={Soyeon},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=LY}{%
+         family={Lee},
+         familyi={L\bibinitperiod},
+         given={Younghee},
+         giveni={Y\bibinitperiod},
+      }}%
+    }
+    \keyw{Address reservation,Autoconfiguration,Mobile ad hoc
+  network,Optimistic DAD}
+    \strng{namehash}{KNASLY1}
+    \strng{fullhash}{KNASLY1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{abstract}{%
+    Every node must configure its network interface with a unique address in
+  order to communicate with other nodes. If a centralized DHCP server exists,
+  it would easily and automatically provide addresses to nodes in a network.
+  However, in a mobile ad hoc network, difficulties exist in supporting address
+  autoconfiguration due to the lack of centralized servers. Therefore, we
+  propose a distributed address autoconfiguration approach for a mobile ad hoc
+  network using address reservation and optimistic duplicated address
+  detection. The reserved address helps to reduce allocation latency, and the
+  optimistic DAD guarantees the uniqueness of addresses with smaller
+  communication overhead. Through our simulation study, we show that AROD
+  guarantees the uniqueness of allocated addresses and considerably improves
+  allocation latency and communication overheads. {\textcopyright} 2007
+  Elsevier B.V. All rights reserved.%
+    }
+    \verb{doi}
+    \verb 10.1016/j.comcom.2007.03.002
+    \endverb
+    \field{issn}{01403664}
+    \field{number}{8}
+    \field{pages}{1913\bibrangedash 1925}
+    \field{title}{{AROD: An address autoconfiguration with address reservation
+  and optimistic duplicated address detection for mobile ad hoc networks}}
+    \field{volume}{30}
+    \verb{file}
+    \verb :C$\backslash$:/Users/comec/Google Drive/master/referencias/articulos
+    \verb /AROD{\_}An{\_}address{\_}autoconfiguration{\_}with{\_}address{\_}res
+    \verb ervation{\_}and{\_}optimistic{\_}duplicated{\_}address{\_}detection{\
+    \verb _}for{\_}mobile{\_}ad{\_}hoc{\_}networks.pdf:pdf
+    \endverb
+    \field{journaltitle}{Computer Communications}
+    \field{year}{2007}
+  \endentry
+
+  \entry{Munjal2015}{thesis}{}
+    \name{author}{1}{}{%
+      {{hash=MA}{%
+         family={Munjal},
+         familyi={M\bibinitperiod},
+         given={Amit},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{MA1}
+    \strng{fullhash}{MA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{{Address Auto-Configuration Protocols and their message
+  complexity in Mobile Adhoc Networks}}
+    \verb{url}
+    \verb http://home.iitk.ac.in/~ynsingh/phd/11104162.pdf
+    \endverb
+    \list{institution}{1}{%
+      {Indian Institute of Technology Kanpur}%
+    }
+    \verb{file}
+    \verb :C$\backslash$:/Users/comec/Google Drive/master/referencias/tesis/Add
+    \verb ress{\_}Auto{\_}Configuration{\_}Protocols{\_}and{\_}their{\_}message
+    \verb {\_}complexity{\_}in{\_}Mobile{\_}Adhoc{\_}Networks.pdf:pdf
+    \endverb
+    \field{type}{phdthesis}
+    \field{year}{2015}
+  \endentry
+
+  \entry{Wenden2005}{book}{}
+    \name{author}{1}{}{%
+      {{hash=WAL}{%
+         family={Wenden},
+         familyi={W\bibinitperiod},
+         given={Anita\bibnamedelima L},
+         giveni={A\bibinitperiod\bibinitdelim L\bibinitperiod},
+      }}%
+    }
+    \name{editor}{2}{}{%
+      {{hash=MP}{%
+         family={Mohapatra},
+         familyi={M\bibinitperiod},
+         given={Prasant},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=KSV}{%
+         family={Krishnamurthy},
+         familyi={K\bibinitperiod},
+         given={Srikanth\bibnamedelima V.},
+         giveni={S\bibinitperiod\bibinitdelim V\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer US}%
+    }
+    \strng{namehash}{WAL1}
+    \strng{fullhash}{WAL1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb 10.1007/b99485
+    \endverb
+    \field{isbn}{978-0-387-22689-7}
+    \field{number}{September}
+    \field{title}{{Ad Hoc Networks}}
+    \verb{url}
+    \verb http://link.springer.com/10.1007/b99485
+    \endverb
+    \field{volume}{3}
+    \list{location}{1}{%
+      {Boston, MA}%
+    }
+    \verb{file}
+    \verb :C$\backslash$:/Users/comec/Google Drive/libros/redes-de-computadoras
+    \verb /redes-ad-hoc/Ad{\_}Hoc{\_}Networks-Technologies{\_}and{\_}Protocols.
+    \verb pdf:pdf
+    \endverb
+    \field{year}{2005}
+  \endentry
+
+  \entry{Perkins1994}{article}{}
+    \name{author}{6}{}{%
+      {{hash=PCE}{%
+         family={Perkins},
+         familyi={P\bibinitperiod},
+         given={Charles\bibnamedelima E.},
+         giveni={C\bibinitperiod\bibinitdelim E\bibinitperiod},
+      }}%
+      {{hash=BP}{%
+         family={Bhagwat},
+         familyi={B\bibinitperiod},
+         given={Pravin},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=EC}{%
+         family={{E. Perkins}},
+         familyi={E\bibinitperiod},
+         given={Charles},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=BP}{%
+         family={Bhagwat},
+         familyi={B\bibinitperiod},
+         given={Pravin},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=PCE}{%
+         family={Perkins},
+         familyi={P\bibinitperiod},
+         given={Charles\bibnamedelima E.},
+         giveni={C\bibinitperiod\bibinitdelim E\bibinitperiod},
+      }}%
+      {{hash=BP}{%
+         family={Bhagwat},
+         familyi={B\bibinitperiod},
+         given={Pravin},
+         giveni={P\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{PCEBPEC+1}
+    \strng{fullhash}{PCEBPECBPPCEBP1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{abstract}{%
+    An ad-hoc network is the cooperative engagement of a collection of Mobile
+  Hosts without the required intervention of any centralized Access Point. In
+  this paper we present an innovative design for the operation of such ad-hoc
+  networks. The basic idea of the design is to operate each Mobile Host as a
+  specialized router, which periodically advertises its view of the
+  interconnection topology with other Mobile Hosts within the network. This
+  amounts to a new sort of routing protocol. We have investigated modifications
+  to the basic Bellman-Ford routing mechanisms, as specified by RIP [5], to
+  make it suitable for a dynamic and self-starting network mechanism as is
+  required by users wishing to utilize ad hoc networks. Our modifications
+  address some of the previous objections to the use of Bellman-Ford, related
+  to the poor looping properties of such algorithms in the face of broken links
+  and the resulting time dependent nature of the interconnection topology
+  describing the links between the Mobile Hosts. Finally, we describe the ways
+  in which the basic network-layer routing can be modified to provide MAC-layer
+  support for ad-hoc networks.%
+    }
+    \verb{doi}
+    \verb 10.1145/190809.190336
+    \endverb
+    \field{isbn}{0-89791-682-4}
+    \field{issn}{01464833}
+    \field{number}{4}
+    \field{pages}{234\bibrangedash 244}
+    \field{title}{{Highly Dynamic (DSDV) for Mobile Computers Routing}}
+    \verb{url}
+    \verb http://portal.acm.org/citation.cfm?doid=190809.190336
+    \endverb
+    \field{volume}{24}
+    \verb{file}
+    \verb :C$\backslash$:/Users/comec/Google Drive/master/referencias/articulos
+    \verb /Highly{\_}Dynamic{\_}Destination{\_}Sequenced{\_}Distance{\_}Vector{
+    \verb \_}Routing{\_}for{\_}Mobile{\_}Computers.pdf:pdf
+    \endverb
+    \field{journaltitle}{Proceedings of the ACM SIGCOMM94, London, UK}
+    \field{year}{1994}
+  \endentry
+
+  \entry{Johnson1996}{incollection}{}
+    \name{author}{2}{}{%
+      {{hash=JDB}{%
+         family={Johnson},
+         familyi={J\bibinitperiod},
+         given={David\bibnamedelima B.},
+         giveni={D\bibinitperiod\bibinitdelim B\bibinitperiod},
+      }}%
+      {{hash=MDA}{%
+         family={Maltz},
+         familyi={M\bibinitperiod},
+         given={David\bibnamedelima A.},
+         giveni={D\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer {US}}%
+    }
+    \strng{namehash}{JDBMDA1}
+    \strng{fullhash}{JDBMDA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{booktitle}{The Kluwer International Series in Engineering and
+  Computer Science}
+    \verb{doi}
+    \verb 10.1007/978-0-585-29603-6_5
+    \endverb
+    \field{pages}{153\bibrangedash 181}
+    \field{title}{Dynamic Source Routing in Ad Hoc Wireless Networks}
+    \verb{url}
+    \verb https://doi.org/10.1007/978-0-585-29603-6_5
+    \endverb
+    \field{year}{1996}
+  \endentry
+
+  \entry{Perkins1999}{article}{}
+    \name{author}{2}{}{%
+      {{hash=PCE}{%
+         family={Perkins},
+         familyi={P\bibinitperiod},
+         given={Charles\bibnamedelima E.},
+         giveni={C\bibinitperiod\bibinitdelim E\bibinitperiod},
+      }}%
+      {{hash=REM}{%
+         family={Royer},
+         familyi={R\bibinitperiod},
+         given={Elizabeth\bibnamedelima M.},
+         giveni={E\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {IEEE}%
+    }
+    \keyw{Ad-hoc networking,Distance vector routing,Dynamic routing,Mobile
+  networking,Wireless networks}
+    \strng{namehash}{PCEREM1}
+    \strng{fullhash}{PCEREM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{abstract}{%
+    An ad-hoc network is the cooperative engagement of a collection of mobile
+  nodes without the required intervention of any centralized access point or
+  existing infrastructure. In this paper we present Ad-hoc On Demand Distance
+  Vector Routing (AODV), a novel algorithm for the operation of such ad-hoc
+  networks. Each Mobile Host operates as a specialized router, and routes are
+  obtained as needed (i.e., on-demand,) with little or no reliance on periodic
+  advertisements. Our new routing algorithm is quite suitable for a dynamic
+  self-starting network, as required by users wishing to utilize ad-hoc
+  networks. AODV provides loop-free routes even while repairing broken links.
+  Because the protocol does not require global periodic routing advertisements,
+  the demand on the overall bandwidth available to the mobile nodes is
+  substantially less than in those protocols that do necessitate such
+  advertisements. Nevertheless we can still maintain most of the advantages of
+  basic distance-vector routing mechanisms. We show that our algorithm scales
+  to large populations of mobile nodes wishing to form ad-hoc networks. We also
+  include an evaluation methodology and simulation results to verify the
+  operation of our algorithm.%
+    }
+    \verb{doi}
+    \verb 10.1109/MCSA.1999.749281
+    \endverb
+    \field{isbn}{0769500250}
+    \field{pages}{90\bibrangedash 100}
+    \field{title}{{Ad-hoc on-demand distance vector routing}}
+    \verb{file}
+    \verb :C$\backslash$:/Users/comec/Google Drive/master/referencias/articulos
+    \verb /Ad{\_}hoc{\_}On{\_}Demand{\_}Distance{\_}Vector{\_}Routing.pdf:pdf
+    \endverb
+    \field{journaltitle}{Proceedings - WMCSA'99: 2nd IEEE Workshop on Mobile
+  Computing Systems and Applications}
+    \field{year}{1999}
+  \endentry
+
+  \entry{DeMoraisCordeiro2006}{book}{}
+    \name{author}{2}{}{%
+      {{hash=DMCC}{%
+         family={De\bibnamedelima Morais\bibnamedelima Cordeiro},
+         familyi={D\bibinitperiod\bibinitdelim M\bibinitperiod\bibinitdelim
+  C\bibinitperiod},
+         given={C.},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=AD}{%
+         family={Agrawal},
+         familyi={A\bibinitperiod},
+         given={D.P.},
+         giveni={D\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {World Scientific Publishing Company}%
+    }
+    \strng{namehash}{DMCCAD1}
+    \strng{fullhash}{DMCCAD1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{isbn}{9789812566812}
+    \field{title}{Ad Hoc \& Sensor Networks: Theory and Applications}
+    \verb{url}
+    \verb https://books.google.com.mx/books?id=D24L4ygKFngC
+    \endverb
+    \field{year}{2006}
+  \endentry
+
+  \entry{Mauve2001}{article}{}
+    \name{author}{3}{}{%
+      {{hash=MM}{%
+         family={{Mauve}},
+         familyi={M\bibinitperiod},
+         given={M.},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=WJ}{%
+         family={{Widmer}},
+         familyi={W\bibinitperiod},
+         given={J.},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=HH}{%
+         family={{Hartenstein}},
+         familyi={H\bibinitperiod},
+         given={H.},
+         giveni={H\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{MMWJHH1}
+    \strng{fullhash}{MMWJHH1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{number}{6}
+    \field{pages}{30\bibrangedash 39}
+    \field{title}{A survey on position-based routing in mobile ad hoc networks}
+    \field{volume}{15}
+    \field{journaltitle}{IEEE Network}
+    \field{year}{2001}
+  \endentry
+
+  \entry{Basagni1998}{inproceedings}{}
+    \name{author}{4}{}{%
+      {{hash=BS}{%
+         family={Basagni},
+         familyi={B\bibinitperiod},
+         given={Stefano},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=CI}{%
+         family={Chlamtac},
+         familyi={C\bibinitperiod},
+         given={Imrich},
+         giveni={I\bibinitperiod},
+      }}%
+      {{hash=SVR}{%
+         family={Syrotiuk},
+         familyi={S\bibinitperiod},
+         given={Violet\bibnamedelima R.},
+         giveni={V\bibinitperiod\bibinitdelim R\bibinitperiod},
+      }}%
+      {{hash=WBA}{%
+         family={Woodward},
+         familyi={W\bibinitperiod},
+         given={Barry\bibnamedelima A.},
+         giveni={B\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Association for Computing Machinery}%
+    }
+    \strng{namehash}{BSCISVR+1}
+    \strng{fullhash}{BSCISVRWBA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{booktitle}{Proceedings of the 4th Annual ACM/IEEE International
+  Conference on Mobile Computing and Networking}
+    \verb{doi}
+    \verb 10.1145/288235.288254
+    \endverb
+    \field{isbn}{158113035X}
+    \field{pages}{76–84}
+    \field{series}{MobiCom ’98}
+    \field{title}{A Distance Routing Effect Algorithm for Mobility (DREAM)}
+    \verb{url}
+    \verb https://doi.org/10.1145/288235.288254
+    \endverb
+    \list{location}{1}{%
+      {Dallas, Texas, USA}%
+    }
+    \field{year}{1998}
+    \warn{\item Can't use 'location' + 'address'}
+  \endentry
+
+  \entry{Haas1999}{article}{}
+    \name{author}{2}{}{%
+      {{hash=HZJ}{%
+         family={{Haas}},
+         familyi={H\bibinitperiod},
+         given={Z.\bibnamedelima J.},
+         giveni={Z\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+      {{hash=LB}{%
+         family={{Liang}},
+         familyi={L\bibinitperiod},
+         given={B.},
+         giveni={B\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{HZJLB1}
+    \strng{fullhash}{HZJLB1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{number}{2}
+    \field{pages}{228\bibrangedash 240}
+    \field{title}{Ad hoc mobility management with uniform quorum systems}
+    \field{volume}{7}
+    \field{journaltitle}{IEEE/ACM Transactions on Networking}
+    \field{year}{1999}
+  \endentry
+
+  \entry{Li2000}{inproceedings}{}
+    \name{author}{5}{}{%
+      {{hash=LJ}{%
+         family={Li},
+         familyi={L\bibinitperiod},
+         given={Jinyang},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=JJ}{%
+         family={Jannotti},
+         familyi={J\bibinitperiod},
+         given={John},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=DCDSJ}{%
+         family={De\bibnamedelima Couto},
+         familyi={D\bibinitperiod\bibinitdelim C\bibinitperiod},
+         given={Douglas S.\bibnamedelima J.},
+         giveni={D\bibinitperiod\bibinitdelim S\bibinitperiod\bibinitdelim
+  J\bibinitperiod},
+      }}%
+      {{hash=KDR}{%
+         family={Karger},
+         familyi={K\bibinitperiod},
+         given={David\bibnamedelima R.},
+         giveni={D\bibinitperiod\bibinitdelim R\bibinitperiod},
+      }}%
+      {{hash=MR}{%
+         family={Morris},
+         familyi={M\bibinitperiod},
+         given={Robert},
+         giveni={R\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Association for Computing Machinery}%
+    }
+    \strng{namehash}{LJJJDCDSJ+1}
+    \strng{fullhash}{LJJJDCDSJKDRMR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{booktitle}{Proceedings of the 6th Annual International Conference on
+  Mobile Computing and Networking}
+    \verb{doi}
+    \verb 10.1145/345910.345931
+    \endverb
+    \field{isbn}{1581131976}
+    \field{pages}{120–130}
+    \field{series}{MobiCom ’00}
+    \field{title}{A Scalable Location Service for Geographic Ad Hoc Routing}
+    \verb{url}
+    \verb http://doi.org.conricyt.remotexs.co/10.1145/345910.345931
+    \endverb
+    \list{location}{1}{%
+      {Boston, Massachusetts, USA}%
+    }
+    \field{year}{2000}
+    \warn{\item Can't use 'location' + 'address'}
+  \endentry
+
+  \entry{Karp2000}{article}{}
+    \name{author}{2}{}{%
+      {{hash=KB}{%
+         family={Karp},
+         familyi={K\bibinitperiod},
+         given={Brad},
+         giveni={B\bibinitperiod},
+      }}%
+      {{hash=KHT}{%
+         family={Kung},
+         familyi={K\bibinitperiod},
+         given={H.\bibnamedelima T.},
+         giveni={H\bibinitperiod\bibinitdelim T\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{KBKHT1}
+    \strng{fullhash}{KBKHT1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{abstract}{%
+    We present Greedy Perimeter Stateless Routing (GPSR), a novel routing
+  protocol for wireless datagram networks that uses the positions of routers
+  and a packet's destination to make packet forwarding decisions. GPSR makes
+  greedy forwarding decisions using only information about a router's immediate
+  neighbors in the network topology. When a packet reaches a region where
+  greedy forwarding is impossible, the algorithm recovers by routing around the
+  perimeter of the region. By keeping state only about the local topology, GPSR
+  scales better in per-router state than shortest-path and ad-hoc routing
+  protocols as the number of network destinations increases. Under mobility's
+  frequent topology changes, GPSR can use local topology information to find
+  correct new routes quickly. We describe the GPSR protocol, and use extensive
+  simulation of mobile wireless networks to compare its performance with that
+  of Dynamic Source Routing. Our simulations demonstrate GPSR's scalability on
+  densely deployed wireless networks.%
+    }
+    \field{number}{MobiCom}
+    \field{pages}{243\bibrangedash 254}
+    \field{title}{{GPSR: Greedy Perimeter Stateless Routing for wireless
+  networks}}
+    \verb{file}
+    \verb :C$\backslash$:/Users/comec/Google Drive/master/referencias/apoyo-pro
+    \verb tocolos-de-enrutamiento/GPSR-Greedy{\_}Perimeter{\_}Stateless{\_}Rout
+    \verb ing{\_}for{\_}Wireless{\_}Networks.pdf:pdf
+    \endverb
+    \field{journaltitle}{Proceedings of the Annual International Conference on
+  Mobile Computing and Networking, MOBICOM}
+    \field{year}{2000}
+  \endentry
+
+  \entry{Blaevi2002}{article}{}
+    \name{author}{3}{}{%
+      {{hash=BL}{%
+         family={Bla{\v{z}}evi{\'{c}}},
+         familyi={B\bibinitperiod},
+         given={Ljubica},
+         giveni={L\bibinitperiod},
+      }}%
+      {{hash=GS}{%
+         family={Giordano},
+         familyi={G\bibinitperiod},
+         given={Silvia},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=BJYL}{%
+         family={Boudec},
+         familyi={B\bibinitperiod},
+         given={Jean-Yves\bibnamedelima Le},
+         giveni={J\bibinithyphendelim Y\bibinitperiod\bibinitdelim
+  L\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{2}{%
+      {Springer Science}%
+      {Business Media {LLC}}%
+    }
+    \strng{namehash}{BLGSBJYL1}
+    \strng{fullhash}{BLGSBJYL1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb 10.1023/a:1013998030317
+    \endverb
+    \field{number}{2}
+    \field{pages}{205\bibrangedash 218}
+    \field{title}{Self Organized Terminode Routing}
+    \verb{url}
+    \verb https://doi.org/10.1023/a:1013998030317
+    \endverb
+    \field{volume}{5}
+    \field{journaltitle}{Cluster Computing}
+    \field{year}{2002}
+  \endentry
+
+  \entry{Zhang2016}{article}{}
+    \name{author}{4}{}{%
+      {{hash=ZXM}{%
+         family={Zhang},
+         familyi={Z\bibinitperiod},
+         given={Xin\bibnamedelima Ming},
+         giveni={X\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+      {{hash=CKH}{%
+         family={Chen},
+         familyi={C\bibinitperiod},
+         given={Kai\bibnamedelima Heng},
+         giveni={K\bibinitperiod\bibinitdelim H\bibinitperiod},
+      }}%
+      {{hash=CXL}{%
+         family={Cao},
+         familyi={C\bibinitperiod},
+         given={Xu\bibnamedelima Lei},
+         giveni={X\bibinitperiod\bibinitdelim L\bibinitperiod},
+      }}%
+      {{hash=SDK}{%
+         family={Sung},
+         familyi={S\bibinitperiod},
+         given={Dan\bibnamedelima Keun},
+         giveni={D\bibinitperiod\bibinitdelim K\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {IEEE}%
+    }
+    \keyw{Microtopology (MT),routing,street centric,vehicular ad hoc network
+  (VANET)}
+    \strng{namehash}{ZXMCKHCXL+1}
+    \strng{fullhash}{ZXMCKHCXLSDK1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{abstract}{%
+    In a vehicular ad hoc network (VANET), high mobility and uneven
+  distribution of vehicles are important factors affecting the performance of
+  routing protocols. The high mobility may cause frequent changes of network
+  topology, whereas the uneven distribution of vehicles may lead to routing
+  failures due to network partition; even high density of vehicles may cause
+  severe wireless channel contentions in an urban environment. In this paper,
+  we propose a novel concept called the microtopology (MT), which consists of
+  vehicles and wireless links among vehicles along a street as a basic
+  component of routing paths and even the entire network topology. We abstract
+  the MT model reflecting the dynamic routing-related characteristics in
+  practical urban scenarios along streets, including the effect of mobility of
+  vehicles, signal fading, wireless channel contention, and existing data
+  traffic. We first analyze the endside-to-endside routing performance in an MT
+  as a basis of routing decision. Then, we propose a novel street-centric
+  routing protocol based on MT (SRPMT) along the streets for VANETs. Simulation
+  results show that our proposed SRPMT protocol achieves higher data delivery
+  rate and shorter average end-to-end delay compared with the performance of
+  greedy perimeter stateless routing (GPSR) and greedy traffic-aware routing
+  (GyTAR).%
+    }
+    \verb{doi}
+    \verb 10.1109/TVT.2015.2456952
+    \endverb
+    \field{issn}{00189545}
+    \field{number}{7}
+    \field{pages}{5680\bibrangedash 5694}
+    \field{title}{{A Street-Centric Routing Protocol Based on Microtopology in
+  Vehicular Ad Hoc Networks}}
+    \field{volume}{65}
+    \verb{file}
+    \verb :C$\backslash$:/Users/comec/Google Drive/master/estado-del-arte/A{\_}
+    \verb Street-Centric{\_}Routing{\_}Potocol{\_}Based{\_}on{\_}Microtopology{
+    \verb \_}in{\_}Vehicular{\_}Ad{\_}Hoc{\_}Networks.pdf:pdf
+    \endverb
+    \field{journaltitle}{IEEE Transactions on Vehicular Technology}
+    \field{year}{2016}
+  \endentry
+
+  \entry{Yang2018}{article}{}
+    \name{author}{4}{}{%
+      {{hash=YX}{%
+         family={Yang},
+         familyi={Y\bibinitperiod},
+         given={Xiaoping},
+         giveni={X\bibinitperiod},
+      }}%
+      {{hash=LM}{%
+         family={Li},
+         familyi={L\bibinitperiod},
+         given={Mengjie},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=QZ}{%
+         family={Qian},
+         familyi={Q\bibinitperiod},
+         given={Zhihong},
+         giveni={Z\bibinitperiod},
+      }}%
+      {{hash=DT}{%
+         family={Di},
+         familyi={D\bibinitperiod},
+         given={Te},
+         giveni={T\bibinitperiod},
+      }}%
+    }
+    \keyw{GPSR,NS-2,Vehicular ad hoc network,greedy forwarding,perimeter
+  forwarding,routing protocols}
+    \strng{namehash}{YXLMQZ+1}
+    \strng{fullhash}{YXLMQZDT1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{abstract}{%
+    In a vehicular ad hoc network (VANET), vehicles always move in high-speed
+  which may cause the network topology changes frequently. This is challenging
+  for routing protocols of VANET. Greedy Perimeter Stateless Routing (GPSR) is
+  a representative routing protocol of VANET. However, when constructs routing
+  path, GPSR selects the next hop node which is very easily out of the
+  communication range in greedy forwarding, and builds the path with redundancy
+  in perimeter forwarding. To solve the above-mentioned problems, we proposed
+  Maxduration-Minangle GPSR (MM-GPSR) routing protocol in this paper. In greedy
+  forwarding of MM-GPSR, by defining cumulative communication duration to
+  represent the stability of neighbor nodes, the neighbor node with the maximum
+  cumulative communication duration will be selected as the next hop node. In
+  perimeter forwarding of MM-GPSR when greedy forwarding fails, the concept of
+  minimum angle is introduced as the criterion of the optimal next hop node. By
+  taking the position of neighbor nodes into account and calculating angles
+  formed between neighbors and the destination node, the neighbor node with
+  minimum angle will be selected as the next hop node. By using NS-2 and
+  VanetMobiSim, simulations demonstrate that compared with GPSR, MM-GPSR has
+  obvious improvements in reducing the packet loss rate, decreasing the
+  end-to-end delay and increasing the throughput, and is more suitable for
+  VANET.%
+    }
+    \verb{doi}
+    \verb 10.1109/ACCESS.2018.2853112
+    \endverb
+    \field{issn}{21693536}
+    \field{pages}{39515\bibrangedash 39524}
+    \field{title}{{Improvement of GPSR Protocol in Vehicular Ad Hoc Network}}
+    \field{volume}{6}
+    \verb{file}
+    \verb :C$\backslash$:/Users/comec/Google Drive/master/referencias/articulos
+    \verb /Improvement{\_}of{\_}GPSR{\_}Protocol{\_}in{\_}Vehicular{\_}Ad{\_}Ho
+    \verb c{\_}Network.pdf:pdf
+    \endverb
+    \field{journaltitle}{IEEE Access}
+    \field{year}{2018}
+  \endentry
+
+  \entry{Ji2019}{article}{}
+    \name{author}{4}{}{%
+      {{hash=JX}{%
+         family={Ji},
+         familyi={J\bibinitperiod},
+         given={Xiang},
+         giveni={X\bibinitperiod},
+      }}%
+      {{hash=YH}{%
+         family={Yu},
+         familyi={Y\bibinitperiod},
+         given={Huiqun},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=FG}{%
+         family={Fan},
+         familyi={F\bibinitperiod},
+         given={Guisheng},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=FW}{%
+         family={Fu},
+         familyi={F\bibinitperiod},
+         given={Wenhao},
+         giveni={W\bibinitperiod},
+      }}%
+    }
+    \keyw{Backbone,ITS,RSU,Routing,VANET}
+    \strng{namehash}{JXYHFG+1}
+    \strng{fullhash}{JXYHFGFW1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{abstract}{%
+    Vehicular ad hoc network (VANET) is an emerging technology for the future
+  intelligent transportation systems (ITS). How to design an efficient routing
+  protocol for VANET is a challenging task due to the high mobility and uneven
+  distribution of vehicles in urban areas. This paper proposes a backbone-based
+  approach to providing the optimal inner-street relaying strategy. The virtual
+  backbone is created distributively in each road segment based on the newly
+  introduced stability index, which considers the link stability between
+  vehicles and the mobility of vehicles. We also deploy the roadside unit (RSU)
+  at intersections to determine the next path for forwarding data. The RSU
+  gathers a global view of backbone vehicles on each road connected to the
+  junction and analyzes the performance of the backbone as a basis of routing
+  path selection. Simulation results show that the proposed protocol
+  outperforms the conventional protocols in terms of packet delivery ratio and
+  end-to-end delay.%
+    }
+    \verb{doi}
+    \verb 10.1587/transcom.2017EBP3343
+    \endverb
+    \field{issn}{17451345}
+    \field{number}{2}
+    \field{pages}{298\bibrangedash 305}
+    \field{title}{{A reliable and efficient routing protocol based on virtual
+  backbone in vehicular ad hoc networks}}
+    \verb{file}
+    \verb :C$\backslash$:/Users/comec/Google Drive/master/estado-del-arte/A{\_}
+    \verb Reliable{\_}adn{\_}Efficient{\_}Routing{\_}Protocol{\_}Based{\_}on{\_
+    \verb }Virtual{\_}Backbone{\_}in{\_}Vehicular{\_}Ad{\_}Hoc{\_}Networks.pdf:
+    \verb pdf
+    \endverb
+    \field{journaltitle}{IEICE Transactions on Communications}
+    \field{year}{2019}
+  \endentry
+
+  \entry{wiki:Geohash}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=W}{%
+         family={Wikipedia},
+         familyi={W\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{W1}
+    \strng{fullhash}{W1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+  \field{howpublished}{\url{http://en.wikipedia.org/w/index.php?title=Geohash{\&}oldid=961717533}}
+    \field{note}{[Online; accessed 12-June-2020]}
+    \field{title}{{Geohash} --- {W}ikipedia{,} The Free Encyclopedia}
+    \field{year}{2020}
+  \endentry
+
+  \entry{GeohashBolivia}{misc}{}
+    \field{labeltitlesource}{title}
+    \field{title}{{Geohash - GeoBolivia}}
+    \verb{url}
+    \verb https://geo.gob.bo/portal/?Geohash
+    \endverb
+    \field{year}{2014}
+    \field{urlday}{12}
+    \field{urlmonth}{06}
+    \field{urlyear}{2020}
+  \endentry
+
+  \entry{cormen2001}{book}{}
+    \name{author}{9}{}{%
+      {{hash=CT}{%
+         family={Cormen},
+         familyi={C\bibinitperiod},
+         given={T.H.},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=CT}{%
+         family={Cormen},
+         familyi={C\bibinitperiod},
+         given={T.H.},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=LC}{%
+         family={Leiserson},
+         familyi={L\bibinitperiod},
+         given={C.E.},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=BI}{%
+         family={Books24x7},
+         familyi={B\bibinitperiod},
+         given={Inc},
+         giveni={I\bibinitperiod},
+      }}%
+      {{hash=PM}{%
+         family={Press},
+         familyi={P\bibinitperiod},
+         given={MIT},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=oTMI}{%
+         prefix={of},
+         prefixi={o\bibinitperiod},
+         family={Technology},
+         familyi={T\bibinitperiod},
+         given={Massachusetts\bibnamedelima Institute},
+         giveni={M\bibinitperiod\bibinitdelim I\bibinitperiod},
+      }}%
+      {{hash=RR}{%
+         family={Rivest},
+         familyi={R\bibinitperiod},
+         given={R.L.},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=CMHP}{%
+         family={Company},
+         familyi={C\bibinitperiod},
+         given={McGraw-Hill\bibnamedelima Publishing},
+         giveni={M\bibinithyphendelim H\bibinitperiod\bibinitdelim
+  P\bibinitperiod},
+      }}%
+      {{hash=SC}{%
+         family={Stein},
+         familyi={S\bibinitperiod},
+         given={C.},
+         giveni={C\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {MIT Press}%
+    }
+    \strng{namehash}{CTCTLC+1}
+    \strng{fullhash}{CTCTLCBIPMTMIoRRCMHPSC1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{isbn}{9780262032933}
+    \field{series}{Introduction to Algorithms}
+    \field{title}{Introduction To Algorithms}
+    \verb{url}
+    \verb https://books.google.com.mx/books?id=NLngYyWFl\_YC
+    \endverb
+    \field{year}{2001}
+  \endentry
+
+  \entry{SUMO}{misc}{}
+    \keyw{SUMO, Eclipse SUMO, Traffic Simulation, Mobility}
+    \field{labeltitlesource}{title}
+    \field{howpublished}{\url{https://www.eclipse.org/sumo/}}
+    \field{note}{Accessed: 2021-02-01 12:48:39}
+    \field{title}{Eclipse SUMO - Simulation of Urban MObility}
+  \endentry
+
+  \entry{OMNeT}{misc}{}
+    \field{labeltitlesource}{title}
+    \field{howpublished}{\url{https://omnetpp.org/}}
+    \field{note}{Accessed: 2021-02-03 09:52:12}
+    \field{title}{OMNeT++ Discrete Event Simulator}
+  \endentry
+
+  \entry{INET}{misc}{}
+    \field{labeltitlesource}{title}
+    \field{howpublished}{\url{https://inet.omnetpp.org/}}
+    \field{note}{Accessed: 2021-02-03 09:53:21}
+    \field{title}{INET Framework - INET Framework}
+  \endentry
+
+  \entry{Veins}{misc}{}
+    \field{labeltitlesource}{title}
+    \field{howpublished}{\url{https://veins.car2x.org/}}
+    \field{note}{Accessed: 2021-02-03 09:54:32}
+    \field{title}{Veins}
+  \endentry
+
+  \entry{OpenStreetMap}{misc}{}
+    \field{labeltitlesource}{title}
+    \field{howpublished}{\url{https://www.openstreetmap.org/}}
+    \field{note}{Accessed: 2021-02-05 08:53:22}
+    \field{title}{OpenStreetMap}
+  \endentry
+
+  \entry{JOSM}{misc}{}
+    \field{labeltitlesource}{title}
+    \field{howpublished}{\url{https://josm.openstreetmap.de/}}
+    \field{note}{Accessed: 2021-02-03 09:55:42}
+    \field{title}{JOSM}
+  \endentry
+
+  \entry{QGIS}{misc}{}
+    \field{labeltitlesource}{title}
+    \field{howpublished}{\url{https://www.qgis.org/en/site/}}
+    \field{note}{Accessed: 2021-02-03 09:59:23}
+    \field{title}{Welcome to the QGIS project!}
+  \endentry
+
+  \entry{CompilacionSUMO}{misc}{}
+    \field{labeltitlesource}{title}
+    \field{howpublished}{\url{https://sumo.dlr.de/docs/Installing.html}}
+    \field{note}{Accessed: 2021-02-03 09:49:48}
+    \field{title}{Installing - SUMO Documentation}
+  \endentry
+
+  \entry{Nishat2011}{article}{}
+    \name{author}{3}{}{%
+      {{hash=NH}{%
+         family={Nishat},
+         familyi={N\bibinitperiod},
+         given={Humaira},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=PS}{%
+         family={Pothalaiah},
+         familyi={P\bibinitperiod},
+         given={Sake},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=RD}{%
+         family={Rao},
+         familyi={R\bibinitperiod},
+         given={D},
+         giveni={D},
+      }}%
+    }
+    \strng{namehash}{NHPSRD1}
+    \strng{fullhash}{NHPSRD1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb 10.5121/ijwmn.2011.3206
+    \endverb
+    \field{title}{Performance Evaluation of Routing Protocols in MANETs}
+    \field{volume}{3}
+    \field{journaltitle}{International Journal of Wireless \& Mobile Networks}
+    \field{month}{04}
+    \field{year}{2011}
+  \endentry
+
+  \entry{CompilacionOMNeT}{misc}{}
+    \field{labeltitlesource}{title}
+    \field{howpublished}{\url{https://omnetpp.org/documentation/}}
+    \field{note}{Accessed: 2021-02-04 03:54:30}
+    \field{title}{OMNeT++ Documentation}
+  \endentry
+
+  \entry{InstalacionQGIS}{misc}{}
+    \field{labeltitlesource}{title}
+  \field{howpublished}{\url{https://www.qgis.org/en/site/forusers/alldownloads.html}}
+    \field{note}{Accessed: 2021-02-04 04:19:40}
+    \field{title}{QGIS Installers}
+  \endentry
+
+  \entry{DescargaJOSM}{misc}{}
+    \field{labeltitlesource}{title}
+    \field{howpublished}{\url{https://josm.openstreetmap.de/wiki/Download}}
+    \field{note}{Accessed: 2021-02-04 08:43:56}
+    \field{title}{Download – JOSM}
+  \endentry
+
+  \entry{Cookiecutter}{misc}{}
+    \field{labeltitlesource}{title}
+    \field{howpublished}{\url{https://cookiecutter.readthedocs.io/en/1.7.2/}}
+    \field{note}{Accessed: 2021-02-04 04:06:18}
+    \field{title}{Cookiecutter: Better Project Templates — cookiecutter 1.7.2
+  documentation}
+  \endentry
+
+  \entry{TutorialVeins}{misc}{}
+    \field{labeltitlesource}{title}
+    \field{howpublished}{\url{https://veins.car2x.org/tutorial/}}
+    \field{note}{Accessed: 2021-02-04 04:16:25}
+    \field{title}{Tutorial - Veins}
+  \endentry
+
+  \entry{Boost}{misc}{}
+    \field{labeltitlesource}{title}
+  \field{howpublished}{\url{https://www.boost.org/doc/libs/1_75_0/libs/graph/doc/index.html}}
+    \field{note}{Accessed: 2021-02-06 09:53:27}
+    \field{title}{The Boost Graph Library - 1.75.0}
+  \endentry
+\enddatalist
+\endinput

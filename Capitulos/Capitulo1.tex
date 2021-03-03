@@ -1,0 +1,179 @@
+﻿%-----------------------------------
+%   INTRODUCCIÓN
+%-----------------------------------
+\chapter{Introducción}
+
+\label{ch:introduccion}
+
+La evolución de los sistemas de comunicación se ha acelerado importantemente en
+las últimas décadas. El primer gran paso en el desarrollo de estos sistemas fue
+el uso de ondas de radiofrecuencia para enviar mensajes entre un transmisor y
+un receptor. Después, se crearon protocolos y dispositivos más complejos para
+formar redes que permitieron el intercambio de información entre más de dos
+computadoras. Esto dio origen a la Internet, que hace posible que millones de
+dispositivos puedan compartir información desde casi cualquier parte del mundo.
+
+Con el desarrollo de los dispositivos móviles, como los teléfonos inteligentes,
+las redes celulares se han convertido en uno de los sistemas de comunicación
+más usados en el mundo. Estas redes permiten tener conectividad incluso estando
+en movimiento. Sin embargo, la conexión está restringida al área de cobertura de
+las antenas. Existen lugares donde no se cuenta con infraestructura de red, por
+lo que no hay posibilidad de comunicarse aunque se cuente con un dispositivo
+móvil. Debido a estas limitaciones, es natural considerar a las redes móviles
+sin infreastructura fija como el siguiente paso en la evolución de los sistemas
+de telecomunicaciones.
+
+Las redes móviles \textit{ad hoc}, o MANETs (\textit{mobile ad hoc networks}),
+se forman únicamente por dispositivos móviles. Estas redes no cuentan con
+infraestructura fija, por lo que los dispositivos deben configurse de manera
+autónoma para comunicarse entre sí y formar una red. No obstante, las
+características de estas redes implican nuevos retos que se tienen que superar
+para proporcionar un servicio confiable. Su principal característica es que no
+tienen una topología fija, ya que los nodos tienen la libertad de moverse sin
+restricciones. Esto hace que el enrutamiento sea el problema más difícil de
+resolver \cite{Li2008}.
+
+Un tipo de MANET que ha despertado gran interés en los últimos años, son las
+redes \textit{ad hoc} vehiculares, o VANETs (\textit{vehicular ad hoc
+networks}). Cada vehículo cuenta con un dispositivo que le permite comunicarse
+con los demás para formar la red. Debido a que los vehículos se mueven a altas
+velocidades y cada uno sigue una ruta distinta, los enlaces tienen duraciones
+muy cortas. Es por esto que la topología cambia con más frecuencia y el
+enrutamiento se vuelve aún más complicado \cite{Meneguette2018}.
+
+Existen muchos tipos de aplicaciones para las VANETs, que se pueden clasificar
+en dos principales grupos. Las aplicaciones de seguridad tienen como objetivo
+proporcionar a los conductores información útil para prevenir accidentes. Las
+aplicaciones de no-seguridad se enfocan en servicios como compartir y descargar
+archivos, monitorización del tráfico, mensajería, entre otros
+\cite{Meneguette2018}.
+
+El objetivo de este trabajo es diseñar un sistema de comunicación basado en una
+VANET que permita a las personas compartir información. Esto sería
+particularmente útil en lugares o situaciones en las que no haya disponible una
+red de infraestructura fija que permitan a las personas mantenerse comunicarse.
+Para esto, se propone un protocolo de enrutamiento para VANETs que cuente con
+un mecanismo que le proporcione a cada dispositivo la capacidad de configurarse
+autónomamente.
+
+%-----------------------------------
+%   FORMULACIÓN DEL PROBLEMA
+%-----------------------------------
+\section{Formulación del problema}
+
+\label{sec:formulacion_del_problema}
+
+Para que la red pueda proporcionar un buen servicio, se necesita que la mayor
+cantidad de paquetes lleguen a su destino en el menor tiempo posible. Los
+protocolos de enrutamiento son los principales responsables de que se cumplan
+estas condiciones. En las redes cableadas, la topología sufre cambios muy rara
+vez, por lo que se pueden determinar las rutas conociendo la topología.
+Pero en las MANETs ocurre exactamente lo opuesto, por lo que el enrutamiento es
+considerablemente más complicado.
+
+En las MANETs, los enlaces inalámbricos entre los dispositivos pueden tener
+duraciones muy cortas como consecuencia del constante movimiento de los
+dispositivos. Por esta razón, una vez que se encuentra una ruta hacia algún otro
+dispositivo en la red, toda la ruta quedaría inutilizable tan sólo con
+desaparecer uno de los enlaces que la forman. Este problema se acentúa aún más
+en las VANETs, ya que los vehículos se mueven a velocidades aún más altas.
+
+Se han desarrollado diferentes enfoques para resolver el problema del
+enrutamiento en este tipo de redes. Uno en particular que ha mostrado buenos
+resultados implica considerar la ubicación de los dispositivos en lugar de la
+topología a la hora de buscar una ruta. El remitente indica en cada paquete la
+dirección y la ubicación del destinatario, lo que es de mucha ayuda para
+determinar hacia dónde se debe transmitir. Además de esto, apoyarse de mapas ha
+servido para mejorar la calidad del enrutamiento \cite{Lochert2003}. Sin
+embargo, se presenta otro problema: cómo saber la ubicación del destinatario
+\cite{Brendha2017}.
+
+Por otro lado, antes de poder comenzar a hacer el enrutamiento, es
+indispensable que cada nodo de la red tenga una dirección, ya que es la manera
+en la que se identifica ante los demás. Las direcciones permiten saber qué nodo
+envía un paquete y a qué nodo va destinado. En las redes de infraestructura
+fija, la asignación de direcciones se hace de manera centralizada, generalmente
+mediante un servidor DHCP (\textit{Dynamic Host Configuration
+Protocol})\footnote{Protocolo de configuración dinámica de \textit{hosts}.}.
+Hacerlo de este modo garantiza que ninguna dirección esté asignada a dos nodos
+al mismo tiempo. Sin embargo, en una VANET no es tan simple lograr que un solo
+nodo administre las direcciones de todos los demás \cite{Korichi2018}.
+
+Dicho lo anterior, para poder desplegar una VANET que proporcione un servicio de
+comunicación, lo primero que se necesita es un mecanismo descentralizado que
+permita que los dispositivos obtener una dirección única. Una vez que los
+dispositivos cuenten con una dirección, antes de enviar un paquete, se necesita
+un método que les permita obtener la ubicación del destinatario. Una vez que
+tienen la ubicación del destinatario, se necesita que un protocolo de
+enrutamiento haga llegar los paquetes al dispositivo correspondiente mediante
+saltos entre dispositivos intermedios.
+
+%-----------------------------------
+%   PREGUNTAS DE INVESTIGACIÓN
+%-----------------------------------
+
+\section{Preguntas de investigación}
+
+\label{sec:preguntas_de_investigacion}
+
+\begin{itemize}
+  \item ¿Cómo se puede realizar la configuración de direcciones de los nodos en
+  una VANET?
+  \item ¿Cómo se pueden determinar las rutas en una VANET con ayuda de un mapa?
+\end{itemize}
+
+%----------------------------------------------------------------------------------------
+%   OBJETIVOS
+%----------------------------------------------------------------------------------------
+
+\section{Objetivos}
+
+\label{subsec:objetivos}
+
+%----------------------------------------------------------------------------------------
+%   OBJETIVO GENERAL
+%----------------------------------------------------------------------------------------
+
+\subsection{Objetivo general}
+\label{subsec:objetivo_general}
+
+Diseñar un protocolo de enrutamiento para VANETs que permita usar la información
+de las vialidades para determinar las rutas y que permita a cada vehículo
+configurar su propia dirección única.
+
+%----------------------------------------------------------------------------------------
+%   OBJETIVOS ESPECÍFICOS
+%----------------------------------------------------------------------------------------
+
+\subsection{Objetivos específicos}
+\label{subsec:objetivos_especificos}
+
+\begin{itemize}
+  \item Diseñar el protocolo de autoconfiguración de direcciones.
+  \item Diseñar el protocolo de enrutamiento.
+  \item Evaluar el desepeño del protocolo mediante simulaciones.
+\end{itemize}
+
+%----------------------------------------------------------------------------------------
+%   JUSTIFICACIÓN
+%----------------------------------------------------------------------------------------
+
+\section{Justificación}
+\label{sec:justificacion}
+
+Debido a las características de las VANETs, la diversidad de aplicaciones que
+tienen y los diferentes escenarios en los que se pueden aplicar, el enrutamiento
+es un enorme reto que no se ha logrado superar por completo. No existen
+protocolos de enrutamuiento bien consolidados para estas redes, como sí los hay
+para las redes de infraestructura fija. Por esta razón, este es un tema de
+investigación muy activo actualmente.
+
+La mayoría de estos protocolos se enfocan en aplicaciones como seguridad vial,
+monitorización del tráfico, entretenimiento, entre otras. El protocolo
+propuesto en este trabajo se enfoca en una aplicación diferente, que es
+proporcionar un servicio de comunicación alternativo en caso de no tener acceso
+a redes de infraestructura fija.
+
+Existe una gran cantidad de protocolos para VANETs que se han propuesto en los
+últimos años. Con el desarrollo de nuevos protocolos, eventualmente se
+logrará ratificar estándares para diferentes aplicaciones o condiciones.

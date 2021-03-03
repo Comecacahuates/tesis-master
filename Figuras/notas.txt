@@ -1,0 +1,22 @@
+relleno claro: gris 10%
+
+grosor de trazos: 0.25mm
+grosor de flechas: 0.35mm
+
+diámetro de nodos: 2mm
+
+diámetro de vértices: 
+
+figuras normales
+    ancho: 10cm
+    alto: 5cm
+
+figuras grandes:
+    ancho: 10cm
+    alto: 7cm
+
+tamaño de fuente: 11pt
+
+tipografía: book antiqua
+tipografía de letras griegas: tex gyre pagella italic
+tipografía de campos de código: latin modern mono

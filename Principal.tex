@@ -1,0 +1,368 @@
+﻿%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Masters/Doctoral Thesis 
+% LaTeX Template
+% Version 2.5 (27/8/17)
+%
+% This template was downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Version 2.x major modifications by:
+% Vel (vel@latextemplates.com)
+%
+% This template is based on a template by:
+% Steve Gunn (http://users.ecs.soton.ac.uk/srg/softwaretools/document/templates/)
+% Sunil Patel (http://www.sunilpatel.co.uk/thesis-template/)
+%
+% Template license:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%   PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\PassOptionsToPackage{spanish,mexico}{babel}
+
+\documentclass[
+11pt, % The default document font size, options: 10pt, 11pt, 12pt
+%oneside, % Two side (alternating margins) for binding by default, uncomment to switch to one side
+spanish, % ngerman for German
+singlespacing, % Single line spacing, alternatives: onehalfspacing or doublespacing
+%draft, % Uncomment to enable draft mode (no pictures, no links, overfull hboxes indicated)
+%nolistspacing, % If the document is onehalfspacing or doublespacing, uncomment this to set spacing in lists to single
+%liststotoc, % Uncomment to add the list of figures/tables/etc to the table of contents
+%toctotoc, % Uncomment to add the main table of contents to the table of contents
+%parskip, % Uncomment to add space between paragraphs
+%nohyperref, % Uncomment to not load the hyperref package
+headsepline, % Uncomment to get a line under the header
+%chapterinoneline, % Uncomment to place the chapter title next to the number on one line
+%consistentlayout, % Uncomment to change the layout of the declaration, abstract and acknowledgements pages to match the default layout
+]{MastersDoctoralThesis} % The class file specifying the document structure
+
+\usepackage[utf8]{inputenc} % Required for inputting international characters
+\usepackage[T1]{fontenc} % Output font encoding for international characters
+
+\usepackage{mathpazo} % Use the Palatino font by default
+
+\usepackage[backend=bibtex,style=ieee,natbib=true]{biblatex} % Use the bibtex
+% backend with the authoryear citation style (which resembles APA)
+
+\addbibresource{bibliografia.bib} % The filename of the bibliography
+
+\usepackage[autostyle=true]{csquotes} % Required to generate language-dependent quotes in the bibliography
+
+\usepackage[spanish]{babel}
+\selectlanguage{spanish} 
+
+\usepackage{subcaption}
+
+\usepackage[inline]{enumitem}
+
+\usepackage{titlesec}
+
+\usepackage[linesnumbered,lined,ruled,vlined,spanish,onelanguage]{algorithm2e}
+
+\usepackage{mathtools}
+\newcommand\Set[2]{\{\,#1\mid#2\,\}}
+\newcommand\SET[2]{\Set{#1}{\text{#2}}}
+
+\usepackage{siunitx}
+
+\usepackage{url}
+
+\usepackage{hyperref}
+
+\usepackage{listings}
+
+\usepackage{color}
+
+\usepackage{dirtree}
+
+\definecolor{gray}{rgb}{0.4,0.4,0.4}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.6}
+\definecolor{cyan}{rgb}{0.0,0.6,0.6}
+
+\lstset{
+  basicstyle=\ttfamily,
+  columns=fullflexible,
+  showstringspaces=false,
+  commentstyle=\color{gray}\upshape
+}
+
+\lstdefinelanguage{XML}
+{
+  morestring=[b]",
+  morestring=[s]{>}{<},
+  morecomment=[s]{<?}{?>},
+  stringstyle=\color{black},
+  identifierstyle=\color{darkblue},
+  keywordstyle=\color{cyan},
+  morekeywords={xmlns,version,type}% list your attributes here
+}
+
+%----------------------------------------------------------------------------------------
+%   MARGIN SETTINGS
+%----------------------------------------------------------------------------------------
+
+\geometry{
+    paper=letterpaper, % Change to letterpaper for US letter
+    inner=2.5cm, % Inner margin
+    outer=3.8cm, % Outer margin
+    bindingoffset=.5cm, % Binding offset
+    top=1.5cm, % Top margin
+    bottom=1.5cm, % Bottom margin
+    %showframe, % Uncomment to show how the type block is set on the page
+}
+
+%----------------------------------------------------------------------------------------
+%   THESIS INFORMATION
+%----------------------------------------------------------------------------------------
+
+\thesistitle{Protocolo de enrutamiento para VANETs con nodos autoconfigurables} % Your thesis title, this is used in the title and abstract, print it elsewhere with \ttitle
+\supervisor{Jesús Alfredo Martínez Nuño} % Your supervisor's name, this is used in the title page, print it elsewhere with \supname
+\examiner{} % Your examiner's name, this is not currently used anywhere in the template, print it elsewhere with \examname
+\degree{Maestro en Ciencias en Sistemas Computacionales Móviles} % Your degree name, this is used in the title page and abstract, print it elsewhere with \degreename
+\author{Adrián Juárez Monroy} % Your name, this is used in the title page and abstract, print it elsewhere with \authorname
+\addresses{} % Your address, this is not currently used anywhere in the template, print it elsewhere with \addressname
+
+\subject{Biological Sciences} % Your subject area, this is not currently used anywhere in the template, print it elsewhere with \subjectname
+\keywords{} % Keywords for your thesis, this is not currently used anywhere in the template, print it elsewhere with \keywordnames
+\university{\href{http://www.ipn.mx}{Instituto Politécnico Nacional}} % Your university's name and URL, this is used in the title page and abstract, print it elsewhere with \univname
+\department{\href{http://escom.ipn.mx/posgrado/}{Sección de Estudios de Posgrado e Investigación}} % Your department's name and URL, this is used in the title page and abstract, print it elsewhere with \deptname
+\group{Comunicaciones para el cómputo móvil} % Your research group's name and URL, this is used in the title page, print it elsewhere with \groupname
+\faculty{\href{http://www.escom.ipn.mx/}{Escuela Superior de Cómputo}} % Your faculty's name and URL, this is used in the title page and abstract, print it elsewhere with \facname
+
+\AtBeginDocument{
+\hypersetup{pdftitle=\ttitle} % Set the PDF's title to your title
+\hypersetup{pdfauthor=\authorname} % Set the PDF's author to your name
+\hypersetup{pdfkeywords=\keywordnames} % Set the PDF's keywords to your keywords
+}
+
+\begin{document}
+
+\frontmatter % Use roman page numbering style (i, ii, iii, iv...) for the pre-content pages
+
+\pagestyle{plain} % Default to the plain heading style until the thesis style is called for the body content
+
+%----------------------------------------------------------------------------------------
+%   TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\begin{titlepage}
+    \thispagestyle{empty}
+    \setlength{\headheight}{0pt}
+    \begin{minipage}[c][0.17\textheight][c]{0.22\textwidth}
+        \begin{center}
+            \includegraphics[width=2.7cm]{Figuras/logo-ipn.png}
+        \end{center}
+    \end{minipage}
+    \begin{minipage}[c][0.195\textheight][t]{0.73\textwidth}
+        \begin{center}
+            \vspace{0.3cm}
+            \textsc{\Large \univname}
+            \vspace{0.8cm}
+            \hrule height 2.5pt
+            \vspace{0.2cm}
+            \hrule height 1pt
+            \vspace{0.8cm}
+            \textsc{\facname\\
+            \deptname}
+        \end{center}
+    \end{minipage}
+
+    \begin{minipage}[c][0.81\textheight][t]{0.22\textwidth}
+        \vspace*{5mm}
+        \begin{center}
+            \hskip2.0mm
+            \vrule width 1pt height 13cm
+            \vspace{5mm}
+            \hskip2pt
+            \vrule width 2.5pt height 13cm
+            \hskip2mm
+            \vrule width 1pt height 13cm \\
+            \vspace{3mm}
+            \includegraphics[height=2.3cm]{Figuras/logo-escom.png}
+        \end{center}
+    \end{minipage}
+    \begin{minipage}[c][0.81\textheight][t]{0.73\textwidth}
+        \begin{center}
+            \vspace{1cm}
+
+                \textsc{\large \ttitle}\\
+
+            \vspace{2.5cm}
+
+            \textsc{\Large Tesis}\\
+            \vspace{0.5cm}
+
+            \textsc{\large que para obtener el grado de}\\
+            \vspace{0.5cm}
+
+            \textsc{\large \degreename}\\
+            \vspace{0.5cm}
+
+            \textsc{\large presenta}\\
+            \vspace{0.5cm}
+
+            \textsc{\large \authorname}\\
+            \vspace{2.5cm}
+
+            \textsc{\large Directores:}\\
+            \vspace{0.5cm}
+
+            \textsc{\large Dr. Manuel Salazar Ramírez \\
+M. en C. Jesús Alfredo Martínez Nuño}\\
+            \vspace{0.5cm}
+
+            \large{Ciudad de México, \today}
+        \end{center}
+    \end{minipage}
+\end{titlepage}
+
+%----------------------------------------------------------------------------------------
+%   QUOTATION PAGE
+%----------------------------------------------------------------------------------------
+
+\vspace*{0.2\textheight}
+
+\noindent\enquote{\itshape Cita.}\bigbreak
+
+\hfill Autor
+
+%----------------------------------------------------------------------------------------
+%   ABSTRACT PAGE
+%----------------------------------------------------------------------------------------
+
+\begin{abstract}
+\addchaptertocentry{\abstractname} % Add the abstract to the table of contents
+Resumen
+\end{abstract}
+
+%----------------------------------------------------------------------------------------
+%   ACKNOWLEDGEMENTS
+%----------------------------------------------------------------------------------------
+
+\begin{acknowledgements}
+\addchaptertocentry{\acknowledgementname} % Add the acknowledgements to the table of contents
+Agradecimientos\ldots
+\end{acknowledgements}
+
+%----------------------------------------------------------------------------------------
+%   LIST OF CONTENTS/FIGURES/TABLES PAGES
+%----------------------------------------------------------------------------------------
+
+\tableofcontents % Prints the main table of contents
+
+\listoffigures % Prints the list of figures
+
+\listoftables % Prints the list of tables
+
+%----------------------------------------------------------------------------------------
+%   ABBREVIATIONS
+%----------------------------------------------------------------------------------------
+
+% \begin{abbreviations}{ll} % Include a list of abbreviations (a table of two columns)
+% 
+% % AAP
+% \textbf{AAP} & \textit{\textbf{A}ddress \textbf{A}uto-configuration \textbf{P}rotocol}\\
+% & Protocolo de autoconfiguración de direcciones\\
+% 
+% % AS
+% \textbf{AS} & \textit{\textbf{A}utonomous \textbf{S}ystem}\\
+% & Sistema autónomo\\
+% 
+% % DAD
+% \textbf{DAD} & \textit{\textbf{D}uplicate \textbf{A}ddress \textbf{D}etection}\\
+% & Detección de direcciones duplicadas\\
+% 
+% % EGP
+% \textbf{EGP} & \textit{\textbf{E}xterior \textbf{G}ateway \textbf{P}rotocol}\\
+% & Protocolo de puerta de enlace exterior\\
+% 
+% % GPSR
+% \textbf{GPSR} & \textit{\textbf{G}reedy \textbf{P}erimeter \textbf{S}tateless \textbf{R}outing}\\
+% & Enrutamiento voraz y de perímetro sin estado\\
+% 
+% % HTTP
+% \textbf{HTTP} & \textit{\textbf{H}yper\textbf{T}ext \textbf{T}ransfer \textbf{P}rotocol}\\
+% & Enrutamiento voraz y de perímetro sin estado\\
+% 
+% % IGP
+% \textbf{IGP} & \textit{\textbf{I}nterior \textbf{G}ateway \textbf{P}rotocol}\\
+% & Protocolo de puerta de enlace interior\\
+% 
+% % MANET
+% \textbf{MANET} & \textit{\textbf{M}obile \textbf{A}d hoc \textbf{N}etwork}\\
+% & Red \textit{ad hoc} móvil\\
+% 
+% % ND
+% \textbf{ND} & \textit{\textbf{N}eighbor \textbf{D}iscovery}\\
+% & Descubrimiento de vecinos\\
+% 
+% % vanet
+% \textbf{VANET} & \textit{\textbf{V}ehicular \textbf{A}d hoc \textbf{N}etwork}\\ 
+% & Red \textit{ad hoc} vehicular\\
+% 
+% \end{abbreviations}
+
+%----------------------------------------------------------------------------------------
+%   DEDICATION
+%----------------------------------------------------------------------------------------
+
+\dedicatory{Dedicatoria\ldots} 
+
+%----------------------------------------------------------------------------------------
+%   THESIS CONTENT - CHAPTERS
+%----------------------------------------------------------------------------------------
+
+\mainmatter % Begin numeric (1,2,3...) page numbering
+
+\pagestyle{thesis} % Return the page headers back to the "thesis" style
+
+% Include the chapters of the thesis as separate files from the Chapters folder
+% Uncomment the lines as you write the chapters
+
+%----------------------------------------------------------------------------------------
+
+% Define some commands to keep the formatting separated from the content 
+\newcommand{\keyword}[1]{\textbf{#1}}
+\newcommand{\tabhead}[1]{\textbf{#1}}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\file}[1]{\texttt{\bfseries#1}}
+\newcommand{\option}[1]{\texttt{\itshape#1}}
+\setlength{\parskip}{0.5em}
+
+%----------------------------------------------------------------------------------------
+
+\include{Capitulos/Capitulo1}
+\include{Capitulos/Capitulo2}
+\include{Capitulos/Capitulo3}
+\include{Capitulos/Capitulo4}
+\include{Capitulos/Capitulo5}
+\include{Capitulos/Capitulo6}
+\include{Capitulos/Capitulo7}
+\include{Capitulos/Capitulo8}
+
+%----------------------------------------------------------------------------------------
+%   THESIS CONTENT - APPENDICES
+%----------------------------------------------------------------------------------------
+
+\appendix % Cue to tell LaTeX that the following "chapters" are Appendices
+
+% Include the appendices of the thesis as separate files from the Appendices folder
+% Uncomment the lines as you write the Appendices
+
+\include{Apendices/ApendiceA}
+\include{Apendices/ApendiceB}
+%\include{Appendices/AppendixC}
+
+%----------------------------------------------------------------------------------------
+%   BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+
+\printbibliography[heading=bibintoc]
+
+%----------------------------------------------------------------------------------------
+
+\end{document}  
