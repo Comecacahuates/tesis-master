@@ -1000,69 +1000,66 @@ dirección]{Determinación del peso de las aristas con sus ángulos de direcció
 \end{figure}
 
 \begin{algorithm}[th!]
+\small
 \caption{Cálculo de la ruta más corta}
 \label{alg:ruta_mas_corta}
 \DontPrintSemicolon
 \LinesNumbered
-    \KwData{$\{a,b\}$: Arista inicial, $\mathbf{G}$: Grafo vial, $NV$:
-    Conjunto de vértices no disponibles, $NE$: Conjunto de aristas inactivas}
+    \KwData{$\{a,b\}$: Arista inicial, $\mathbf{G}$: Grafo vial, $VV$: Conjunto
+    de vértices visitados, $AE$: Conjunto de aristas activas}
     \Begin{
-        $n \gets|\mathbf{G}.\mathbf{V}|$
-        \tcp*{Número de vértices en el grafo}
-        \ForEach{$u \in \mathbf{G}.\mathbf{V}$} {
-            $distancias[u] \gets \infty$ \;
+        \ForEach{$v \in \mathbf{G}.\mathbf{V}$} {
+            $distancias[v] \gets \infty$ \;
         }
         $distancias[a] \gets 0$ \;
         $distancias[b] \gets 0$ \;
-        $S \gets \mathbf{G.V} \setminus \{a,b\}$
-        \tcp*{Vértices que faltan por procesar}
-        \ForEach(\tcp*[f]{Para cada vértice adyacente a $a$}){$u \in
-        \mathbf{G}.\mathbf{V} \mid \{a,u\} \in \mathbf{G}.\mathbf{E}$}{
-            \If{$u \neq b$ y $\{a,u\} \notin NE$}{
-                \If{$u \notin NV$}{
-                    $distancias[u] \gets calcularPeso(\{a,b\}, \{a,u\})$ \;
+        $S \gets \mathbf{G.V} \setminus \{a,b\}$ \;
+        \ForEach{$v \in \mathbf{G}.\mathbf{V}$ adyacente a $a$}{
+            \If{$v \neq b$}{
+                \eIf{$v \notin VV$ y $\{a,v\} \in AE$}{
+                    $distancias[v] \gets calcularPeso(\{a,v\}, \{a,b\})$ \;
+                    $predecesores[v] \gets a$ \;
+                }{
+                    $S \gets S \setminus \{v\}$ \;
                 }
-                $predecesores[u] \gets a$ \;
             }
         }
-        \ForEach(\tcp*[f]{Para cada vértice adyacente a $b$}){$u \in
-        \mathbf{G}.\mathbf{V} \mid \{b,u\} \in \mathbf{G}.\mathbf{V}$}{
-            \If{$u \neq a$ y $\{b,u\} \notin NE$}{
-                $peso \gets calcularPeso(\{a,b\}, \{b,u\}$) \;
-                \If{$peso < distancias[u]$}{
-                    \If{$u \notin NV$}{
-                        $distancias[u] \gets peso$ \;
+        \ForEach{$v \in \mathbf{G}.\mathbf{V}$ adyacente a $b$}{
+            \If{$v \neq a$}{
+                \eIf{$v \notin VV$ y $\{b,v\} \in AE$}{
+                    $peso \gets calcularPeso(\{b,v\}, \{a,b\}$) \;
+                    \If{$peso < distancias[v]$}{
+                        $distancias[v] \gets peso$ \;
+                        $predecesores[v] \gets b$ \;
                     }
-                    $predecesores[u] \gets b$ \;
+                }{
+                    $S \gets S \setminus \{v\}$ \;
                 }
             }
         }
         \While{$S \neq \emptyset$}{
-            \eIf{$\exists u \in S \mid distancias[u] \neq
-            \infty$}{
-                $u \gets$ vértice restante con menor distancia \;
-                \ForEach(\tcp*[f]{Para cada vértice adyacente a $v$}){$v \in
-                \mathbf{G}.\mathbf{V} \mid \{u,v\} \in \mathbf{G}.\mathbf{E}$}{
-                    \If{$v \neq predecesores[u]$ y $v \notin NV$ y $\{u,v\}
-                    \notin NE$}{
-                        $peso \gets calcularPeso(\{predecesores[u],u\},
-                        \{u,v\})$ \;
-                        \If{$distancias[v] > distancias[u] + peso$}{
-                            $distancias[v] \gets distancias[u] + peso$ \;
-                            $predecesores[v] \gets u$ \;
+            $v \gets$ vértice en $S$ con menor distancia \;
+            $u \gets predecesores[v]$ \;
+            \ForEach{$w \in \mathbf{G}.\mathbf{V}$ adyacente a $v$}{
+                \If{$w \neq u$}{
+                    \eIf{$w \notin VV$}{
+                        $peso \gets calcularPeso(\{v,w\}, \{u,v\})$ \;
+                        \If{$distancias[w] > distancias[v] + peso$}{
+                            $distancias[w] \gets distancias[v] + peso$ \;
+                            $predecesores[w] \gets v$ \;
                         }
+                    }{
+                        $S \gets S \setminus \{w\}$ \;
                     }
                 }
-                $S \gets S \setminus \{u\}$ \;
-            }{
-                $S \gets \emptyset$ \;
             }
+            $S \gets S \setminus \{v\}$ \;
         }
         \Return{predecesores, distancias}
     }
 \end{algorithm}
 
-En el algoritmo \ref{alg:ruta_mas_corta} es el algoritmo propuesto, donde se
+El algoritmo \ref{alg:ruta_mas_corta} es el algoritmo propuesto, donde se
 definen dos vectores cuyo tamaño es igual al número de vértices en el grafo. El
 vector $predecesores$ indica cuál es el vértice predecesor de cada uno en la
 ruta. El vector $distancias$ indica la distancia desde la arista de inicia

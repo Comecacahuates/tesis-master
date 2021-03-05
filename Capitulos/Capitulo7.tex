@@ -35,7 +35,7 @@ del protocolo propuesto.
 \label{sec:instalacion_herramientas}
 
 A continuación, se explica cómo instalar las herramientas utilizadas para
-realizar las simulaciones en el sistema operativo Fedora 33, que se utilizó
+realizar las simulaciones en el sistema operativo Debian Buster, que se utilizó
 para el desarrollo.
 
 %----------------------------------------------------------------------------------------
@@ -53,18 +53,8 @@ dentro del directorio {\lstinline[language=bash]!~/src!}. Después, se instalan
 los paquetes requeridos con los siguientes comandos:
 
 \begin{lstlisting}[language=bash]
-$ sudo dnf install cmake python gcc-c++ xerces-c-devel fox-devel \
-    gdal-devel proj-devel gl2ps-devel OpenSceneGraph-devel python3-devel \
-    swig gtest-devel eigen3-devel python3-pip java-11-openjdk-devel \
-    mesa-libGLU-devel libXext-devel fontconfig-devel libXft-devel \
-    libXcursor-devel libXrender-devel libXrandr-devel libXfixes-devel \
-    libXi-devel libjpeg-turbo-devel libtiff-devel
-$ pip3 install texttest
-$ sudo dnf -y install https://download1.rpmfusion.org/free/fedora/\
-    rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
-$ sudo dnf -y install https://download1.rpmfusion.org/nonfree/fedora/\
-    rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-$ sudo dnf install ffmpeg-devel
+$ sudo apt-get install ccmake python g++ libxerces-c-dev libfox-1.6-dev \
+    libgdal-dev libproj-dev libgl2ps-dev
 \end{lstlisting}
 
 Para compilar el código fuente, se ejecutan los siguientes comandos:
@@ -101,15 +91,17 @@ Evaluación de protocolos de enrutamiento: \cite{Nishat2011}.
 \label{subsec:instalacion_omnet}
 
 Primero, se descarga el \href{https://omnetpp.org/download/}{código fuente de
-OMNeT++ 5.6.2}, y se descomprime el directorio
+OMNeT++ 6.0}, y se descomprime el directorio
 {\lstinline[language=bash]!omnetpp-5.6.2!} dentro del disrectorio
 {\lstinline[language=bash]!~/src!}. Después, se instalan los paquetes
 requeridos con el siguiente comando:
 
 \begin{lstlisting}[language=bash]
-$ sudo dnf install make gcc gcc-c++ bison flex perl python2 tcl-devel \
-    tk-devel qt5-qtbase-devel libxml2-devel zlib-devel doxygen graphviz \
-    webkit2gtk3-devel OpenSceneGraph-devel osgearth-devel openmpi-devel
+$ sudo apt-get install build-essential clang lld gdb bison flex perl \
+    python3 python3-pip qt5-default libqt5opengl5-dev libxml2-dev \
+    zlib1g-dev doxygen graphviz libwebkit2gtk-4.0-37
+$ python3 -m pip install --user --upgrade numpy pandas matplotlib \
+    scipy seaborn posix_ipc
 \end{lstlisting}
 
 Para compilar el código fuente, se ejecutan los siguientes comandos:
@@ -117,7 +109,7 @@ Para compilar el código fuente, se ejecutan los siguientes comandos:
 \begin{lstlisting}[language=bash]
 $ cd $HOME/src/omnetpp-5.6.2
 $ . setenv
-$ ./configure
+$ ./configure WITH_OSG=no WITH_OSGEARTH=no
 $ make
 \end{lstlisting}
 
@@ -143,8 +135,16 @@ Las instrucciones de compilación detalladas se pueden consultar en
 Para instalar QGIS 3.16, se ejecutan los siguientes comandos:
 
 \begin{lstlisting}[language=bash]
-$ sudo dnf copr enable dani/qgis
-$ sudo dnf install qgis python3-qgis qgis-grass
+$ sudo apt-get install gnupg software-properties-common
+$ wget -qO - https://qgis.org/downloads/qgis-2020.gpg.key | \
+    sudo gpg --no-default-keyring \
+    --keyring gnupg-ring:/etc/apt/trusted.gpg.d/qgis-archive.gpg \
+    --import
+$ sudo chmod a+r /etc/apt/trusted.gpg.d/qgis-archive.gpg
+$ sudo add-apt-repository "deb https://qgis.org/debian \
+    `lsb_release -c -s` main"
+$ sudo apt-get update
+$ sudo apt install qgis qgis-plugin-grass
 \end{lstlisting}
 
 Se pueden consultar más detalles sobre la instalación en
@@ -162,7 +162,7 @@ JOSM es una aplicación Java, por lo que primero se debe instalar la máquina
 virtual de Java con el siguiente comando:
 
 \begin{lstlisting}[language=bash]
-$ sudo dnf install java-11-openjdk
+$ sudo apt-get install openjdk-11-jdk
 \end{lstlisting}
 
 Después, se descarga el
@@ -228,6 +228,7 @@ contiene un nodo \code{grafo-vial}, que contiene dos nodos: \code{vertices} y
 una lista de nodos \code{arista}, que especifican el par de vértices que forma
 cada arista. Por ejemplo, el archivo \code{grafo-vial-9g3qxs.xml} es el
 siguiente:
+\newpage
 
 \begin{lstlisting}[language=XML]
 <?xml version="1.0" ?>
@@ -530,7 +531,8 @@ se utiliza en INET y Veins. El código fuente se puede consultar en el siguiente
 repositorio:
 
 \begin{center}
-\href{https://bitbucket.org/comecacahuates/sim/src/main/}{https://bitbucket.org/comecacahuates/sim/src/main/}
+\href{https://bitbucket.org/comecacahuates/simulacion/src/main/}
+{https://bitbucket.org/comecacahuates/simulacion/src/main/}
 \end{center}
 
 %-----------------------------------
@@ -547,7 +549,6 @@ computadora, principalmente la memoria, en la simulación únicamente hay una
 base de datos global a la que todos los vehículos tienen acceso. En el proyecto
 \code{veins\_proj}, los archivos del proyecto relacionados con la base de datos
 de redes viales son los siguientes:
-\newpage
 
 \dirtree{%
 .1 veins\_proj.
@@ -597,7 +598,6 @@ diferentes tipos de movimientos, sin embargo, Veins proporciona el módulo
 \code{VeinsInetMobility}, que interactúa con SUMO para obtener la información
 sobre el movimiento de los vehículos. Los archivos del proyecto relacionados
 con el movimiento de los nodos de la red son los siguientes:
-\newpage
 
 \dirtree{%
 .1 veins\_proj.
@@ -640,6 +640,7 @@ Una vez teniendo los módulos que permiten conocer la ubicación de los
 dispositivos, se puede implementar la autoconfiguración de direcciones. Los
 archivos en el proyecto relacionados con la autoconfiguración de direcciones
 son los siguientes:
+\newpage
 
 \dirtree{%
 .1 veins\_proj.
@@ -697,6 +698,7 @@ ubicación de todos los demás para poder comunicarse con ellos. Por este motivo
 se implementó un servicio de localización simple con el único propósito de
 cubrir esta necesidad en la simulación. Los archivos en el proyecto
 relacionados con el servicio de localización son los siguintes:
+\newpage
 
 \dirtree{%
 .1 veins\_proj.
