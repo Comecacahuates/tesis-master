@@ -541,30 +541,27 @@ anuncio-\textit{host} (ANC-HOST), anuncio-vehículo (ANC-VEHIC),
 transmiten mediante el protocolo UDP, y no requieren ningún tipo de
 procesamiento especificado en alguna cabecera IPv6.
 
-Los vehículos necesitan anunciar su presencia y su ubicación ante sus vecinos
-mediante la transmisión de mensajes ANC-VEHIC periódicamente. Esto sirve para
-que los vecinos sepan que sigue activo el enlace hacia este. Si pasa cierta
-cantidad de tiempo desde la última vez que se recibió un mensaje ANC-VEHIC de
-un vehículo, se asume que el enlace se perdió.
+Los vehículos anuncian su presencia y su ubicación ante sus vecinos mediante la
+transmisión de mensajes ANC-VEHIC periódicamente. De este modo, los vecinos
+pueden saber que sigue activo un enlace o no. Si pasa cierta cantidad de
+tiempo desde la última vez que se recibió un mensaje ANC-VEHIC de un vehículo,
+se asume que el enlace se perdió.
 
 Los mensajes ANC-HOST son transmitidos por los \textit{hosts} para anunciar su
 presencia ante los vehículos vecinos. Cuando un vehículo debe entregar un
 paquete a un \textit{host}, y éste recibió recientemente un mensaje ANC-HOST de
-este \textit{host}, le envía el paquete directamente en lugar de enrutarlo
-hacia otro vehículo.
+dicho \textit{host}, le puede transmitir el paquete directamente en lugar de
+enrutarlo hacia otro vehículo.
 
-Las rutas que determina este protocolo indican qué aristas debe recorrer un
-paquete para llegar a su destino. Sin embargo, encontrar una ruta vial no
-garantiza que a lo largo de toda la ruta haya vehículos por los que pueda pasar
-el paquete desde el inicio hasta el final. Para saber si un paquete puede
-atravesar una arista, se lleva a cabo una operación denominada
-\keyword{ping-pong}. Esta consiste en enviar un mensaje PING desde un vértice
-de una arista y verificar que llegue al otro vértice. Si este mensaje puede
-llegar, se responde enviando un mensaje PONG de regreso. De esta manera, se
-verifica si un paquete puede atravesar dicha arista.
+Cuando se encuentra una ruta vial, no se garantiza que a lo largo de toda la
+ruta haya vehículos por los que pueda pasar el paquete desde el inicio hasta el
+final de esta. Para saber si un paquete puede atravesar una arista, se lleva a
+cabo una operación denominada \keyword{ping-pong}. Esta consiste en transmitir
+un mensaje PING desde un vértice de una arista hasta el otro, y esperar un
+mensaje PONG de respuesta. Así, se puede saber si los paquetes pueden atravesar
+la arista.
 
-En las siguientes secciones, se describe el formato de cada uno de los tipos de
-mensajes.
+A continuación, se describe el formato de cada uno de estos tipos de mensajes.
 
 %-----------------------------------
 %   MENSAJE ANUNCIO-VEHÍCULO
@@ -618,8 +615,8 @@ A.
 \keyword{Dirección IPv6 (128 bits)} -- Dirección IPv6 del vehículo que
 transmite el mensaje.
 
-\keyword{Ubicación Geohash (64 bits)} -- Ubicación Geohash de longitud 12 al
-momento de emitir el mensaje.
+\keyword{Ubicación Geohash (64 bits)} -- Ubicación Geohash de longitud 12 del
+vehículo al momento de transmitir el mensaje.
 
 %-----------------------------------
 %   MENSAJE ANUNCIO-HOST
@@ -628,8 +625,9 @@ momento de emitir el mensaje.
 
 \label{subsec:mensaje_anuncio_host}
 
-El formato del mensaje ANC-HOST se muestra en la figura
-\ref{fig:formato_anc_host}, y contiene los siguientes campos:
+El mensaje ANC-HOST tiene una longitud de 28 octetos, y su formato se muestra
+en la figura \ref{fig:formato_anc_host}. Los campos del mensaje son los
+siguientes:
 
 \begin{figure}[th!]
 \centering
@@ -645,8 +643,8 @@ mensaje ANC-HOST.
 \keyword{Dirección IPv6 (128 bits)} -- Dirección del \textit{host} que emite el
 mensaje.
 
-\keyword{Ubicación Geohash (65 bits)} -- Ubicación del \textit{host} al momento
-de emitir el mensaje.
+\keyword{Ubicación Geohash (65 bits)} -- Ubicación Geohash del \textit{host} al
+momento de transmitir el mensaje.
 
 %-----------------------------------
 %   MENSAJE PING
@@ -655,8 +653,8 @@ de emitir el mensaje.
 
 \label{subsec:mensaje_ping}
 
-El formato del mensaje PING se muestra en la figura \ref{fig:formato_ping}, y
-contiene los siguientes campos:
+El mensaje PING tiene una longitud de 24 octetos, y su formato se muestra en la
+figura \ref{fig:formato_ping}. Los campos del mensaje son los siguientes:
 
 \begin{figure}[th!]
 \centering
@@ -669,12 +667,14 @@ contiene los siguientes campos:
 \keyword{Tipo (8 bits)} -- Su valor es \code{3} para indicar que se trata de un
 mensaje PING.
 
-\keyword{Vértice 1 (16 bits)} -- Vértice de origen.
+\keyword{Vértice ping (16 bits)} -- Vértice de origen de la operación
+ping-pong.
 
-\keyword{Vértice 2 (16 bits)} -- Vértice de destino.
+\keyword{Vértice ping (16 bits)} -- Vértice de destino de la operación
+ping-pong.
 
-\keyword{Dirección IPv6 (128 bits)} -- Dirección del vehículo que originó el
-mensaje.
+\keyword{Dirección IPv6 (128 bits)} -- Dirección IPv6 del vehículo que originó
+el mensaje.
 
 %-----------------------------------
 %   MENSAJE PONG
@@ -683,8 +683,8 @@ mensaje.
 
 \label{subsec:mensaje_pong}
 
-El formato del mensaje PONG se muestra en la figura \ref{fig:formato_pong}, y
-contiene los siguientes campos:
+El mensaje PONG tiene una longitud de 24 octetos, y su formato se muestra en la
+figura \ref{fig:formato_pong}. Los campos del mensaje son los siguientes:
 
 \begin{figure}[th!]
 \centering
@@ -697,17 +697,14 @@ contiene los siguientes campos:
 \keyword{Tipo (8 bits)} -- Su valor es \code{4} para indicar que se trata de un
 mensaje PONG.
 
-\keyword{E (1 bit)} -- Bandera de error. Si vale \code{1}, indica que hubo un
-error en la operación ping-pong.
+\keyword{E (1 bit)} -- Si vale \code{1}, indica que hubo un error en la
+operación ping-pong.
 
-\keyword{Vigencia (16 bits)} -- Tiempo de vigencia, en milisegundos, restante
-del último mensaje PONG recibido.
+\keyword{Vértice ping (16 bits)} -- Vértice de origen de la operación
+ping-pong.
 
-\keyword{Vértice 1 (16 bits)} -- Vértice de origen del mensaje PING que
-responde.
-
-\keyword{Vértice 2 (16 bits)} -- Vértice de destino del mensaje PING que
-responde.
+\keyword{Vértice pong (16 bits)} -- Vértice de destino de la operación
+ping-pong.
 
 \keyword{Dirección IPv6 (128 bits)} -- Dirección del vehículo que originó el
 mensaje PING que responde.
