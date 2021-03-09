@@ -573,8 +573,9 @@ mensajes.
 
 \label{subsec:mensaje_anc_vehic}
 
-El formato del mensaje anuncio se muestra en la figura
-\ref{fig:formato_anc_vehic}, y contiene los siguientes campos:
+El mensaje ANC-VEHIC tiene una longitud de 40 octetos, y su formato se muestra
+en la figura \ref{fig:formato_anc_vehic}. Los campos del mensaje son los
+siguientes:
 
 \begin{figure}[th!]
 \centering
@@ -587,33 +588,35 @@ El formato del mensaje anuncio se muestra en la figura
 \keyword{Tipo (8 bits)} -- Su valor es \code{1} para indicar que se trata de un
 mensaje ANC-VEHIC.
 
-\keyword{P (1 bit)} -- Indica si el mensaje anuncia el resultado de una
-operación ping-pong.
+\keyword{P (1 bit)} -- Si vale 1, indica si el mensaje anuncia el resultado de
+una operación ping-pong.
 
 \keyword{E (1 bit)} -- Si vale 1, indica que hubo un error en la operación
 ping-pong, lo que significa que la arista que se anuncia está inactiva.
-Únicamente se considera si la bandera \keyword{P} vale 1.
-
-\keyword{V (1 bit)} -- Si vale 0, el campo \keyword{vértice 1} indica el
-vértice donde se inició la operación ping-pong. Si vale 1, se trata del campo
-\keyword{vértice 2}. Únicamente se considera si la bandera \keyword{P} vale 1.
+Únicamente es válido si la bandera \keyword{P} vale 1.
 
 \keyword{Dirección (16 bits)} -- Ángulo acimutal de la dirección del movimiento
 del vehículo en grados.
 
 \keyword{Velocidad (16 bits)} -- Velocidad del vehículo en m/s.
 
-\keyword{Vértice 1 (16 bits)} -- Vértice 1 de la arista por la que
-circula el vehículo. Es el vértice hacia el que se dirige el vehículo.
-
-\keyword{Vértice 2 (16 bits)} -- Vértice 2 de la arista por la que
+\keyword{Vértice A (16 bits)} -- Primer vértice de la arista por la que
 circula el vehículo.
 
-\keyword{Distancia 1 (16 bits)} -- Valor entero de la distancia en metros del
-vehículo al vértice 1.
+\keyword{Vértice B (16 bits)} -- Segundo vértice de la arista por la que
+circula el vehículo.
 
-\keyword{Dirección IPv6 (128 bits)} -- Dirección del vehículo que emite el
-mensaje.
+\keyword{Distancia A (16 bits)} -- Distancia en metros del vehículo al vértice
+A.
+
+\keyword{Vértice ping} -- Vértice de origen de la operación ping-pong.
+Únicamente es válido si la bandera \keyword{P} vale 1.
+
+\keyword{Vértice pong} -- Vértice de destino de la operación ping-pong.
+Únicamente es válido si la bandera \keyword{P} vale 1.
+
+\keyword{Dirección IPv6 (128 bits)} -- Dirección IPv6 del vehículo que
+transmite el mensaje.
 
 \keyword{Ubicación Geohash (64 bits)} -- Ubicación Geohash de longitud 12 al
 momento de emitir el mensaje.
