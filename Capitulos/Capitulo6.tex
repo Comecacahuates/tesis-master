@@ -1,49 +1,40 @@
-﻿%-----------------------------------
+﻿\chapter{Protocolo de enrutamiento}
+%-----------------------------------
 %   PROTOCOLO DE ENRUTAMIENTO
 %-----------------------------------
-\chapter{Protocolo de enrutamiento}
-
 \label{ch:protocolo_de_enrutamiento}
 
-El protocolo de enrutamiento propuesto permite que dispositivos móviles puedan
-comunicarse entre sí mediante el servicio de red proporcionado por la VANET.
-Existen dos tipos de dispositivos que forman parte de la red. Los
-\textit{hosts} son los dispositivos que ejecutan las aplicaicones que requieren
-enviar información a otros. Los vehículos son los que se encargan de realizar
-el enrutamiento de paquetes de un \textit{host} a otro.
+Para que un enrutador pueda decidir hacia dónde retransmitir un paquete,
+necesariamente debe tener información sobre sus vecinos. Por esta razón, todos
+los protocolos de enrutamiento definen mensajes que los enrutadores transmiten
+para intercambiar información entre ellos que les permita tomar estas
+decidiones.
 
-Una vez que los vehículos tienen asignada una dirección IP, pueden comunicarse
-entre sí a través de la red. Cuando un vehículo recibe un paquete, necesita
-consultar su tabla de enrutamiento para saber hacia dónde lo debe retransmitir
-para que llegue a su destino, como se menciona en la sección
-\ref{sec:tablas_de_enrutamiento}. Sin embargo, se necesita un protocolo de
-enrutamiento que se encargue de llenar la tabla.
+En el protocolo propuesto, cada vehículo y \textit{host}, una vez que tiene
+cofngiurada su dirección IPv6, transmite mensajes para anunciar su presencia y
+su ubicación ante los vecinos. De este modo, cuando un \textit{host} necesita
+enviar un paquete a otro, puede seleccionar un vehículo vecino para que este se
+encargue de enrutarlo. Del mismo modo, un vehículo que tenga que enrutar un
+paquete, puede seleccionar el siguiente salto en la ruta.
 
-Los vehículos tienen que compartir mensajes entre ellos con información que les
-ayude a determinar hacia dónde tiene que enviar cada paquete de información. El
-protocolo propuesto es basado en la posición, por lo que cada vehículo debe
-compartir información, entre otras cosas, sobre su ubicación.
+En este capítulo, se decriben los tipos de mensajes que comparten los vehículos
+y \textit{hosts}, y cómo se utilizan, junto con la información de la topología
+vial, para realizar el enrutamiento de paquetes. 
 
-En este capítulo, se describe el funcionamiento del protocolo de enrutamiento
-propuesto, es decir, cómo se determinan las rutas y los tipos de mensajes que
-los vehículos se compartirán, además de cómo deben procesar estos mensajes para
-llenar las tablas de enrutamiento.
-
+\section{Criterios generales de retransmisión de paquetes}
 %-----------------------------------
 %   CRITERIOS GENERALES DE RETRANSMISIÓN DE PAQUETES
 %-----------------------------------
-\section{Criterios generales de retransmisión de paquetes}
-
 \label{sec:criterios_generales_retransmision_paquetes}
 
 Los protocolos basados en la posición, como se mencionó en la sección
 \ref{sec:enrutamiento_basado_en_la_posicion}, consideran la ubicación de los
-dispositivos para hacer decisiones sobre el enrutamiento. Por ejemplo, en el
+dispositivos para tomar decisiones sobre el enrutamiento. Por ejemplo, en el
 protocolo GPSR, discutido en la sección \ref{subsubsec:retransmision_voraz},
 cada nodo únicamente considera su ubicación, la del destinatario y las de los
 vecinos, y selecciona el más cercano al destino. Sin embargo, en un ambiente
-urbano es frecuente que existan obstáculos, principalmente edificios, que
-bloqueen las transmisiones. Este tipo de transmisiones se conocen como
+urbano es frecuente que existan obstáculos (principalmente edificios) que
+pueden bloquear las transmisiones. Este tipo de transmisiones se conocen como
 transmisiones sin \textbf{línea de visión}. La figura
 \ref{fig:transmision_sin_linea_de_vision} muestra una transmisión en la que un
 edificio se encuentra entre los vehículos A y B.
@@ -56,21 +47,22 @@ edificio se encuentra entre los vehículos A y B.
 \label{fig:transmision_sin_linea_de_vision}
 \end{figure}
 
-Una transmisión sin línea de visión tiene más probabilidad de resultar en un
-paquete perdido. Cuando un paquete se pierde, en la mayoría de los casos, debe
-ser retransmitido. La pérdida de paquetes se debe evitar, ya que, mientras más
-paquetes se pierdan y deban ser retransmitidos, el canal de comunicación tiende
-a usarse más para retransmitir paquetes perdidos y no para transmitir paquetes
-nuevos.
+Una transmisión sin línea de visión tiene más probabilidad de terminar como un
+paquete perdido, y cuando un paquete se pierde, en la mayoría de los casos, debe
+ser retransmitido. Si se pierden paquetes frecuentemente, la capacidad del canal
+de comunicación comienza a utilizarse más para retransmitir paquetes perdidos en
+vez de paquetes nuevos, y, como el canal inalámbrico es compartido por todos los
+dispositivos, se generan cuellos de botella que causan pérdidas de paquetes en
+las colas de paquetes de los enrutadores \cite{Kurose2013}.
 
-Para reducir la pérdida de paquetes, el protocolo prupuesto busca que las
-transmisiones entre los vehículos tengan línea de visión. Por ejemplo, en la
-figura \ref{fig:transmision_misma_calle}, el vehículo A tiene un paquete cuya
-ruta demanda que pase por el vehículo C. Para esto, hay dos opciones para
-seleccionar el siguiente salto: el vehículo B y el vehículo C. Si se selecciona
-directamente el vehículo C, la transmisión encontraría un edificio en el
-camino. Por esto, se selecciona el vehículo B, que circula sobre la misma
-calle, como siguiente salto, y este retransmite el paquete al vehículo C.
+Para reducir la pérdida de paquetes, el protocolo prupuesto busca que la mayoría
+de las transmisiones entre los vehículos tengan línea de visión. Por ejemplo, en
+la figura \ref{fig:transmision_misma_calle}, el vehículo A tiene un paquete cuya
+ruta requiere que pase por C. Para esto, hay dos opciones para seleccionar el
+siguiente salto: el vehículo B o directamente el vehículo C. Si se selecciona
+C, la transmisión encontraría un edificio en el camino. Por otro lado, como A y
+B tienen línea de visión, se seleccionaría B como siguiente salto, y después
+este seleccionaría a C como siguiente salto.
 
 \begin{figure}[th]
 \centering
@@ -80,13 +72,14 @@ calle, como siguiente salto, y este retransmite el paquete al vehículo C.
 \label{fig:transmision_misma_calle}
 \end{figure}
 
-Para lograr esto, cada vehículo debe poder saber qué vehículos se encuentran
-circulando sobre su misma calle. Se puede considerar que, de cierta forma, los
-paquetes recorren las calles a través de los vehículos. En la figura
-\ref{fig:paquete_recorre_calle_1}, se muestra un paquete que es retransmitido
-entre varios vehículos. En la figura \ref{fig:paquete_recorre_calle_2}, se
-muestra el mismo escenario, pero se interpreta como el paquete recorriendo las
-calles para moverse de un cruce vial a otro.
+En la figura\ref{fig:paquete_recorre_calle_1}, se muestra un paquete que es
+retransmitido entre varios vehículos a lo largo de una ruta. En la figura
+\ref{fig:paquete_recorre_calle_2}, se muestra el mismo escenario, pero a un
+nivel de abstracción más alto, en el que se considera que el paquete recorre las
+calles mediante las retransmisiones entre vehículos. Para lograr que los
+vehículos retransmitan los paquetes de esta manera, cada vehículo debe conocer
+la topología vial de la región Geohash donde se encuentra, y saber en qué calles
+circulan sus vecinos.
 
 \begin{figure}[th]
 \centering
@@ -105,110 +98,88 @@ retransmitido entre vehículos.}
 \label{fig:paquete_recorre_calle_2}
 \end{figure}
 
-Cuando un paquete llega al final de un segmento de calle y se encuentra en un
-cruce vial, el vehículo portador debe determinar hacia qué calle debe seguir el
-paquete para llegar a su destino, y seleccionar un vehículo que circule sobre
-esa calle. En la figura \ref{fig:decision_cruce}, el vehículo B recibe un
-paquete del vehículo A, y puede elegir entre tres calles para retransmitir el
-paquete.
-
-\begin{figure}[th!]
-\centering
-\includegraphics{decision_cruce}
-\decoRule
-\caption[Decisión de enrutamiento en cruce vial]{Decisión de enrutamiento en
-cruce vial.}
-\label{fig:decision_cruce}
-\end{figure}
-
-Para tomar este tipo de decisiones, se necesita que cada vehículo cuente con
-información sobre la topología vial que le ayude a determinar cuál es la mejor
-ruta. A continuación, se presenta cómo se estructura esta información y cómo se
-utiliza durante el proceso de enrutamiento.
-
+\section{Base de datos de redes viales}
 %-----------------------------------
-%   GRAFO VIAL
+%   BASE DE DATOS DE REDES VIALES
 %-----------------------------------
-\section{Grafo vial}
+\label{sec:base_de_datos_deredes_viales}
 
-\label{sec:grafo_vial}
-
-En el protocolo propuesto, hay dos maneras de analizar el enrutamiento:
-enrutamiento de red y enrutamiento vial. En el \keyword{enrutamiento de red},
-se consideran los vehículos que conforman la ruta desde el origen hasta el
-destino, y forman una \keyword{ruta de red}. En el \keyword{enrutamiento vial},
-se consideran las calles que recorre un paquete para llegar a su destino, que
-componen una \keyword{ruta vial}.
-
-Para determinar una ruta vial, se define un grafo que represente la topología
-vial para cada subred Geohash, denominado \keyword{grafo vial}, o \keyword{red
-vial}. Se trata de un grafo no dirigido $\mathbf{G}=(\mathbf{V},\mathbf{E})$,
-en el que $\mathbf{V}$ es el conjunto de vértices, que representan los cruces
-viales, y $\mathbf{E}$ es el conjunto de aristas, que representan los segmentos
-de las calles. La figura \ref{fig:grafo_vial_1} muestra el mapa de una región
-Geohash, y su correspondiente grafo vial se muestra en la figura
-\ref{fig:grafo_vial_2}.
+Una \textbf{red vial} es un grafo que representa una aproximación de la
+topología vial de una región Geohash. Se trata de un grafo no dirigido
+$\mathbf{G}=(\mathbf{V},\mathbf{E})$ en el que $\mathbf{V}$ es el conjunto de
+vértices (cuya ubicación es conocida), que representan los cruces viales, y
+$\mathbf{E}$ es el conjunto de aristas, que representan los segmentos de las
+calles. La figura \ref{fig:red_vial_1} muestra el mapa de una región Geohash, y
+su correspondiente grafo vial se muestra en la figura \ref{fig:red_vial_2}.
 
 \begin{figure}[th!]
 \centering
 \includegraphics{grafo_vial_1} 
 \decoRule
 \caption[Región Geohash 9g3qxs]{Región Geohash 9g3qxs.}
-\label{fig:grafo_vial_1}
+\label{fig:red_vial_1}
 \end{figure}
 
 \begin{figure}[th!]
 \centering
 \includegraphics{grafo_vial_2} 
 \decoRule
-\caption[Grafo vial de la región Geohash 9g3qxs]{Grafo vial de la región
+\caption[Red vial de la región Geohash 9g3qxs]{Red vial de la región
 Geohash 9g3qxs.}
-\label{fig:grafo_vial_2}
+\label{fig:red_vial_2}
 \end{figure}
 
-Un grafo vial no pretende ser una representación fiel de la topología vial,
-sino que se usa para determinar una ruta vial. Cada arista representa todos los
-carriles que corresponden al segmento de calle que representa. Por otro lado,
-cada vértice representa una ubicación en la que un vehículo puede transmitir
-con posible línea de visión un paquete hacia los segmentos de calles que ahí
-insiden. Por esta razón, los vértices son los puntos en los que los vehículos
-toman decisiones de enrutamiento importantes.
+Debido a que los vehículos están constantemente en movimiento, si se lograra
+determinar una ruta que especifique por qué vehículos debe pasar un paquete para
+llegar a su destino, esta tendría un tiempo de validez muy corto, ya que
+probablemente algunos de los enlaces entre estos vehículos se romperían al poco
+tiempo. En su lugar, se utilizan las redes viales para determinar las rutas, ya
+que estas no cambian. Estas rutas indican las calles por las que debe pasar un
+paquete para llegar a su destino, y se denominan \textbf{rutas viales}.
 
-En la sección \ref{sec:cambio_subred}, se usó el concepto de región
-\textit{gateway} para explicar cómo un vehículo se autocofigura para unirse a
-la subred adyacente y compartir paquetes entre ambas subredes. Sin emabargo, en
-la realidad se utilizan los vértices del borde de un grafo vial para realizar
-esta función, por lo que se denominan \keyword{vértices \textit{gateway}}, y se
-muestran como cuadrados en la figura \ref{fig:grafo_vial_2}. De manera
-similar, las aristas que tienen un vértice \textit{gateway} se denominan
-\keyword{aristas \textit{gateway}}. Cuando un vehículo circula por una arista
-\textit{gateway}, este asume que entró a la región \textit{gateway}, y realiza
-el procedimiento descrito en la sección \ref{sec:cambio_subred}.
+Una red vial no pretende ser una representación fiel de la infraestructura vial
+física, sino que se usa como guía para determinar una ruta vial. Cada arista
+representa todos los carriles que corresponden al segmento de calle que
+representa, y cada vértice representa una ubicación en la que un vehículo puede
+hacer una transmisión son posible línea de visión, no exclusivamente los cruces
+viales.
 
+Los vértices que se encuentran en el borde de una región, se muestran como
+cuadrados en la figura \ref{fig:red_vial_2}. Estos se denominan \textbf{vértices
+\textit{gateway}}, y son los que conectan las redes viales de dos regiones
+adyacentes. De manera similar, las aristas que tienen un vértice
+\textit{gateway} se denominan aristas \textit{gateway}. Con esto, el concepto
+de región \textit{gateway} introducido en la sección \ref{sec:cambio_subred} se
+redefine de la siguiente manera: un vehículo está en una región \textit{gateway}
+si se encuentra en una arista \textit{gateway}.
+
+Si un vehículo no conoce la red vial, es incapaz de calcular rutas viales. Es
+por esto que cada vehículo debe contar \textit{a priori} con una \textbf{base de
+datos de redes viales}, donde pueda consultar las redes viales de diferentes
+regiones Geohash. Si un vehículo no conoce la red vial de una región, no puede
+participar en el enrutamiento.
+
+\section{Enrutamiento vial}
 %-----------------------------------
 %   ENRUTAMIENTO VIAL
 %-----------------------------------
-\section{Enrutamiento vial}
-
 \label{sec:enrutamiento_vial}
 
-Una \keyword{ruta vial} indica qué calles recorre un paquete para llegar a su
-destino, y los vehículos que permiten que un paquete siga una ruta vial forman
-una \keyword{ruta de red}. Debido a que los vehículos están en constante
-movimiento, dos paquetes que sigan la misma ruta vial no necesariamente
-seguirán la misma ruta de red.
+Una ruta vial es una secuencia de aristas que une dos vértices dentro de una
+misma red vial, y es independiente de la ubicación de los \textit{hosts} de
+origen y destino. Por esta razón, no basta con conocer la ubicación del
+\textit{host} de destino, sino que se necesita determinar un vértice de origen
+y un vértice de destino para calcular una ruta vial. El vértice de destino de la
+ruta se denomina \textbf{vértice de destino local}, ya que es el último vértice
+por el que el paquete debe pasar para poder llegar al \textit{host} de destino.
 
-Cuando el remitente y el destinatario se encuentran dentro de la misma región
-Geohash, y, por lo tanto, pertenecen a la misma subred, se lleva a cabo lo que
-se denomina \keyword{enrutamiento intrarregión}. En este caso, únicamente se
-necesita conocer las calles que el paquete debe recorrer, que forman una
-\keyword{ruta intrarregión}. Esto se traduce a determinar una ruta entre dos
-vértices del grafo vial.
-
-En la figura \ref{fig:enrutamiento_intrarregion}, un paquete debe llegar del
-vehículo $V_1$ al vehículo $V_2$. Una ruta intrarregión que le permite al
-paquete llegar al vehículo $V_2$ se muestra en la figura, y se forma por la
-seuencia de vértices $h \rightarrow g \rightarrow f \rightarrow j$.
+Cuando un paquete está en la misma subred que su \textit{host} de destino, el
+vértice de destino local es uno de los dos vértices de la arista en la que se
+encuentra este \textit{host}. En la figura \ref{fig:enrutamiento_intrarregion},
+el vehículo $V$ debe enrutar un paquete hacia el \textit{host} $D$, que se
+encuentra en la misma subred. En este caso, se determina que el vértice de
+destino local es $j$, y la ruta hacia este es $h \rightarrow g \rightarrow f
+\rightarrow j$. Esta ruta se denomina \textbf{ruta intrarregión}.
 
 \begin{figure}[th!]
 \centering
@@ -218,19 +189,13 @@ seuencia de vértices $h \rightarrow g \rightarrow f \rightarrow j$.
 \label{fig:enrutamiento_intrarregion}
 \end{figure}
 
-Cuando el remitente y el destinatario se encuentran en regiones Geohash
-diferentes, se debe realizar lo que se llama \textbf{enrutamiento interregión}.
-Este consiste en determinar de qué subred a qué subred debe viajar un paquete
-para llegar a la subred donde se encuentra el destino, lo que se denomina
-\textbf{ruta interregión}. Cuando un paquete entra a una subred a través de un
-vértice \textit{gateway}, se determina una ruta intrarregión que le permita
-llegar a un vértice \textit{gateway} por el que pueda llegar a la siguiente
-subred.
-
-La figura \ref{fig:enrutamiento_interregion} muestra una ruta interregión que
-indica por qué subredes debe pasar un paquete para llegar del vehículo $V_1$
-al vehículo $V_2$. La ruta interregión se forma por las subredes 9g3qxm
-$\rightarrow$ 9g3qxt $\rightarrow$ 9g3qxs $\rightarrow$ 9g3qxu.
+Cuando un paquete se encuentra en una subred diferente a la subred en la que se
+enuentra su \textit{host} de destino, este tiene que pasar por varias subredes
+hasta llegar a la subred en la que se encuentra su destino. En la figura
+\ref{fig:enrutamiento_interregion} el \textit{host} $S$ le tiene que enviar un
+paquete al \textit{host} $D$, por lo que este tiene que pasar por las subredes
+9g3qxu $\rightarrow$ 9g3qxs $\rightarrow$ 9g3qxt $\rightarrow$ 9g3qxm. Esta se
+conoce como una \textbf{ruta intrarregión}.
 
 \begin{figure}[th!]
 \centering
@@ -240,123 +205,80 @@ $\rightarrow$ 9g3qxt $\rightarrow$ 9g3qxs $\rightarrow$ 9g3qxu.
 \label{fig:enrutamiento_interregion}
 \end{figure}
 
+Para que un paquete pueda pasar de una subred a otra, este debe llegar a un
+vértice \textit{gateway}, y ahí se retransmite hacia la siguiente subred. En
+este caso, dicho vértice \textit{gateway} es el vértice de destino local. En la
+figura \ref{fig:enrutamiento_interregion_2}, el vehículo $V$ en la subred 1
+tiene que enrutar un paquete hacia el \textit{host} $D$ en la subred 2.
+Para esto, primero se busca una ruta hacia el vértice \textit{gateway} $h$ (que
+se convierte en el vértice de destino local debido a su adyacencia con la
+subred 2) y se enruta hacia este. La ruta que se obtiene es $e
+\rightarrow j \rightarrow i \rightarrow h$. Una vez que el paquete se encuentra
+en la subred 2, se calculará un nuevo vértice de destino local cerca del
+\textit{host} $D$, y se enrutará hacia este.
+
+
+\begin{figure}[th!]
+\centering
+\includegraphics{enrutamiento_interregion_2}
+\decoRule
+\caption[Vértice de destino local en enrutamiento interregión]{Vértice de
+destino local en enrutamiento interregión.}
+\label{fig:enrutamiento_interregion_2}
+\end{figure}
+
+\section{Ubicación vial}
 %-----------------------------------
 %   UBICACIÓN VIAL
 %-----------------------------------
-\section{Ubicación vial}
-
 \label{sec:ubicacion_vial}
 
-Los vehículos pueden conocer su ubicación en coordenadas geográficas (latitud y
-longitud), así como la dirección y velocidad de su movimiento. No obstante,
-para proporcionar información más útil a sus vecinos, cada vehículo también
-necesita conocer su ubicación en el grafo vial de la subred donde se encuentra.
-La \keyword{ubicación vial} de un vehículo indica en qué arista circula y su
-distancia uno de los vértices de esta.
+Las rutas viales únicamente contienen información sobre la ubicación geográfica
+de las calles o los vehículos, sino sobre la topología vial. Es por esto que los
+vehículos necesitan conocer su ubicación respecto a la red vial y la de sus
+vecinos para poder decidir cuál será el siguiente salto en la ruta vial.
+
+Para este protocolo, se requiere que los dispositivos cuenten con un dispositivo
+de geolocalización integrado, como se comentó en el capítulo
+\ref{ch:autoconfiguracion_de_direcciones}. Cuando un vehículo obtiene su
+ubicación geográfica, necesita conocer su ubicación dentro de la red vial, que
+se conoce como \textbf{ubicación vial}.
+
+La ubicación vial indica en qué arista de la red vial se encuentra un vehículo,
+y su distancia a uno de los vértices de esta. Como la ubicación de los vértices
+es conocida, a partir de su ubicación geográfica un vehículo puede calcular su
+ubicación vial.
+
+La figura \ref{fig:ubicacion_vial} muestra la ubicación vial del vehículo $V$,
+que indica que se encuentra en la arista $<f,g>$, a una distancia $d$ del
+vértice $f$.
 
 \begin{figure}[th!]
 \centering
-\includegraphics{ubicacion_vial_1} 
+\includegraphics{ubicacion_vial} 
 \decoRule
-\caption[Vehículo en una red vial]{Vehículo en una red vial.}
-\label{fig:ubicacion_vial_1}
+\caption[Ubicación vial de un vehículo]{Ubicación vial de un vehículo.}
+\label{fig:ubicacion_vial}
 \end{figure}
 
-Las coordenadas de los vértices son conocidas, pero no se conoce el ancho de
-cada calle, sino que se representan como segmentos de recta entre pares de
-vértices. Es por esto que la ubicación del vehículo no cae exactamente sobre la
-arista, sino en un punto cercano a esta. En la figura
-\ref{fig:ubicacion_vial_1}, se muestra una red vial en la que hay un vehículo
-en el puntio $V$.
-
-\begin{figure}[th!]
-\centering
-\includegraphics{ubicacion_vial_2} 
-\decoRule
-\caption[Dominio de las aristas en una red vial]{Dominio de las aristas en una
-red vial.}
-\label{fig:ubicacion_vial_2}
-\end{figure}
-
-La ubicación de un vehículo difícilmente cae exactamente sobre la arista
-por donde circula, como se mencionó anteriormente. Por esta razón, se
-consideta una región alrededor de la arista, denominada \keyword{dominio de la
-arista}.  El dominio de una arista se delimita por dos líneas paralelas a la
-arista, una a cada lado. En la figura \ref{fig:ubicacion_vial_2} se muestra el
-dominio de cada arista, y se observa que el vehículo se encuentra dentro del
-dominio de la arista $\{f,g\}$.
-
-Si un vehículo se encuentra dentro del dominio de una arista, es posible que se
-encuentre circulando por esta. Sin embargo, esta no es la única condición que
-se debe cumplir para considerar que esto es verdad. Además de esto, la
-dirección de su velocidad debe coincidir con la dirección de la arista. Cada
-arista tiene dos direcciones, llamadas \keyword{direcciones de la arista}, como
-se muestra en la figura \ref{fig:direcciones_arista}. Cada dirección es un
-ángulo acimutal que indica hacia dónde se encuentra un vértice de la arista
-respecto al otro.
-
-\begin{figure}[th!]
-\centering
-\includegraphics{direcciones_arista}
-\decoRule
-\caption[Direcciones de una arista]{Direcciones de una arista.}
-\label{fig:direcciones_arista}
-\end{figure}
-
-Ya que cada vehículo es capaz de conocer la dirección de su movimiento, y las
-direcciones de cada arista debido a que conoce la posición de sus vértices, se
-puede determinar si estas coinciden. En la figura \ref{fig:ubicacion_vial_3} se
-muestra que el vehículo se mueve en la misma dirección que la dirección del
-vértice $g$ respecto al vértice $f$, y se encuentra dentro del dominio de la
-arista $\{f,g\}$, por lo que se considera que está circulando sobre esa arista.
-
-\begin{figure}[th!]
-\centering
-\includegraphics{ubicacion_vial_3} 
-\decoRule
-\caption[Dirección del movimiento de un vehículo en una red vial]{Dirección del
-movimiento de un vehículo en una red vial.}
-\label{fig:ubicacion_vial_3}
-\end{figure}
-
-Además de conocer en qué arista se encuentra circulando un vehículo, se
-necesita saber en qué posición se encuentra circulando en dicha arista. Para
-esto, se obtiene la proyección de la ubicación del vehículo en la arista y se
-calcula su distancia a uno de los dos vértices, como se muestra en la figura
-\ref{fig:ubicacion_vial_4}, donde se muestra la distancia al vértice $f$.
-
-\begin{figure}[th!]
-\centering
-\includegraphics{ubicacion_vial_4} 
-\decoRule
-\caption[Posición de un vehículo en una red vial]{Posición de un vehículo en
-una arista.}
-\label{fig:ubicacion_vial_4}
-\end{figure}
-
-La ubicación vial de un vehículo consiste en los dos vértices de la arista
-por la que circula y su posición en esta arista, es decir la distancia de su
-proyección en la arista al primer vértice. Además, si su distancia a alguno de
-los dos vértices de la arista es menor a un límite, cuyo valor se define por el
-parámero RADIO\_CERCANIA\_VERTICE, se considera que \keyword{el vehículo se
-encuentra en el vértice}.
-
+\section{Cabecera de opciones de salto por salto}
 %-----------------------------------
 %   CABECERAS DE OPCIONDES DE SALTO POR SALTO
 %-----------------------------------
-\section{Cabecera de opciones de salto por salto}
-
 \label{sec:cabecera_opciones}
 
-Los paquetes deben incluir información que permita a los vehículos tomar
-decisiones de enrutamiento. Las cabeceras de extensión sirven para incluir
-información opcional adicional en un datagrama. La función de la
-\keyword{cabecera de opciones de salto por salto} es contener información que
-toods los enrutadores (vehículos en este caso) puedan revisar. Por esta razón,
-esta cabecera se usa para incluir la información de enrutamiento en el paquete.
-La figura \ref{fig:formato_datagrama_ipv6_cabecera} muestra la estructura del
-datagrama IPv6 con la cabecera de opciones de salto por salto, y el formato de
-esta cabecera se muestra en la figura
+Los paquetes a enrutar deben incluir información que permita a los vehículos
+decidir hacia dónde deben ser retransmitidos. Para esto, en el protocolo IPv6 se
+especificanalgunos tipos de cabeceras llamadas cabeceras de extensión, que
+sirven justamente para agregar información adicional a los datagramas. La
+\keyword{cabecera de opciones de salto por salto} es una cabecera de extensión
+cuya función es contener información que cada enrutador (vehículo en este caso)
+que reciba el datagrama pueda revisar y modificar.Por esta razón, se usa esta
+cabecera para incluir la información de enrutamiento en los paquetes.
+
+La figura \ref{fig:formato_datagrama_ipv6_cabecera} muestra la estructura de un
+datagrama IPv6 con la cabecera de opciones de salto por salto. El formato de
+esta cabecera de extensión se muestra en la figura
 \ref{fig:formato_cabecera_salto_por_salto} \cite{RFC2460}.
 
 \begin{figure}[th!]
@@ -412,11 +334,13 @@ En el tipo de opción, los dos primeros bits indican qué hacer si la opción no
 es reconocida, y el tercer bit indica si el valor del dato puede cambiar o no a
 lo largo de la ruta.
 
+A continuación, se describen las opciones que incluye la cabecera de opciones de
+salto por salto de los datagramas que los vehículos deben enrutar.
+
+\subsection{Opción de ubicación del destino}
 %-----------------------------------
 %   OPCIÓN DE UBICACIÓN DEL DESTINO
 %-----------------------------------
-\subsection{Opción de ubicación del destino}
-
 \label{subsec:opcion_de_ubicacion_del_destino}
 
 Para poder enrutar un paquete, el \textit{host} que lo origina agrega la
@@ -444,11 +368,10 @@ de la ruta.
 \keyword{Ubicación Geohash (64 bits)} -- Ubicación Geohash de longitud 12 del
 \textit{host} de destino.
 
+\subsection{Opción de ubicación vial del destino}
 %-----------------------------------
 %   OPCIÓN DE UBICACIÓN VIAL DEL DESTINO
 %-----------------------------------
-\subsection{Opción de ubicación vial del destino}
-
 \label{subsec:opcion_de_ubicacion_vial_del_destino}
 
 Cuando un vehículo recibe un paquete, puede revisar la opción de ubicación del
@@ -488,20 +411,19 @@ destino.
 vértice 1.
 
 Si un el destino un paquete se encuentra en una subred diferente a la subred en
-la que se encuentra, no necesita llevar esta opción, ya que primero se debe
-enrutar entre las subredes hasta llegar a la correspondiente. El primer
-vehículo que recibe el paquete y se encuentra en la misma subred que el destino
-se encarga de agregar esta opción.
+la que este se encuentra, no necesita llevar esta opción, ya que primero debe
+llegar a la subred correspondiente. El primer vehículo que recibe el paquete y
+se encuentra en la misma subred que el \textit{host} de destino, se encarga de
+agregar esta opción.
 
+\subsection{Opción de vértices visitados}
 %-----------------------------------
 %   OPCIÓN DE VÉRTICES VISITADOS
 %-----------------------------------
-\subsection{Opción de vértices visitados}
-
 \label{subsec:opcion_de_vertices_visitados}
 
 Para evitar que un paquete pase más de una vez por el mismo vértice, debe
-llevar un registro de los vértices por los que ha pasado. Estos se indican en
+llevar un registro de los vértices por los que ya ha pasado. Estos se indican en
 la \keyword{opción de vértices visitados}. El formato de esta opción se indica
 en la figura \ref{fig:formato_opcion_vertices_visitados}, y contiene los
 siguientes campos:
@@ -528,74 +450,68 @@ La opción de vértices visitados sólo es válida dentro de una subred. Cuando 
 paquete pasa de una subred a otra, se elimina la opción de vértices visitados
 de la cabecera y se agrega una nueva para los vértices de la siguiente subred.
 
+\subsection{Verificación de la cabecera de opciones de salto por salto}
+%-----------------------------------
+%   VERIFICACIÓN DE LA CABECERA DE OPCIONES DE SALTO POR SALTO
+%-----------------------------------
+\label{subsec:verificacion_cabecera_opciones_salto_por_salto}
+
+Para que un paquete pueda ser enrutado, lo mínimo que debe contener en su
+cabecra de opciones de salto por salto es la opción de ubicación del destino, y
+es responsabilidad del \textit{host} que emite el paquete garantizar que esta
+opción esté presente. Si el paquete no contiene esta información, no hay manera
+de saber hacia dónde se debe enrutar.
+
+Si un vehículo recibe un paquete, primero verifica que tenga la opción de
+ubicación del destino. De ser así, después se verifica si la ubicación del
+destino está en su misma región. En este caso, si el paquete no contiene la
+opción de ubicación vial del destino, esta se calcula y se agrega a la cabecera
+de opciones de salto por salto. Esta opción únicamente es necesaria cuando un
+paquete se encuentra en la misma región que su destino.
+
+Después, se verifica si el paquete incluye la opción de vértices visitados. Si
+no es así, significa que el vehículo recibió el paquete directamente del
+\textit{host} que lo emite, o que acaba de entrar a una nueva subred, por lo que
+la opción los vértices visitados anterior no es válida para la nueva red vial,
+por lo que se eliminó esta opción. En este caso, se agrega una nueva opción de
+vértices visitados vacía al paquete.
+
+\section{Mensajes de enrutamiento}
 %-----------------------------------
 %   FORMATO DE LOS MENSAJES
 %-----------------------------------
-\section{Formato de los mensajes}
+\label{sec:mensajes_de_enrutamiento}
 
-\label{sec:formato_mensajes}
+Como se mencionó anteriormente, los vehículos y \textit{hosts} necesitan
+compartir entre sí información que les permita saber cuáles son sus vecinos y
+dónde se encuentran, para así poder elegir el siguiente salto en luna ruta. A
+continuación, se describe el formato de estos mensajes.
 
-Los tipos de mensajes que define el protocolo propuesto son
-anuncio-\textit{host} (ANC-HOST), anuncio-vehículo (ANC-VEHIC),
-\textit{ping}-vértice (PING), \textit{pong}-vértice (PONG) Estos mensajes se
-transmiten mediante el protocolo UDP, y no requieren ningún tipo de
-procesamiento especificado en alguna cabecera IPv6.
-
-Los vehículos anuncian su presencia y su ubicación ante sus vecinos mediante la
-transmisión de mensajes ANC-VEHIC periódicamente. De este modo, los vecinos
-pueden saber que sigue activo un enlace o no. Si pasa cierta cantidad de
-tiempo desde la última vez que se recibió un mensaje ANC-VEHIC de un vehículo,
-se asume que el enlace se perdió.
-
-Los mensajes ANC-HOST son transmitidos por los \textit{hosts} para anunciar su
-presencia ante los vehículos vecinos. Cuando un vehículo debe entregar un
-paquete a un \textit{host}, y éste recibió recientemente un mensaje ANC-HOST de
-dicho \textit{host}, le puede transmitir el paquete directamente en lugar de
-enrutarlo hacia otro vehículo.
-
-Cuando se encuentra una ruta vial, no se garantiza que a lo largo de toda la
-ruta haya vehículos por los que pueda pasar el paquete desde el inicio hasta el
-final de esta. Para saber si un paquete puede atravesar una arista, se lleva a
-cabo una operación denominada \keyword{ping-pong}. Esta consiste en transmitir
-un mensaje PING desde un vértice de una arista hasta el otro, y esperar un
-mensaje PONG de respuesta. Así, se puede saber si los paquetes pueden atravesar
-la arista.
-
-A continuación, se describe el formato de cada uno de estos tipos de mensajes.
-
+\subsection{Hola-vehículo (HOLA-VEHIC)}
 %-----------------------------------
-%   MENSAJE ANUNCIO-VEHÍCULO
+%   MENSAJE HOLA-VEHÍCULO
 %-----------------------------------
-\subsection{Anuncio-vehículo (ANC-VEHIC)}
+\label{subsec:mensaje_hola_vehic}
 
-\label{subsec:mensaje_anc_vehic}
-
-El mensaje ANC-VEHIC tiene una longitud de 40 octetos, y su formato se muestra
-en la figura \ref{fig:formato_anc_vehic}. Los campos del mensaje son los
-siguientes:
+El mensaje HOLA-VEHIC contiene la ubicación geográfica y la ubicación vial de un
+vehículo, y tiene una longitud de 40 octetos. Su formato se muestra en la figura
+\ref{fig:formato_hola_vehic}. Los campos del mensaje son los siguientes:
 
 \begin{figure}[th!]
 \centering
-\includegraphics{formato_anc_vehic}
+\includegraphics{formato_hola_vehic}
 \decoRule
-\caption[Formato del mensaje ANC-VEHIC]{Formato del mensaje ANC-VEHIC.}
-\label{fig:formato_anc_vehic}
+\caption[Formato del mensaje HOLA-VEHIC]{Formato del mensaje HOLA-VEHIC.}
+\label{fig:formato_hola_vehic}
 \end{figure}
 
 \keyword{Tipo (8 bits)} -- Su valor es \code{1} para indicar que se trata de un
-mensaje ANC-VEHIC.
+mensaje HOLA-VEHIC.
 
-\keyword{P (1 bit)} -- Si vale 1, indica si el mensaje anuncia el resultado de
-una operación ping-pong.
-
-\keyword{E (1 bit)} -- Si vale 1, indica que hubo un error en la operación
-ping-pong, lo que significa que la arista que se anuncia está inactiva.
-Únicamente es válido si la bandera \keyword{P} vale 1.
+\keyword{Velocidad (16 bits)} -- Velocidad del vehículo en m/s.
 
 \keyword{Dirección (16 bits)} -- Ángulo acimutal de la dirección del movimiento
 del vehículo en grados.
-
-\keyword{Velocidad (16 bits)} -- Velocidad del vehículo en m/s.
 
 \keyword{Vértice A (16 bits)} -- Primer vértice de la arista por la que
 circula el vehículo.
@@ -606,39 +522,32 @@ circula el vehículo.
 \keyword{Distancia A (16 bits)} -- Distancia en metros del vehículo al vértice
 A.
 
-\keyword{Vértice ping} -- Vértice de origen de la operación ping-pong.
-Únicamente es válido si la bandera \keyword{P} vale 1.
-
-\keyword{Vértice pong} -- Vértice de destino de la operación ping-pong.
-Únicamente es válido si la bandera \keyword{P} vale 1.
-
 \keyword{Dirección IPv6 (128 bits)} -- Dirección IPv6 del vehículo que
 transmite el mensaje.
 
 \keyword{Ubicación Geohash (64 bits)} -- Ubicación Geohash de longitud 12 del
 vehículo al momento de transmitir el mensaje.
 
+\subsection{Hola-\textit{host} (HOLA-HOST)}
 %-----------------------------------
-%   MENSAJE ANUNCIO-HOST
+%   MENSAJE HOLA-HOST
 %-----------------------------------
-\subsection{Anuncio-\textit{host} (ANC-HOST)}
+\label{subsec:mensaje_hola_host}
 
-\label{subsec:mensaje_anuncio_host}
-
-El mensaje ANC-HOST tiene una longitud de 28 octetos, y su formato se muestra
-en la figura \ref{fig:formato_anc_host}. Los campos del mensaje son los
-siguientes:
+El mensaje HOLA-HOST contiene la ubicación geográfica de un \textit{host}, y
+tiene una longitud de 28 octetos. Su formato se muestra en la figura
+\ref{fig:formato_hola_host}. Los campos del mensaje son los siguientes:
 
 \begin{figure}[th!]
 \centering
-\includegraphics{formato_anc_host}
+\includegraphics{formato_hola_host}
 \decoRule
-\caption[Formato del mensaje ANC-HOST]{Formato del mensaje ANC-HOST.}
-\label{fig:formato_anc_host}
+\caption[Formato del mensaje HOLA-HOST]{Formato del mensaje HOLA-HOST.}
+\label{fig:formato_hola_host}
 \end{figure}
 
 \keyword{Tipo (8 bits)} -- Su valor es \code{2} para indicar que se trata de un
-mensaje ANC-HOST.
+mensaje HOLA-HOST.
 
 \keyword{Dirección IPv6 (128 bits)} -- Dirección del \textit{host} que emite el
 mensaje.
@@ -646,90 +555,40 @@ mensaje.
 \keyword{Ubicación Geohash (65 bits)} -- Ubicación Geohash del \textit{host} al
 momento de transmitir el mensaje.
 
-%-----------------------------------
-%   MENSAJE PING
-%-----------------------------------
-\subsection{Ping (PING)}
-
-\label{subsec:mensaje_ping}
-
-El mensaje PING tiene una longitud de 24 octetos, y su formato se muestra en la
-figura \ref{fig:formato_ping}. Los campos del mensaje son los siguientes:
-
-\begin{figure}[th!]
-\centering
-\includegraphics{formato_ping}
-\decoRule
-\caption[Formato del mensaje PING]{Formato del mensaje PING.}
-\label{fig:formato_ping}
-\end{figure}
-
-\keyword{Tipo (8 bits)} -- Su valor es \code{3} para indicar que se trata de un
-mensaje PING.
-
-\keyword{Vértice ping (16 bits)} -- Vértice de origen de la operación
-ping-pong.
-
-\keyword{Vértice ping (16 bits)} -- Vértice de destino de la operación
-ping-pong.
-
-\keyword{Dirección IPv6 (128 bits)} -- Dirección IPv6 del vehículo que originó
-el mensaje.
-
-%-----------------------------------
-%   MENSAJE PONG
-%-----------------------------------
-\subsection{Pong (PONG)}
-
-\label{subsec:mensaje_pong}
-
-El mensaje PONG tiene una longitud de 24 octetos, y su formato se muestra en la
-figura \ref{fig:formato_pong}. Los campos del mensaje son los siguientes:
-
-\begin{figure}[th!]
-\centering
-\includegraphics{formato_pong}
-\decoRule
-\caption[Formato del mensaje PONG]{Formato del mensaje PONG.}
-\label{fig:formato_pong}
-\end{figure}
-
-\keyword{Tipo (8 bits)} -- Su valor es \code{4} para indicar que se trata de un
-mensaje PONG.
-
-\keyword{E (1 bit)} -- Si vale \code{1}, indica que hubo un error en la
-operación ping-pong.
-
-\keyword{Vértice ping (16 bits)} -- Vértice de origen de la operación
-ping-pong.
-
-\keyword{Vértice pong (16 bits)} -- Vértice de destino de la operación
-ping-pong.
-
-\keyword{Dirección IPv6 (128 bits)} -- Dirección del vehículo que originó el
-mensaje PING que responde.
-
+\section{Directorio de vehículos vecinos}
 %-----------------------------------
 %   DIRECTORIO DE VEHÍCULOS VECINOS
 %-----------------------------------
-\section{Directorio de vehículos vecinos}
-
 \label{sec:directiorio_vehiculos_vecinos}
 
 \begin{sloppypar}
-Los vehículos informan sobre su disponibilidad por medio de mensajes
-\mbox{ANC-VEHIC}, en los que se incluye información sobre su ubicación vial. La
-frecuencia con la que los vehículos transmiten estos mensajes se determina con
-el parámetro \mbox{INTERVALO\_ANC\_VEHIC}. Para que todos los vehículos puedan
-recibir estos mensaje, éste se dirige a la dirección \textit{multicast} de la
-subred.
+Para que un vehículo pueda elegir el siguiente salto para un paquete, o para
+que un \textit{host} pueda enviar un paquete, necesita saber cuáles son sus
+vehículos vecinos y la ubicación de estos. Para esto, cada vehículo transmite
+periódicamente mensajes \mbox{HOLA-VEHIC}, con los que anuncia su presencia
+ante sus vecinos, e indica su ubicación geográfica y su ubicación vial. Estos
+mensajes se transmiten a la dirección \textit{multicas} de la subred, y la
+frecuencia con la que se transmiten se define por el parámetro de configuración
+\mbox{INTERVALO\_HOLA\_VEHIC}.
 \end{sloppypar}
 
-Cada vehículo tiene un \keyword{directorio de vehículos vecinos}, que le
-permite mantener un registro de los vehículos que se encuentran cerca. Esta
-información le ayuda a determinar el siguiente salto al enrutar un paquete.
-Cada registro en el directorio de vehículos vecinos contiene los siguientes
-campos:
+\begin{sloppypar}
+Cuando un vehículo o \textit{host} recibe un mensaje \mbox{HOLA-VEHIC} de un
+vehículo vecino, se registra en el \keyword{directorio de vehículos vecinos}. De
+este modo, puede saber qué vehículos están cerca y dónde se encuentran, y así
+decidir cuál será el siguiente salto para un paquete.
+\end{sloppypar}
+
+\begin{sloppypar}
+Cada registro en el directorio se identifica con la dirección IPv6 del vehículo
+vecino, y tiene una vigencia definida por el parámetro de configuración
+\mbox{VIGENCIA\_VEHICULO\_VECINO}. Si se recibe un mensaje \mbox{HOLA-VEHIC} y
+ya existe un registro para la dirección del vehículo que lo emitió, se actualiza
+el registro. Y si el tiempo de expiración de un registro se cumple, este se
+elimina.
+\end{sloppypar}
+
+Los campos de cada registro son los siguientes:
 
 \begin{center}
 \begin{tabular}{ r l }
@@ -743,9 +602,6 @@ Dirección IP: & Tiempo de expiración \\
 & Distancia a B
 \end{tabular}
 \end{center}
-
-Cada registro se identifica con la dirección IP del vehículo, y los campos de
-cada registro son los siguientes:
 
 \keyword{Tiempo de exporación} -- Tiempo hasta el que el registro es válido.
 
@@ -766,35 +622,39 @@ circula el vehículo.
 
 \keyword{Distancia B} -- Distancia al vértice B.
 
-\begin{sloppypar}
-Cuando un vehículo recibe un mensaje ANC-VEHIC, obtiene la ubicación vial del
-vecino. Si no hay un registro con la dirección IP, se crea uno nuevo, y si ya
-existe, se actualiza el registro. El tiempo de expiración se obtiene a partir
-del valor del parámetro VIGENCIA\_VEHICULO\_VECINO, y se actualiza cada vez que
-llega un mensaje del vehículo correspondiente.
-\end{sloppypar}
-
-Si un vehículo deja de recibir mensajes ANC-VEHIC de otro, el tiempo de
-expiración del registro deja de actualizarse, y cuando se cumple este tiempo,
-se asume que el enlace hacia tal vehículo se terminó y se elimina el registro.
-
+\section{Directorio de \textit{hosts} vecinos}
 %-----------------------------------
 %   DIRECTORIO DE HOSTS VECINOS
 %-----------------------------------
-\section{Directorio de \textit{hosts} vecinos}
-
 \label{sec:directorio_hosts_vecinos}
 
-De manera similar, los \textit{hosts} que necesiten comunicarse a través de
-la VANET se anuncian ante los vehículos vecinos. Esto lo hacen enviando su
-dirección IP y su ubicación en mensajes ANC-HOST a la dirección
-\textit{multicast}. La frecuencia con la que un \textit{host} transmite estos
-mensajes se especifica con el parámetro INTERVALO\_ANC\_HOST
+\begin{sloppypar}
+Si un vehículo tiene un paquete dirigido a un \textit{host} que está a su
+alcance, debe tener una manera de saberlo, por lo que los \textit{hosts} también
+tienen que anunciar su presencia ante sus vehículos vecinos. Para esto,
+transmiten periódicamente mensajes \mbox{HOLA-HOST} indicando su ubicación
+geográfica, que también se transmiten a la dirección \textit{multicast} de la
+subred, y la frecuencia con la que se transmiten se define por el parámetro de
+configuración \mbox{INTERVALO\_HOLA\_HOST}.
+\end{sloppypar}
 
-Únicamente los vehículos pueden procesar los mensajes ANC-HOST, y tienen un
-\keyword{directorio de hosts vecinos}, donde registran los \textit{hosts} de
-los que han recibido algún mensaje ANC-VEHIC recientemente. Cada registro
-contiene los siguientes datos:
+\begin{sloppypar}
+Cuando un vehículo recibe un mensaje \mbox{HOLA-HOST} de un \textit{host}
+vecino, se registra en el \textbf{directorio de \textit{hosts} vecinos}. Así,
+podrá saber si el destino de un paquete es un \textit{host} que está a su
+alcance, y enviárselo directamente si este es el caso.
+\end{sloppypar}
+
+\begin{sloppypar}
+Cada registro del directorio se identifica con la dirección IPv6 del
+\textit{host} vecino, y tiene una vigencia definida por el parámetro de
+configuración \mbox{VIGENCIA\_HOST\_VECINO}. Si se recibe un mensaje
+\mbox{HOLA-HOST} y ya existe un registro para la dirección del \textit{host} que
+lo emitió, se actualiza el registro. Y si el tiempo de expiración de un registro
+se cumple, este se elimina.
+\end{sloppypar}
+
+Los campos de cada registro son los siguientes:
 
 \begin{center}
 \begin{tabular}{ r l }
@@ -803,182 +663,87 @@ Dirección IP: & Tiempo de expiración \\
 \end{tabular}
 \end{center}
 
-Los campos de cada registro del directorio son los siguientes:
-
 \keyword{Tiempo de exporación} -- Tiempo hasta el que el registro es válido.
 
 \keyword{Ubicación} -- Ubicación del \textit{host}.
 
-Al igual que en el directorio de vehículos vecinos, cada registro tiene un
-tiempo de validez, que se define con el parámetro VIGENCIA\_HOST\_VECINO, y se
-actualiza cada vez que se recibe un mensaje ANC-HOST. Si se cumple el tiempo de
-expiración de un registro, este se elimina.
-
-%-----------------------------------
-%   PING-PONG
-%-----------------------------------
-\section{Operación ping-pong}
-
-\label{sec:operacion_ping_pong}
-
-Tener una ruta vial no significa que existan vehículos en todas la aristas a
-lo largo de la ruta. Por lo tanto, es importante verificar si en una arista hay
-vehículos que puedan retransmitir un paquete para que llegue al otro extremo de
-esta. La operación ping-pong sirve para verificar si se cumple esta condición
-en una arista.
-
-Una operación ping-pong comienza cuando un vehículo que se encuentra en un
-vértice origina un mensaje PING, el cual retransmite hacia algún vehículo
-vecino que se encuentra en la arista de interés, si es que hay. En este
-mensaje, el campo \keyword{vértice 1} indica el vértice donde se inicia la
-operación, y el vértice al que debe llegar se indica en el campo
-\keyword{vértice 2}. El mensaje también lleva la dirección IP del vehículo que
-lo originó. La figura \ref{fig:recorrido_ping} muestra el recorrido de un
-mensaje PING para llegar de un vértice al otro.
-
-\begin{figure}[th!]
-\centering
-\includegraphics{recorrido_ping}
-\decoRule
-\caption[Recorrido de un mensaje PING]{Recorrido de un mensaje PING.}
-\label{fig:recorrido_ping}
-\end{figure}
-
-El mensaje PING se retransmite entre los vehículos hasta llegar a alguno que se
-encuentre en el otro vértice de la arista. Este vehículo responde con un
-mensaje PONG, que se retransmite de regreso hasta llegar al vehículo que inició
-la operación. En este mensaje, la bandera \keyword{E} tiene un valor de 0, para
-indicar que el mensaje PING llegó al vértice. El campo \keyword{vértice 1}
-indica el vértice donde se originó el mensaje PING, y el campo \keyword{vértice
-2} indica el vértice al que tenía que llegar. En la figura
-\ref{fig:recorrido_pong} se muestra el recorrido de un mensaje PONG para llegar
-al vehículo que inició la operación.
-
-\begin{figure}[th!]
-\centering
-\includegraphics{recorrido_pong}
-\decoRule
-\caption[Recorrido de un mensaje PONG]{Recorrido de un mensaje PONG.}
-\label{fig:recorrido_pong}
-\end{figure}
-
-Si un vehículo recibe un mensaje PING pero no encuentra un vecino al que
-retransmitirlo, éste responde con un mensaje PONG, asignando el valor 1 a la
-bandera \keyword{E} para indicar que no se completó la operación, lo que
-significa que el vértice de destino no se puede alcanzar.
-
-Cuando un vehículo que inició la operación recibe el mensaje PONG de respuesta,
-y la bandera de error \keyword{E} tiene un valor de 0, se dice que la arista es
-una \keyword{arista activa}. En este caso, el vehículo transmite un mensaje
-ANC-VEHIC, en el que la bandera \keyword{P} tiene el valor 1 para anunciar el
-resultado de una operación ping-pong, el vértice de destino de la operación se
-indica en el campo \keyword{vértice ping-pong}, y la bandera \keyword{E} tiene
-valor de 0 para decir que la arista está activa. Este mensaje también incluye
-la ubicación vial del vehículo, igual que los mensajes ANC-VEHIC que se
-transmiten periódicamente.
-
-El vehículo que inicia una operación ping-pong establece un tiempo de espera,
-definido por el parámetro ESPERA\_PONG. Si el tiempo de espera se agota, o si
-recibe un mensaje PONG de respuesta con el valor 1 en la bandera de error
-\keyword{E}, se transmite un mensaje ANC-VEHIC, pero con la bandera \keyword{E}
-con el mismo valor para anunciar que la arista está inactiva.
-
-Cuando el mensaje PING logra atravesar la arista y llega a un vehículo en el
-vértice deseado, después de responder con el mensaje PONG, este vehículo
-también anuncia, con un mensaje ANC-VEHIC, que la arista está activa.
-
-%-----------------------------------
-%   ARISTAS ACTIVAS E INACTIVAS
-%-----------------------------------
-\subsection{Aristas activas e inactivas}
-
-\label{subsec:aristas_activas_e_inactivas}
-
-Con la operación ping-pong es posible saber si hay vehículos que puedan
-retransmitir paquetes de un vértice a otro. Esto es importante a la hora del
-cálculo de las rutas viales, por lo que cada vehículo tiene un registro de
-aristas activas y otro de aristas inactivas.
-
-Cuando se recibe un mensaje ANC-VEHIC que indica el resultado de una operación
-ping-pong, se revisa el campo \keyword{vértice ping-pong} y la bandera
-\keyword{V} para saber de qué arista se trata, y se agrega al \keyword{registro
-de aristas activas}, junto con su tiempo de validez determinado por el
-parámetro VIGENCIA\_ARISTA\_ACTIVA. Si la arista ya está registrada, se
-actualiza el tiempo de validez. Se asume que la arista está activa hasta que
-se agota el tiempo de validez. Una vez que se agota, se elimina del registro y
-se desconoce el estado de la arista, hasta la siguiente actualización.
-
-Si se recibe un mensaje ANC-VEHIC una arista inactiva, se revisa para saber de
-qué arista se trata, y se agrega al \keyword{registro de aristas inactivas}
-junto con un tiempo de validez definido por el parámetro
-VIGENCIA\_ARISTA\_INACTIVA. Si ya la arista vértice ya existe en el registro,
-se actualiza el tiempo de validez. Si este tiempo se agota, se elimina del
-registro.
-
-%-----------------------------------
-%   ENRUTAMIENTO
-%-----------------------------------
-\section{Enrutamiento}
-
-\label{sec:enrutamiento}
-
-En las siguientes secciones, se presenta el proceso que lleva a cabo un vehículo
-cuando recibe un paquete para enrutar.
-
+\section{Cómputo de rutas viales}
 %-----------------------------------
 %   CÓMPUTO DE RUTAS VIALES
 %-----------------------------------
-\subsection{Cómputo de rutas viales}
-
 \label{subsec:computo_rutas_viales}
 
-Para tratar de evitar pérdida de paquetes por obstrucciones de edificios, se
-busca que las rutas incluyan la menor cantidad de giros en esquinas posible.
-En la figura \ref{fig:ruta_mala} se muestra una ruta del vértice $d$ al vértice
-$i$ en la que hay giros en cuatro esquinas. Si un paquete siguiera esa ruta, en
-cada uno de los giros habría posibilidad de chocar con el edificio de la
-esquina.
+En la figura \ref{fig:ruta_mala}, se muestra una ruta del vértice $d$ al vértice
+$i$ en la que hay vueltas en cuatro esquinas. Si un paquete siguiera esta
+ruta, en cada una de estas vueltas podría interferir un edificio en una
+transmisión.
 
 \begin{figure}[th!]
 \centering
 \includegraphics{ruta_mala}
 \decoRule
-\caption[Ruta con muchos giros en esquinas]{Ruta con muchos giros en
-esquinas.}
+\caption[Ruta con muchos tramos cortos]{Ruta con muchos tramos cortos.}
 \label{fig:ruta_mala}
 \end{figure}
 
-En cambio, en la figura \ref{fig:ruta_buena} se muestra otra ruta que une los
-mismos vértices, pero esta únicamente incluye un giro. Si un paquete siguiera
-esta ruta, sólo correría el riesgo de chocar con algún edificio en un giro. Por
-esta razón, la busqueda de rutas viales debe considerar tramos rectos lo más
-largos que sea posible.
+Por otro lado, en la figura \ref{fig:ruta_buena}, se muestra otra ruta que une
+los mismos vértices, pero esta está formada por dos tramos rectos más largos, y
+una única vuelta en una esquina. Si un paquete siguiera esta ruta, las
+transmisiones correrían un riesgo menor de ser bloquadas por edificios. Por
+esta razón, para tratar de evitar la pérdida de paquetes, se busca que las
+rutas viales se formen por tramos rectos lo más largos que sea posible.
 
 \begin{figure}[th!]
 \centering
 \includegraphics{ruta_buena}
 \decoRule
-\caption[Ruta con un giro en una esquinas]{Ruta con un giro en una
-esquinas.}
+\caption[Ruta con pocos tramos largos]{Ruta con pocos tramos largos.}
 \label{fig:ruta_buena}
 \end{figure}
 
 Para utilizar un algoritmo para determinar las rutas en el grafo vial, es
-necesario asignar un peso a cada una de las aristas. Sin embargo, para generar
-rutas con el criterio descrito anteriormente, el peso de cada arista depende de
-la arista anterior. Por ejemplo, en la ruta de la figura \ref{fig:ruta_mala},
-para ir de la arista $\{d,c\}$ a la arista $\{c,g\}$, hay un giro de ángulo
-considerable, mientras que en la ruta de la figura \ref{fig:ruta_buena}, para
-ir de la arista $\{d,c\}$ a la arista $\{c,b\}$, el tramo es recto, por lo que
-la arista $c,b\}$ tendrá un peso menor que la arista $d,g\}$ respecto a la
-arista $\{d,c\}$.
+necesario asignar un peso a cada una de las aristas. Sin embargo, para
+determinar las rutas con las consideraciones descritas anteriormente, el peso de
+cada arista depende también de la arista anterior en la ruta. Por ejemplo, en la
+ruta de la figura \ref{fig:ruta_mala}, para ir al vértice $g$ desde la arista
+$<d,c>$, hay un ángulo considerable, por lo que la arista $<c,g>$ tiene un
+peso grande en esta ruta. En contraste, en la ruta de la figura
+\ref{fig:ruta_buena}, para ir al vértice $b$ desde la arista $<d,c>$, el tramo
+es aproximadamente recto, por lo que la arista $<c,b>$ tendrá un peso pequeño
+en esta ruta.
 
-Existen algoritmos para grafos que calculan la ruta más corta desde un vértice
-inicial al resto de los vértices, como el algoritmo de Dijkstra
+Existen algoritmos que calculan la ruta más corta desde un vértice
+inicial al resto de los vértices de un grafo, como el algoritmo de Dijkstra
 \cite{cormen2001}. Sin embargo, este algoritmo asume que las aristas tienen un
-peso fijo previamente asignado. Por este motivo, se propone un algoritmo
-inspirado en el algoritmo de Dijkstra, pero que hace la búsqueda de las rutas a
-partir de los dos vértices de una arista inicial. Además, el peso de cada
+peso fijo previamente asignado. En este trabajo, se propone un algoritmo
+inspirado en el algoritmo de Dijkstra, pero con ciertas diferencias.
+
+Por lo general, un vehículo no se encuentra en un vértice de la red vial, sino
+en algún punto a lo largo de una arista. Es por esto que, a diferencia del
+algoritmo de Dijkstra, el cálculo de las rutas viales no comienza en un solo
+vértice, sino en los dos vértices de la arista por la que circula el vehículo.
+
+% TODO: Seguir.
+
+Por otro lado, los pesos de las aristas se calculan conforme el algoritmo
+progresa. El peso de cada arista es igual al ángulo que forma la dirección de
+esta con la de la arista anterior. Por ejemplo, ej la figura
+\ref{fig:calculo_pesos} se inicia el cálculo de las rutas viales iniciando en
+la arista $<g,h>$. Se puede observar que para ir desde esta arista a los
+vértices $c$, $f$ y $k$, se debe dar una vuelta de 90\si{\degree},
+0\si{\degree} y 90\si{\degree}, respectivamente.
+
+\begin{figure}[th!]
+\centering
+\includegraphics{calculo_pesos}
+\decoRule
+\caption[Cálculo de los pesos de las aristas]{Cálculo de los pesos de las
+aristas.}
+\label{fig:calculo_pesos}
+\end{figure}
+
+que hace la
+búsqueda de las rutas a partir de los dos vértices de una arista inicial. Además, el peso de cada
 arista se calcula conforme el algoritmo progresa, y descarta un conjunto de
 aristas inactivas y los vértices por los que el paquete ya ha pasado.
 
@@ -1093,174 +858,10 @@ se repite hasta llegar a alguno de los dos vértices iniciales. Con el vector
 $distancias$ se puede saber si se encontró alguna ruta hacia cierto vértice. Si
 su distancia de ruta es $\infty$, significa que no se encontró.
 
-%-----------------------------------
-%   VERIFICACIÓN DE LA CABECERA DE OPCIONES DE SALTO POR SALTO
-%-----------------------------------
-\subsection{Verificación de la cabecera de opciones de salto por salto}
-
-\label{subsec:verificacion_cabecera_opciones_salto_por_salto}
-
-Cuando un vehículo recibe un paquete, primero debe verificar si este contiene
-la cabecera de opciones de salto por salto. De ser así, verifica si esta
-cabecera tiene la opción de ubicación del destino. Si no la tiene, se descarta
-el paquete, ya que no hay manera de saber hacia dónde tiene que llegar.
-Después, se verifica si el destino del paquete se encuentra en la misma subred,
-en cuyo caso, se revisa si la cabecera tiene la opción de ubicación vial del
-destino. Si no la tiene, esta se calcula y se agrega a la cabecera. Del mismo
-modo, se verifica si la cabecera tiene la opción de vértices visitados, y si no
-es así, se agrega. El algoritmo \ref{alg:validar_cabeceras_paquete} muestra
-este procedimiento de validación de la cabecera de los paquetes.
-
-\begin{algorithm}[th!]
-\small
-\caption{Validar cabecera de opciones de salto por salto de paquete}
-\label{alg:validar_cabeceras_paquete}
-\DontPrintSemicolon
-\LinesNumbered
-    \KwData{$paquete$: Paquete a enrutar}
-    \Begin{
-        \If{$paquete$ no contiene cabecera de opciones de salto por salto}{
-            \Return{$Falso$}
-        }
-        $cabecera \gets$ cabecera de opciones de salto por salto de $paquete$ \;
-        \If{$cabecera$ no contiene opción de ubiación de destino}{
-            \Return{$Falso$}
-        }
-        $ubicVehic \gets$ ubicación del vehículo \;
-        $ubicDest \gets$ ubicación del \textit{host} destino en $cabecera$ \;
-        \If{$ubicVehic$ y $ubicDest$ están en la misma región Geohash }{
-            \If{$cabecera$ no contiene opción de ubicación vial de destino}{
-                $ubicVialDest \gets CalcularUbicacionVial(ubicDest)$ \;
-                agregar $ubicVialDest$ a $cabecera$ \;
-           }
-        }
-        \If{$cabecera$ no contiene opción de vértices visitados}{
-            agregar opción de vértices visitados vacía a $cabecera$ \;
-        }
-        \Return{$Verdadero$}
-    }
-\end{algorithm}
-
-%-----------------------------------
-%   VÉRTICE DESTINO LOCAL
-%-----------------------------------
-\subsection{Vértice destino local}
-
-\label{subsec:vertice_destino_local}
-
-Después de revisar la cabecera, se debe seleccionar el \keyword{vértice destino
-local} dentro de la subred. Se dice que es local porque es el último vértice,
-\keyword{dentro de la red vial local}, al que el paquete debe llegar para
-seguir su camino hacia al \textit{host} destino. Si el \textit{host} destino
-está en la misma subred, el vértice destino local será uno de los dos vértices
-de la ubicación vial de este. Si el \textit{host} destino se encuentra en otra
-subred, el vértice destino local será un vértice \textit{gateway} que le
-permita llegar a la siguiente subred en la ruta interregión enrutamiento.
-
-El algoritmo \ref{alg:vertice_destino_local} describe cómo se determina el
-vértice destino local. Primero, se calcula la ruta más corta con el algoritmo
-\ref{alg:ruta_mas_corta} desde la ubicación vial del vehículo al resto de los
-vértices (línea 8). Si el \textit{host} destino está en la misma subred, se
-obtienen los dos vértices de su ubicación vial, y el vértice destino local será
-el que tenga una menor distancia de ruta (líneas 11-17).
-
-Si el \textit{host} destino está en otra subred, se lleva a cabo un
-enrutamiento interregión. Esto sifgnifica que el paquete debe pasar a otra
-subred que lo acerque a la subred de destino. Para esto, se debe conocer en qué
-dirección se encuentra la subred de destino respecto a la subred local, tanto
-en latitud como en longitud. Las subredes vecinas que se encuentran a cada
-dirección se denominan \keyword{siguientes subredes tentativas}, ya que aún no
-se conoce cuál será la siguiente subred en la ruta interregión. Se define el
-conjunto $verticesGateway$, que va a contener los vértices a través de los
-cuales el vértice puede llegar a alguna de las siguientes subredes tentativas.
-Si la subred destino se encuentra al norte, se agregan al conjunto
-$verticesGateway$ los vértices \textit{gateway} al norte del grafo vial local
-(líneas 22-23). Si se encuentra al sur, se agregan los vértices
-\textit{gateway} al sur del grafo vial local (líneas 24-26). Por otro lado, si
-la subred destino se encuentra al este, se agregan los vértices
-\textit{gateway} al este (líneas 27-28), y si se encuentra al oeste, se agregan
-los vértices \textit{gateway} al oeste (líneas 29-31). Finalmente, se busca en
-$verticesGateway$ el vértice cuya distancia de ruta sea la menor, y ese se
-seleciona como vértice destino local (línea 32).
-
-\begin{figure}[th!]
-\centering
-\includegraphics{siguiente_subred_tentativa}
-\decoRule
-\caption[Siguientes subredes tentativas]{Siguientes subredes tentativas.}
-\label{fig:siguiente_subred_tentativa}
-\end{figure}
-
-\begin{algorithm}[th!]
-\small
-\caption{Obtener vétice de destino local}
-\label{alg:vertice_destino_local}
-\DontPrintSemicolon
-\LinesNumbered
-    \KwData{$paquete$: Paquete a enrutar}
-    \Begin{
-        $cabecera \gets$ cabecera de opciones de salto por salto de $paquete$ \;
-        $ubicVialVehic \gets$ ubicación vial del vehículo \;
-        $NV \gets$ vértices visitados en $cabecera$ \;
-        $NE \gets$ aristas inactivas \;
-        $\mathbf{G} \gets$ grafo vial de la subred \;
-        $pred, dist \gets
-            RutaMasCorta(ubicVialVehic.arista, \mathbf{G}, NV, NE)$ \;
-        $ubicVehic \gets$ ubicación del vehículo \;
-        $ubicDest \gets$ ubicación del \textit{host} destino en $cabecera$ \;
-        \eIf{$ubicVehic$ y $ubicHost$ están en la misma región Geohash}{
-            $ubicVialHost \gets$ ubicación vial del \textit{host} destino en
-            $cabecera$ \;
-            $\{a,b\} \gets ubicVialHost.arista$ \;
-            \eIf{$dist[a] < dist[b]$}{
-                $verticeDestino \gets a$ \;
-            }{
-                $verticeDestino \gets b$ \; 
-                
-            }
-        }{
-            $regionLocal \gets$ región Geohash local \;
-            $regionDest \gets$ región Geohash de destino \;
-            $verticesGateway \gets \emptyset$ \;
-            \eIf{$regionDest$ está al norte de $regionLocal$}{
-                $verticesGateway \gets verticesGateway \cup$ vértices
-                    \textit{gateway} en $\mathbf{G}$ al norte \;
-            }{
-                \If{$regionDest$ está al sur de $regionLocal$}{
-                    $verticesGateway \gets verticesGateway \cup$ vértices
-                        \textit{gateway} en $\mathbf{G}$ al sur \;
-                }
-            }
-            \eIf{$regionDest$ está al este de $regionLocal$}{
-                $verticesGateway \gets verticesGateway \cup$ vértices
-                    \textit{gateway} en $\mathbf{G}$ al este \;
-            }{
-                \If{$regionDest$ está al oeste de $regionLocal$}{
-                $verticesGateway \gets verticesGateway \cup$ vértices
-                    \textit{gateway} en $\mathbf{G}$ al oeste \;
-                }
-            }
-            $verticeDestino \gets$ vértice en $verticesGateway$ cuya distancia
-                de ruta en $dist$ sea la menor \; }
-        \Return{$verticeDestino$}
-    }
-\end{algorithm}
-
-En la figura \ref{fig:siguiente_subred_tentativa}, hay un paquete en la subred
-9g3qxu cuyo destino está en la subred 9g3qxm. La subred destino se encuentra al
-noroeste de la subred local, por lo que hay dos \keyword{siguientes subredes
-tentativas}, la que se encuentra al norte y la que se encuentra al oeste, que
-son 9g3qxv y 9g3qxs, respectivamente. Para determinar cuál de estas dos será la
-siguiente subred, primero se obtienen los vértices \textit{gateway} de la red
-vial local que llevan a estas dos subredes, es decir, los del norte y los del
-oeste. Después, se selecciona el vértice cuya distancia de ruta sea la menor, y
-este será el vértice de destino local.
-
+\section{Selección del siguiente salto}
 %-----------------------------------
 %   SELECCIÓN DEL SIGUIENTE SALTO
 %-----------------------------------
-\subsection{Selección del siguiente salto}
-
 \label{subsec:seleccion_siguiente_salto}
 
 Una vez que se conoce el vértice destino local, se debe seleccionar un vehículo
@@ -1412,26 +1013,19 @@ varias aristas con línea de visión.}
     }
 \end{algorithm}
 
+\section{Parámetros de configuración}
 %-----------------------------------
 %   PARÁMETROS DE CONFIGURACIÓN
 %-----------------------------------
-\section{Parámetros de configuración}
-
 \label{sec:parametros_configuracion}
 
-\keyword{INTERVALO\_ANC\_VEHIC} --
+\keyword{INTERVALO\_HOLA\_VEHIC} --
 
 \keyword{VIGENCIA\_VEHICULO\_VECINO} --
 
-\keyword{INTERVALO\_ANC\_HOST} --
+\keyword{INTERVALO\_HOLA\_HOST} --
 
 \keyword{VIGENCIA\_HOST\_VECINO} --
-
-\keyword{ESPERA\_PONG} --
-
-\keyword{VIGENCIA\_ARISTA\_ACTIVA} --
-
-\keyword{VIGENCIA\_ARISTA\_INACTIVA} --
 
 \keyword{VIGENCIA\_RUTA} --
 
