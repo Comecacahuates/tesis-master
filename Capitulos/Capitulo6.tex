@@ -673,65 +673,70 @@ Dirección IP: & Tiempo de expiración \\
 %-----------------------------------
 \label{subsec:computo_rutas_viales}
 
-En la figura \ref{fig:ruta_mala}, se muestra una ruta del vértice $d$ al vértice
-$i$ en la que hay vueltas en cuatro esquinas. Si un paquete siguiera esta
-ruta, en cada una de estas vueltas podría interferir un edificio en una
-transmisión.
+En la figura \ref{fig:ruta_mala}, se muestra una ruta para ir del vértice $d$
+al vértice $i$, en la que hay giros de ángulos considerables en cuatro esquinas.
+Si un paquete siguiera esta ruta, las transmisiones podrían ser interferidas por
+algúnun edificio en cada una de estas esquinas. Por otro lado, en la figura
+\ref{fig:ruta_buena}, se muestra otra ruta equivalente, pero esta se forma por
+dos tramos rectos más largos de aristas, y sólo un giro en una esquina. Si un
+paquete siguiera esta ruta, las transmisiones correrían riesgo de ser
+interferidas por algún edificio únicamente en una esquina. Es por esto que, para
+tratar de evitar la pérdida de paquetes, se busca que las rutas viales se
+formen por tramos rectos lo más largos que sea posible.
 
 \begin{figure}[th!]
 \centering
 \includegraphics{ruta_mala}
 \decoRule
-\caption[Ruta con muchos tramos cortos]{Ruta con muchos tramos cortos.}
+\caption[Ruta con muchos tramos cortos de aristas]{Ruta con muchos tramos
+cortos de aristas.}
 \label{fig:ruta_mala}
 \end{figure}
-
-Por otro lado, en la figura \ref{fig:ruta_buena}, se muestra otra ruta que une
-los mismos vértices, pero esta está formada por dos tramos rectos más largos, y
-una única vuelta en una esquina. Si un paquete siguiera esta ruta, las
-transmisiones correrían un riesgo menor de ser bloquadas por edificios. Por
-esta razón, para tratar de evitar la pérdida de paquetes, se busca que las
-rutas viales se formen por tramos rectos lo más largos que sea posible.
 
 \begin{figure}[th!]
 \centering
 \includegraphics{ruta_buena}
 \decoRule
-\caption[Ruta con pocos tramos largos]{Ruta con pocos tramos largos.}
+\caption[Ruta con pocos tramos largos de aristas]{Ruta con pocos tramos largos
+de aristas.}
 \label{fig:ruta_buena}
 \end{figure}
 
-Para utilizar un algoritmo para determinar las rutas en el grafo vial, es
+Para utilizar un algoritmo para determinar las rutas en la red vial, es
 necesario asignar un peso a cada una de las aristas. Sin embargo, para
-determinar las rutas con las consideraciones descritas anteriormente, el peso de
-cada arista depende también de la arista anterior en la ruta. Por ejemplo, en la
-ruta de la figura \ref{fig:ruta_mala}, para ir al vértice $g$ desde la arista
-$<d,c>$, hay un ángulo considerable, por lo que la arista $<c,g>$ tiene un
-peso grande en esta ruta. En contraste, en la ruta de la figura
-\ref{fig:ruta_buena}, para ir al vértice $b$ desde la arista $<d,c>$, el tramo
-es aproximadamente recto, por lo que la arista $<c,b>$ tendrá un peso pequeño
-en esta ruta.
+determinar las rutas con la consideración anterior, el peso de cada arista
+depende de la arista anterior en la ruta. Por ejemplo, en la ruta de la figura
+\ref{fig:ruta_mala}, para ir al vértice $g$ desde la arista $<d,c>$, hay un
+gira de ángulo considerable, por lo que la arista $<c,g>$ tiene un peso grande
+en esta ruta. En contraste, en la ruta de la figura \ref{fig:ruta_buena}, para
+ir al vértice $b$ desde la arista $<d,c>$, el tramo es recto, por lo que la
+arista $<c,b>$ tendrá un peso pequeño en esta ruta.
 
-Existen algoritmos que calculan la ruta más corta desde un vértice
-inicial al resto de los vértices de un grafo, como el algoritmo de Dijkstra
-\cite{cormen2001}. Sin embargo, este algoritmo asume que las aristas tienen un
-peso fijo previamente asignado. En este trabajo, se propone un algoritmo
-inspirado en el algoritmo de Dijkstra, pero con ciertas diferencias.
+Existen algoritmos que calculan las rutas más corta desde un vértice inicial al
+resto de los vértices de un grafo, como el algoritmo de Dijkstra
+\cite{cormen2001}. Sin embargo, este algoritmo requiere que todas las aristas
+tienen un peso definido previamente. Es por esto que se propone un algoritmo
+inspirado en el algoritmo de Dijkstra para detemrinar las rutas más cortas en
+la red vial, pero con ciertas diferencias.
 
 Por lo general, un vehículo no se encuentra en un vértice de la red vial, sino
 en algún punto a lo largo de una arista. Es por esto que, a diferencia del
 algoritmo de Dijkstra, el cálculo de las rutas viales no comienza en un solo
-vértice, sino en los dos vértices de la arista por la que circula el vehículo.
-
-% TODO: Seguir.
-
-Por otro lado, los pesos de las aristas se calculan conforme el algoritmo
-progresa. El peso de cada arista es igual al ángulo que forma la dirección de
-esta con la de la arista anterior. Por ejemplo, ej la figura
-\ref{fig:calculo_pesos} se inicia el cálculo de las rutas viales iniciando en
-la arista $<g,h>$. Se puede observar que para ir desde esta arista a los
-vértices $c$, $f$ y $k$, se debe dar una vuelta de 90\si{\degree},
+vértice, sino que la búsqueda de las rutas inicia en los dos vértices de la
+arista por la que circula el vehículo. Además de esto, los pesos de las aristas
+se calculan conforme el algoritmo progresa. El peso de cada arista es igual al
+ángulo que forma la dirección de esta con la de la arista anterior. Por
+ejemplo, en la figura \ref{fig:calculo_pesos}, se inicia el cálculo de las rutas
+viales en la arista $<g,h>$. Se puede observar que para ir desde esta
+arista a los vértices $c$, $f$ y $k$, se debe hacer un giro de 90\si{\degree},
 0\si{\degree} y 90\si{\degree}, respectivamente.
+
+Otra cosa a tomar en cuenta es que un paquete pudo ya haber pasado por un
+conjunto de vértices, lo que se pueden saber revisando la opción de vértices
+visitados en la cabecera de opciones de salto por salto. Además de que es
+posible que no existan vehículos vecinos en alguna arista a los que transmitir
+paquetes. Por lo tanto, estos datos también se consideran en el procedimiento
+del cálculo de la rutas.
 
 \begin{figure}[th!]
 \centering
@@ -742,57 +747,34 @@ aristas.}
 \label{fig:calculo_pesos}
 \end{figure}
 
-que hace la
-búsqueda de las rutas a partir de los dos vértices de una arista inicial. Además, el peso de cada
-arista se calcula conforme el algoritmo progresa, y descarta un conjunto de
-aristas inactivas y los vértices por los que el paquete ya ha pasado.
-
-En la figura \ref{fig:angulos_aristas}, la flecha indica la dirección de la
-arista $\{a,b\}$, y se muestran los ángulos que forma esta con la dirección de
-cada una de las demás aristas. Estos ángulos van a funcionar como el peso de su
-respectiva arista. Debido a que $\{b,d\}$ forma el menor ángulo con la
-dirección de $\{a,b\}$, ésta tiene el menor peso, y $\{b,c\}$ tendrá el mayor
-peso, ya que su ángulo es el mayor. De este modo, la ruta contendrá la menor
-cantidad de giros pronunciados en los cruces viales.
-
-\begin{figure}[th!]
-\centering
-\includegraphics{angulos_aristas}
-\decoRule
-\caption[Determinación del peso de las aristas con sus ángulos de
-dirección]{Determinación del peso de las aristas con sus ángulos de dirección.}
-\label{fig:angulos_aristas}
-\end{figure}
-
 \begin{algorithm}[th!]
 \small
 \caption{Cálculo de la ruta más corta}
 \label{alg:ruta_mas_corta}
 \DontPrintSemicolon
 \LinesNumbered
-    \KwData{$\{a,b\}$: Arista inicial, $\mathbf{G}$: Grafo vial, $VV$: Conjunto
-    de vértices visitados, $AE$: Conjunto de aristas activas}
+    \KwData{$\mathbf{G}$: Grafo vial, $<a,b>$: Arista inicial, $VV$: Conjunto
+    de vértices visitados, $AE$: Conjunto de aristas disponibles}
     \Begin{
         \ForEach{$v \in \mathbf{G}.\mathbf{V}$} {
             $distancias[v] \gets \infty$ \;
         }
         $distancias[a] \gets 0$ \;
         $distancias[b] \gets 0$ \;
-        $S \gets \mathbf{G.V} \setminus \{a,b\}$ \;
-        \ForEach{$v \in \mathbf{G}.\mathbf{V}$ adyacente a $a$}{
-            \If{$v \neq b$}{
-                \eIf{$v \notin VV$ y $\{a,v\} \in AE$}{
-                    $distancias[v] \gets calcularPeso(\{a,v\}, \{a,b\})$ \;
+        $S \gets \mathbf{G.V} \setminus \{<a,b>\}$ \;
+        \ForEach{$v \in \mathbf{G.V} \mid <a,v> \in \mathbf{G.E}$}{
+            \If{$v \neq b$}{ \eIf{$v \notin VV$ y $<a,v> \in AE$}{
+                    $distancias[v] \gets calcularPeso(<a,v>, <a,b>)$ \;
                     $predecesores[v] \gets a$ \;
                 }{
                     $S \gets S \setminus \{v\}$ \;
                 }
             }
         }
-        \ForEach{$v \in \mathbf{G}.\mathbf{V}$ adyacente a $b$}{
+        \ForEach{$v \in \mathbf{G.V} \mid <b,v> \in \mathbf{G.E}$}{
             \If{$v \neq a$}{
-                \eIf{$v \notin VV$ y $\{b,v\} \in AE$}{
-                    $peso \gets calcularPeso(\{b,v\}, \{a,b\}$) \;
+                \eIf{$v \notin VV$ y $<b,v> \in AE$}{
+                    $peso \gets calcularPeso(<b,v>, <a,b>$) \;
                     \If{$peso < distancias[v]$}{
                         $distancias[v] \gets peso$ \;
                         $predecesores[v] \gets b$ \;
@@ -808,7 +790,7 @@ dirección]{Determinación del peso de las aristas con sus ángulos de direcció
             \ForEach{$w \in \mathbf{G}.\mathbf{V}$ adyacente a $v$}{
                 \If{$w \neq u$}{
                     \eIf{$w \notin VV$}{
-                        $peso \gets calcularPeso(\{v,w\}, \{u,v\})$ \;
+                        $peso \gets calcularPeso(<v,w>,<u,v>)$ \;
                         \If{$distancias[w] > distancias[v] + peso$}{
                             $distancias[w] \gets distancias[v] + peso$ \;
                             $predecesores[w] \gets v$ \;
@@ -824,39 +806,35 @@ dirección]{Determinación del peso de las aristas con sus ángulos de direcció
     }
 \end{algorithm}
 
-El algoritmo \ref{alg:ruta_mas_corta} es el algoritmo propuesto, donde se
-definen dos vectores cuyo tamaño es igual al número de vértices en el grafo. El
-vector $predecesores$ indica cuál es el vértice predecesor de cada uno en la
-ruta. El vector $distancias$ indica la distancia desde la arista de inicia
-hacia cada vértice. En este contexto, se entiende como distancia a la suma de
-los pesos de todas las aristas que forman una ruta, por lo que se denomina
-\keyword{distancia de ruta}, para evitar confusión. También se define un
-conjunto llamado $S$, que contiene los vértices cuya ruta falta obtener.
+El algoritmo \ref{alg:ruta_mas_corta} describe el procedimiento propuesto para
+determinar las rutas en una red vial. Este recibe como datos de entrada la
+la red vial $\mathbf{G}$, la arista inicial $<a,b>$, el conjunto de vértices
+visitados por el paquete $NV$, y el conjunto de aristas disponibles $NE$. Este
+algoritmo utiliza dos vectores principales cuyo tamaño es igual al número de
+vértices en la red vial. En el vector $predecesores$ se indica el vértice
+predecesor de cada vértice en la ruta. El vector $distancias$ indica la
+\textbf{distancia de ruta} desde la arista de inicial hasta cada uno de los
+vértices, es decir, la suma de los pesos de todas las aristas hasta dicho
+vértice. También utiliza el conjunto $S$, que contiene los vértices cuya ruta
+falta obtener.
 
-El algoritmo recibe la arista inicial $\{a,b\}$, el grafo vial $\mathbf{G}$,
-el conjunto de vértices no disponibles $NV$ y el conjunto de aristas inactivas
-$NE$. En las líneas 3-6, se establece la distancia de ruta a cada vértice como
+En las líneas 2-5, se establece la distancia de ruta a cada vértice como
 $\infty$, excepto para los vértices iniciales, cuya distancia de ruta es 0. En
-la línea 7 se agregan todos los vértices a $S$, excepto los dos iniciales.
+la línea 6, se agregan todos los vértices a $S$, excepto los dos vértices de la
+arista inicial. En las líneas 7-13, se calcula la distancia de ruta a los
+vértices adyacentes a $a$, y se asigna este como predecesor (excepto para los
+vértices visitados). En las líneas 14-22, se realiza el mismo procedimiento,
+pero para los vértices adyacentes a $b$. Nótese que la distancia de ruta de los
+vértices visitados nunca deja de ser $\infty$.
 
-En las líneas 8-12, se calcula y actualiza la distancia de ruta a los vértices
-adyacentes a $a$, excepto los vétices no disponibles. En las líneas 13-19, se
-hace el mismo procedimiento, pero para los vértices adyacentes a $b$, y después
-se procede a procesar el resto de los vértices. Debido a que la distancia de
-ruta de los vértices no disponibles nunca deja de ser $\infty$, en la línea 21
-se verifica si existe un vértice $u$ en $S$ cuya distancia de ruta ya se haya
-calculado anteriormente, es decir, que se puede alcanzar mediante un vértice ya
-procesado. Si no hay, se termina el algoritmo, pero si sí hay, se calcula la
-distancia de ruta hacia cada uno de sus vértices adyacentes, y se actualiza si
-es una distancia de ruta menor a la que ya tenía, en cuyo caso, se asigna $u$
-como su predecesor.
-
-El resultado final son los vectores $predecesores$ y $distancias$. Con el
-vector $predecesores$, para determinar la ruta hacia un vértice $u$, se busca
-su predecesor $v$. Después, se busca $v$ y se obtiene su predecesor $w$, y esto
-se repite hasta llegar a alguno de los dos vértices iniciales. Con el vector
-$distancias$ se puede saber si se encontró alguna ruta hacia cierto vértice. Si
-su distancia de ruta es $\infty$, significa que no se encontró.
+En las líneas 23-35, se calcula la ruta a cada uno de los vértices restantes.
+Primero, se busca el vértice $v$ en $S$ cuya distancia de ruta sea la menor, y
+su predecesor $u$. Después, para cada vértice $w$ adyacente a $v$, se calcula el
+peso de la arista $<v,w>$ desde la arista $<u,v>$, y se actualiza la distancia a
+$w$ si esta es menor al valor anterior. Finalmente, una vez que se calculó y
+actualizó la distancia a cada uno de los vértices adyacentes a $v$, este se
+elimina $v$ de $S$, lo que significa que se terminó de procesar. El resultado
+final son los vectores $predecesores$ y $distancias$.
 
 \section{Selección del siguiente salto}
 %-----------------------------------
