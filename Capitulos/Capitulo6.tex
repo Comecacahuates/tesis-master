@@ -1,8 +1,8 @@
-﻿\chapter{Protocolo de enrutamiento}
+﻿\chapter{Protocolo de enrutamiento propuesto}
 %-----------------------------------
-%   PROTOCOLO DE ENRUTAMIENTO
+%   PROTOCOLO DE ENRUTAMIENTO PROPUESTO
 %-----------------------------------
-\label{ch:protocolo_de_enrutamiento}
+\label{ch:protocolo_de_enrutamiento_propuesto}
 
 Para que un enrutador pueda decidir hacia dónde retransmitir un paquete,
 necesariamente debe tener información sobre sus vecinos. Por esta razón, todos
@@ -854,13 +854,56 @@ norte, se busca sólo entre los vértices \textit{gateway} al norte.
 %-----------------------------------
 \label{subsec:seleccion_siguiente_salto}
 
-Una vez que se determinó el vértice de destino local y se tiene una ruta hacia
+Una vez que se determina el vértice de destino local y se tiene una ruta hacia
 este, se debe seleccionar el siguiente salto para retransmitir el paquete. El
 objetivo de cada retransmisión es que el paquete haga el mayor avance posible en
-la ruta. Es por esto que se selecciona el vehículo vecino  más lejano en la ruta
-como siguiente salto, pero que cumpla ciertas condiciones.
+la ruta, intentando que haya línea de visión con el siguiente salto.
 
-% TODO: Seguir.
+Como se mencionó anteriormente, las rutas se forman por tramos rectos lo más
+largos posible. Obteniendo el primer tramo recto en la ruta, se puede saber
+cuál es el vehículo vecino que se encuentra más adelante en dicho tramo, y se
+selecciona como siguiente salto. En la figura \ref{fig:siguiente_salto_1}, el
+vehículo $V_0$ calculó una ruta para un paquete, en la que el primer tramo recto
+es $j \rightarrow i \rightarrow h \rightarrow g \rightarrow f$. Este tiene en su
+directorio de vehículos vecinos a los vehículos $V_1$, $V_2$ y $V_3$, pero sólo
+$V_1$ y $V_2$ se están en el primer tramo recto de la ruta. De los dos, $V_2$ es
+el que se encuentra más adelante en este tramo, por lo que se selecciona como
+siguiente salto.
+
+\begin{figure}[th!]
+\centering
+\includegraphics{siguiente_salto_1}
+\decoRule
+\caption[Siguiente salto en el primer tramo recto de la ruta]{Siguiente salto
+en el primer tramo recto de la ruta.}
+\label{fig:siguiente_salto_1}
+\end{figure}
+
+En caso de que no exista un vecino que se encuentre adelante en el primer tramo
+recto, se obtiene el siguiente tramo recto, y se elige el vecino más cercano al
+inicio de este tramo como siguiente salto, aunque sea posible que no haya línea
+de visión hacia este. En la figura \ref{fig:siguiente_salto_2}, el vehículo
+$V_0$ calculó una ruta para un paquete, y el primer tramo recto es {}, pero no
+hay vehículos en estas aristas. El siguiente tramo recto es {}, y los vehículos
+$V_1$ y $V_2$ se encuentran en este tramo. El vecino más cercano al inicio del
+tramo es $V_1$, por lo que este se selecciona como siguiente salto.
+
+% TODO: Hacer figura {fig:siguiente_salto_2}.
+
+Cuando un vehículo se encuentra en una arista \textit{gateway} y tiene que
+retransmitir un paquete hacia la subred adyacente, este no puede calcular una
+ruta para la red vial de la siguiente subred. En este caso, selecciona el
+vehículo vecino más cercano que se encuentre en la subred adyacente. Si no hay
+vecinos en la subred adyacente, se selecciona como siguiente salto el vecino más
+cercano al vértice \textit{gateway}. En la figura \ref{fig:siguiente_salto_3},
+los vehículos $V_0$ y $V_1$ están en la subred 1, y los vehículos $V_2$ y $V_3$
+en la subred 2. $V_0$ debe retransmitir un paquete hacia la subred 2, y como se
+encuentra en la arista \textit{gateway} {}, selecciona a $V_2$ como siguiente
+salto, ya que es el vecino más cercano que se encuentra en la subred adyacente.
+Si $V_0$ aún no tuviera a $V_2$ como vecino, tendría que seleccionar a $V_1$
+como siguiente salto.
+
+% TODO: Hacer figura {fig:siguiente_salto_3}.
 
 Una vez que se conoce el vértice de destino local, se debe seleccionar un
 vehículo vecino para retransmtir el paquete. Se busca que el paquete haga el
@@ -874,8 +917,8 @@ Después de calcular la ruta más corta, obtiene la ruta $h \rightarrow g
 \rightarrow f \rightarrow e \rightarrow i$. Como $g$ y $h$ son los vértices de
 la arista inicial en la ruta, su distancia de ruta es 0, como se explicó en la
 sección \ref{subsec:computo_rutas_viales}. El ángulo que forma la arista
-$\{g,f\}$ con la dirección de la arista $\{h,g\}$ es 0\si{\degree}, por lo que su
-peso $f$ será 0. El ángulo que forma la arista $\{f,e\}$ con la arista
+$\{g,f\}$ con la dirección de la arista $\{h,g\}$ es 0\si{\degree}, por lo que
+su peso $f$ será 0. El ángulo que forma la arista $\{f,e\}$ con la arista
 $\{g,f\}$ también es 0, por lo que su peso también es 0. El peso de la arista
 $\{e,i\}$ es 90, ya que esta forma un ángulo de 90\si{\degree} con la arista
 anterior. Con estos pesos, la distancia de ruta de los vértices $f$, $e$ e $i$
@@ -983,33 +1026,6 @@ con línea de visión]{Selección del siguiente salto en ruta sin secuencia de
 varias aristas con línea de visión.}
 \label{fig:siguiente_salto_cambio_subred}
 \end{figure}
-
-\begin{algorithm}[th!]
-\small
-\caption{Selección del siguiente salto}
-\label{alg:seleccion_siguiente_salto}
-\DontPrintSemicolon
-\LinesNumbered
-    \KwData{$paquete$: Paquete a enrutar}
-    \Begin{
-        
-    }
-\end{algorithm}
-
-\begin{algorithm}[th!]
-\small
-\caption{Enrutamiento de paquetes}
-\label{alg:enrutar_paquete}
-\DontPrintSemicolon
-\LinesNumbered
-    \KwData{$paquete$: Paquete a enrutar}
-    \Begin{
-        \If{$ValidarCabeceraPaquete(paquete) = Falso$}{
-            descartar $paquete$ \;
-        }
-        $verticeDestinoLocal \gets ObtenerVerticeDestinoLocal(paquete)$ \;
-    }
-\end{algorithm}
 
 \section{Parámetros de configuración}
 %-----------------------------------
