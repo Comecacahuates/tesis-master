@@ -240,9 +240,9 @@ vecinos para poder decidir cuál será el siguiente salto en la ruta vial.
 
 Para este protocolo, se requiere que los dispositivos cuenten con un dispositivo
 de geolocalización integrado, como se comentó en el capítulo
-\ref{ch:autoconfiguracion_de_direcciones}. Cuando un vehículo obtiene su
-ubicación geográfica, necesita conocer su ubicación dentro de la red vial, que
-se conoce como \textbf{ubicación vial}.
+\ref{ch:protocolo_autoconfiguracion_de_direcciones_propuesto}. Cuando un
+vehículo obtiene su ubicación geográfica, necesita conocer su ubicación dentro
+de la red vial, que se conoce como \textbf{ubicación vial}.
 
 La ubicación vial indica en qué arista de la red vial se encuentra un vehículo,
 y su distancia a uno de los vértices de esta. Como la ubicación de los vértices
@@ -671,7 +671,7 @@ Dirección IP: & Tiempo de expiración \\
 %-----------------------------------
 %   CÓMPUTO DE RUTAS VIALES
 %-----------------------------------
-\label{subsec:computo_rutas_viales}
+\label{sec:computo_rutas_viales}
 
 En la figura \ref{fig:ruta_mala}, se muestra una ruta para ir del vértice $d$
 al vértice $i$, en la que hay giros de ángulos considerables en cuatro esquinas.
@@ -852,7 +852,7 @@ norte, se busca sólo entre los vértices \textit{gateway} al norte.
 %-----------------------------------
 %   SELECCIÓN DEL SIGUIENTE SALTO
 %-----------------------------------
-\label{subsec:seleccion_siguiente_salto}
+\label{sec:seleccion_siguiente_salto}
 
 Una vez que se determina el vértice de destino local y se tiene una ruta hacia
 este, se debe seleccionar el siguiente salto para retransmitir el paquete. El
@@ -880,151 +880,65 @@ en el primer tramo recto de la ruta.}
 \end{figure}
 
 En caso de que no exista un vecino que se encuentre adelante en el primer tramo
-recto, se obtiene el siguiente tramo recto, y se elige el vecino más cercano al
-inicio de este tramo como siguiente salto, aunque sea posible que no haya línea
-de visión hacia este. En la figura \ref{fig:siguiente_salto_2}, el vehículo
-$V_0$ calculó una ruta para un paquete, y el primer tramo recto es {}, pero no
-hay vehículos en estas aristas. El siguiente tramo recto es {}, y los vehículos
-$V_1$ y $V_2$ se encuentran en este tramo. El vecino más cercano al inicio del
-tramo es $V_1$, por lo que este se selecciona como siguiente salto.
+recto, se obtiene el siguiente tramo recto, y se elige como siguiente salto el
+vecino más cercano al inicio de este tramo. En la figura
+\ref{fig:siguiente_salto_2}, el vehículo $V_0$ calculó una ruta para un
+paquete, y el primer tramo recto es $i \rightarrow n$, pero no hay vehículos en
+este. El siguiente tramo recto es $n \rightarrow m \rightarrow l \rightarrow
+k$, y los vehículos $V_1$ y $V_2$ se encuentran en este tramo. El vecino más
+cercano al inicio de este tramo es $V_1$, por lo que este se selecciona como
+siguiente salto.
 
-% TODO: Hacer figura {fig:siguiente_salto_2}.
+\begin{figure}[th!]
+\centering
+\includegraphics{siguiente_salto_2}
+\decoRule
+\caption[Siguiente salto en el segundo tramo recto de la ruta]{Siguiente salto
+en el segundo tramo recto de la ruta.}
+\label{fig:siguiente_salto_2}
+\end{figure}
 
 Cuando un vehículo se encuentra en una arista \textit{gateway} y tiene que
-retransmitir un paquete hacia la subred adyacente, este no puede calcular una
-ruta para la red vial de la siguiente subred. En este caso, selecciona el
-vehículo vecino más cercano que se encuentre en la subred adyacente. Si no hay
-vecinos en la subred adyacente, se selecciona como siguiente salto el vecino más
+retransmitir un paquete hacia la subred adyacente, este selecciona el vehículo
+vecino más cercano que se encuentre en la subred adyacente. Si no hay vecinos
+en la subred adyacente, se selecciona como siguiente salto el vecino más
 cercano al vértice \textit{gateway}. En la figura \ref{fig:siguiente_salto_3},
 los vehículos $V_0$ y $V_1$ están en la subred 1, y los vehículos $V_2$ y $V_3$
 en la subred 2. $V_0$ debe retransmitir un paquete hacia la subred 2, y como se
-encuentra en la arista \textit{gateway} {}, selecciona a $V_2$ como siguiente
-salto, ya que es el vecino más cercano que se encuentra en la subred adyacente.
-Si $V_0$ aún no tuviera a $V_2$ como vecino, tendría que seleccionar a $V_1$
-como siguiente salto.
-
-% TODO: Hacer figura {fig:siguiente_salto_3}.
-
-Una vez que se conoce el vértice de destino local, se debe seleccionar un
-vehículo vecino para retransmtir el paquete. Se busca que el paquete haga el
-mayor avance posible con cada retransmisión, por lo que se debe seleccionar un
-vecino que se encuentre lejos, pero con el que se tenga línea de visión. Las
-distancias de ruta de cada vértice ayudan a determinar con qué vecinos es
-probable que haya línea de visión. En la figura
-\ref{fig:ruta_siguiente_salto_1}, el vehículo $V_1$ circula por la arista
-$\{h,g\}$, y debe enrutar un paquete cuyo último vértice de destino es $i$.
-Después de calcular la ruta más corta, obtiene la ruta $h \rightarrow g
-\rightarrow f \rightarrow e \rightarrow i$. Como $g$ y $h$ son los vértices de
-la arista inicial en la ruta, su distancia de ruta es 0, como se explicó en la
-sección \ref{subsec:computo_rutas_viales}. El ángulo que forma la arista
-$\{g,f\}$ con la dirección de la arista $\{h,g\}$ es 0\si{\degree}, por lo que
-su peso $f$ será 0. El ángulo que forma la arista $\{f,e\}$ con la arista
-$\{g,f\}$ también es 0, por lo que su peso también es 0. El peso de la arista
-$\{e,i\}$ es 90, ya que esta forma un ángulo de 90\si{\degree} con la arista
-anterior. Con estos pesos, la distancia de ruta de los vértices $f$, $e$ e $i$
-son 0, 0 y 90, respectivamente. Con lo que se puede deducir que $e$ es el
-último vértice con el que es probale tener una línea de visión desde la arista
-inicial.
+encuentra en la arista \textit{gateway} $(i,h)$, selecciona a $V_2$ como
+siguiente salto, ya que es el vecino más cercano que se encuentra en la subred
+adyacente. Si $V_2$ no estuviera en el directorio de vehículos vecinos de $V_0$,
+este tendría que seleccionar a $V_1$ como siguiente salto, ya que es el vecino
+más cercano al vértice \textit{gateway} $h$.
 
 \begin{figure}[th!]
 \centering
-\includegraphics{ruta_siguiente_salto_1}
+\includegraphics{siguiente_salto_3}
 \decoRule
-\caption[Ruta con secuencia de varias aristas con línea de visión]{Ruta con
-secuencia de varias de aristas con línea de visión.}
-\label{fig:ruta_siguiente_salto_1}
+\caption[Siguiente salto al cambiar de subred]{Siguiente salto al cambiar de
+subred.}
+\label{fig:siguiente_salto_3}
 \end{figure}
 
-En la figura \ref{fig:ruta_siguiente_salto_2} se muestra la misma ruta, pero
-con los vehículos $V_2$ y $V_3$ circulando en las arista $\{g,f\}$, y $V_4$ en
-$\{f,e\}$. Se indica que la arista $\{f,g\}$está activa para $V_1$,
-pero no la arista $\{f,e\}$. Por esta razón, a pesar de que $V_1$ tiene línea
-de visión con $e$, se descartan como siguiente salto los vehículos circulando
-por $\{f,e\}$. El último vértice alcanzable en la ruta, y con el que se tiene
-línea de visión, es $f$, por lo que sí se consideran los vehículos circulando
-en $\{g,f\}$ para seleccinar el siguiente salto. Los vehículos vecinos que
-circulan en esa arista son $V_2$ y $V_3$, pero para que el paquete avance lo
-más posible, se selecciona como siguiente salto el más cercano a $f$, que es
-$V_3$.
-% Una vez seleccionado el siguiente salto, $V_1$ agrega una ruta nueva a
-% su tabla de enrutamiento, en la que el destino es la dirección IP de destino
-% del paquete, y el siguiente salto la dirección IP de $V_2$. Además, se
-% establece un tiempo de validez de la ruta, definido por el parámetro
-% VIGENCIA\_RUTA.
+Para saber dónde termina un tramo recto de una ruta, se recorre vértice por
+vértice, y mientras la distancia de ruta de cada vértice esté cerca de 0, se
+considera que el tramo de la ruta hasta dicho vértice es un tramo recto. En la
+figura \ref{fig:tramo_recto}, se muestra una ruta que inicia en la arista
+$(j,i)$. La siguiente arista es $(i,h)$, y su peso es 0 (véase la sección
+\ref{sec:computo_rutas_viales}), por lo que la distancia de ruta del vértice
+$h$ es 0. Siguiendo el mismo análisis, la distancia de ruta de los vértices
+$g$ y $f$ también son 0. Después, la siguiente arista es $(f,k)$, y su peso es
+90, ya que esta forma un ángulo de 90\si{\degree} con la arista $(g,f)$, por lo
+que la distancia de ruta del vértice $k$ es 90. Así, se determina que el primer
+tramo recto de la arista termina en el vértice $f$.
 
 \begin{figure}[th!]
 \centering
-\includegraphics{ruta_siguiente_salto_2}
+\includegraphics{tramo_recto}
 \decoRule
-\caption[Selección del siguiente salto en ruta con secuencia de varias de
-aristas con línea de visión]{Selección del siguiente salto en ruta con
-secuencia de varias de aristas con línea de visión.}
-\label{fig:ruta_siguiente_salto_2}
-\end{figure}
-
-Otra ruta se muestra en la figura \ref{fig:ruta_siguiente_salto_3}, la cual
-inicia en la arista $\{d,c\}$, donde circula el vehículo $V_1$ y tiene como
-destino el vértice $k$. En este caso, el siguiente vértice en la ruta es $g$, y
-tiene una distancia de ruta de 90, debido a que el ángulo que forma la arista
-$\{c,g\}$ con la dirección de la arista $\{d,c\}$ es de 90\si{\degree}. En esta ruta, la
-única arista donde $V_1$ tiene línea de visión es la arista inicial $\{d,c\}$,
-por lo que únicamente podría transitir los paquetes a vehículos vecinos en la
-misma arista.
-
-\begin{figure}[th!]
-\centering
-\includegraphics{ruta_siguiente_salto_3}
-\decoRule
-\caption[Ruta sin secuencia de varias aristas con línea de visión]{Ruta sin
-secuencia de varias aristas con línea de visión.}
-\label{fig:ruta_siguiente_salto_3}
-\end{figure}
-
-En la figura \ref{fig:ruta_siguiente_salto_4}, se muestra la misma ruta, además
-de los vehículos $V_1$ y $V_2$ circulando en la arista $\{d,c\}$, $V_3$
-circulando en $\{c,g\}$, y $V_4$ circulando en $\{g,k\}$. El vehículo $V_1$
-tiene un paquete que tiene que seguir la ruta, pero este sólo tiene línea de
-visión con los vehículos en la arista $\{d,c\}$. En este escenario, el último
-vértice alcanzable con línea de visión en la ruta es $c$, por lo que $V_1$ debe
-seleccionar como siguiente salto un vehículo que acerque el paquete  a este
-vértices; en este caso, se trata de $V_2$. El vértice $V_2$ se encuentra en el
-vértice $c$, y, desde su ubicación, el último vértice alcanzable con línea de
-visión es $k$. Por este motivo, busca el vehículo vecino más cercano al vértice
-$k$, que en este caso es $V_4$, y lo selecciona como siguiente salto.
-
-\begin{figure}[th!]
-\centering
-\includegraphics{ruta_siguiente_salto_4}
-\decoRule
-\caption[Selección del siguiente salto en ruta sin secuencia de varias aristas
-con línea de visión]{Selección del siguiente salto en ruta sin secuencia de
-varias aristas con línea de visión.}
-\label{fig:ruta_siguiente_salto_4}
-\end{figure}
-
-Otro escenario es cuando un mensaje tiene que pasar de una subred a otra. En la
-figura \ref{fig:siguiente_salto_cambio_subred} se muestra el grafo vial de dos
-subredes vecinas. Los vehículos $V_1$ y $V_2$ forman parte de la subred 1, y
-los vehículos $V_3$ y $V_4$ de la subred 2. El vehículo $V_1$ tiene un paquete
-que debe retransmitir a la subred 2. Como el vértice $h$ es un vértice
-\textit{gateway}, las aristas $\{i,h\}$ y $\{h,g\}$ son aristas
-\textit{gateway}. Los vehículos que circulan por estas forman parte de ambas
-subredes en ese momento, como se explicó en la sección \ref{sec:cambio_subred}.
-En este caso, el vehículo $V_1$ selecciona aleatoriamente como siguiente salto
-un vehículo vecino que se encuentre en la subred 2, que es el vehículo $V_3$ en
-el ejemplo. Una vez que el vehículo $V_3$ recibe el paquete, comienza un
-proceso de enrutamiento intrarregión dentro de la subred 2, en el que el paquete
-debe llegar a su destino, si este se encuentra en la misma subred, o a la
-siguiente subred.
-
-\begin{figure}[th!]
-\centering
-\includegraphics{siguiente_salto_cambio_subred}
-\decoRule
-\caption[Selección del siguiente salto en ruta sin secuencia de varias aristas
-con línea de visión]{Selección del siguiente salto en ruta sin secuencia de
-varias aristas con línea de visión.}
-\label{fig:siguiente_salto_cambio_subred}
+\caption[Primer tramo recto de una ruta vial]{Primer tramo recto de una ruta
+vial.}
+\label{fig:tramo_recto}
 \end{figure}
 
 \section{Parámetros de configuración}
@@ -1033,14 +947,22 @@ varias aristas con línea de visión.}
 %-----------------------------------
 \label{sec:parametros_configuracion}
 
-\keyword{INTERVALO\_HOLA\_VEHIC} --
+Los parámetros de configuración del protocolo de enrutamiento propuesto son los
+siguientes:
 
-\keyword{VIGENCIA\_VEHICULO\_VECINO} --
+\keyword{INTERVALO\_HOLA\_VEHIC} -- Intervalo de tiempo que cada vehículo espera
+para transitir un mensaje HOLA-VEHIC.
 
-\keyword{INTERVALO\_HOLA\_HOST} --
+\keyword{VIGENCIA\_VEHICULO\_VECINO} -- Tiempo de vigencia de cada registro del
+directorio de vehículos vecinos a partir del último mensaje HOLA-VEHIC
+correspondiente recibido.
 
-\keyword{VIGENCIA\_HOST\_VECINO} --
+\keyword{INTERVALO\_HOLA\_HOST} -- Intervalo de tiempo que cada \textit{host}
+espera para transmitir un mensaje HOLA-HOST.
 
-\keyword{VIGENCIA\_RUTA} --
+\keyword{VIGENCIA\_HOST\_VECINO} -- Tiempo de tiempo que cada registro del
+directorio de \textit{hosts} vecinos a partir del último mensaje HOLA-HOST
+correspondiente recibido.
 
-\keyword{RADIO\_CERCANIA\_VERTICE} --
+\keyword{VIGENCIA\_RUTA} -- Tiempo de vigencia de cada ruta en la tabla de
+enrutamiento.
