@@ -1,69 +1,61 @@
-﻿%-----------------------------------
+﻿\chapter{Protocolo de autoconfiguración de direcciones propuesto}
+%-----------------------------------
 %   PROTOCOLO DE AUTOCONFIGURACIÓN DE DIRECCIONES PROPUESTO
 %-----------------------------------
-\chapter{Protocolo de autoconfiguración de direcciones propuesto}
+\label{ch:protocolo_autoconfiguracion_de_direcciones_propuesto}
 
-\label{ch:autoconfiguracion_de_direcciones_propuesto}
+Como se mencionó en el capítulo
+\ref{ch:autoconfiguracion_de_direcciones_en_redes_descentralizadas}, para que
+los vehículos puedan comunicarse a través de la red, necesitan tener una
+dirección IP. Al no contar con un servidor DHCP en un VANET que se encargue de
+asignar una dirección a cada vehículo, se requiere de un método que le permita
+a cada vehículo obtener una dirección IP única de manera autónoma. Es por esto,
+que se propone un protocolo de autoconfiguración de direcciones que permite que
+cada vehículo y \textit{host} pueda obtener autónomamente una dirección IPv6., y
+se describe en este capítulo
 
-Como se mencionó en el capítulo \ref{ch:autoconfiguracion_de_direcciones}, para
-que los vehículos puedan comunicarse a través de la red, necesitan tener una
-dirección IP. Al no contar con un servidor DHCP que se encargue de asignar una
-dirección a cada vehículo, se requiere de un método que le permita a cada
-vehículo obtener una dirección IP única de manera autónoma.
-
-La razón por la que las direcciones IP tienen una estructura jerárquica, es que,
-de este modo, los dispositivos que forman una red grande se pueden agrupar para
-formar subredes, y esto facilita el enrutamiento. En las redes cableadas, la
-jerarquización está determinada por la topología de la red. No obstante, en una
-VANET, la topología cambia constantemente, por lo que se debe utilizar otro
-método para agrupar a los vehículos y formar las subredes. En el presente
-capítulo, se describe el protocolo de autoconfiguración de direcciones que se
-diseñó para lograr este objetivo.
-
+\section{Formación de las subredes}
 %-----------------------------------
 %   FORMACIÓN DE LAS SUBREDES
 %-----------------------------------
-\section{Formación de las subredes}
-
 \label{sec:formacion_de_subredes}
 
-Una dirección IP se forma por dos partes, como se explica en la sección
-\ref{subsec:direccionamiento_ipv6}: el prefijo, que identifica a la subred, y el
-identificador asignado a la interfaz. Para que un vehículo pueda obtener una
-dirección, lo primero que necesita conocer es la subred a la que se va a unir.
-Esto nos lleva al problema de cómo agrupar a los vehículos para formar las
-subredes.
+La razón por la que las direcciones IPv6 tienen una estructura jerárquica es
+que, de este modo, los dispositivos que forman una red grande se pueden agrupar
+para formar subredes, lo que facilita el enrutamiento. En las redes cableadas,
+la jerarquización está determinada por la topología de la red, pero en una VANET
+la topología cambia constantemente, por lo que se propone un método distinto
+para agrupar a los vehículos en subredes.
 
-Debido a las restricciones del canal de comunicación inalámbrica, como el
-radio de transmisión, los vehículos se agrupan geográficamente. Es decir, una
-subred se debe formar por el subconjunto de vehículos que se encuentran dentro
-de cierta región geográfica. Si un vehículo es capaz de conocer su ubicación,
-puede determinar en qué región se encuentra, y, por lo tanto, cuál es la red a
-la que debe unirse. Por este motivo, se requiere que todos los vehículos
-cuenten con algún dispositivo que les permita obtener su ubicación geográfica.
+Una dirección IPv6 se forma por dos partes (véase la sección
+\ref{subsec:direccionamiento_ipv6}): el prefijo, que identifica a la subred, y
+el identificador de la interfaz. Para que un vehículo pueda obtener una
+dirección, primero debe saber a qué subred se va a unir. La formación de
+subredes que se propone es dividir una región geográfica en regiones más
+pequeñas, y agrupar a los vehículos que circulan en cada una de estas para
+formar subredes. Para esto, se requiere que cada vehículo y \textit{host} pueda
+conocer su ubicación geográfica.
 
-Después de definir la manera en la que se van a agrupar los vehículos para
-formar las subredes, se debe especificar cómo se determinarán los límites de
-cada región, y cómo asignar un código con el que se pueda generar el prefijo de
-la subred para cada una. Para lograr esto, se recurrió al sistema de
-codificación Geohash, que se describe en la siguiente sección.
+Para definir los límites de las regiones, se utilizó un sistema de
+geocodificación llamado Geohash, que permite representar regiones geográficas
+mediante un código que se puede utilizar para generar el identificador de cada
+subred para el prefijo de las direcciones IPv6. A continuación, se describe la
+geocodificación Geohash.
 
+\subsection{Geocodificación Geohash}
 %-----------------------------------
-%   CODIFICACIÓN GEOHASH
+%   GEOCODIFICACIÓN GEOHASH
 %-----------------------------------
-\subsection{Codificación Geohash}
+\label{subsec:geocodificacion_geohash}
 
-\label{subsec:codificacion_geohash}
-
-En el sistema de codificación Geohash, se representa una ubicación o una
+En el sistema de geocodificación Geohash, se representa una ubicación o una
 región geográfica con una cadena corta de letras y números. La longitud del
 codigo determina la precisión de la ubicación. Además, esta codificación permite
 saber si dos ubicaciones son cercanas analizando la longitud del prefijo común
 entre sus códigos \cite{wiki:Geohash}.
 
 Un código Geohash es una cadena binaria, que se convierte en una secuencia de
-símbolos de la codificación base 32, que se muestra en la tabla
-\ref{tab:base32}.
+símbolos base 32. Estos símbolos se muestran en la tabla \ref{tab:base32}.
 
 \begin{table}[th]
 \centering
@@ -117,15 +109,15 @@ símbolos de la codificación base 32, que se muestra en la tabla
 \end{table}
 
 Para formar un código Geohash, se divide toda la superficie de la Tierra en 32
-celdas (figura \ref{fig:geohash1}), y a cada una se le asigna un símbolo. Se
-elige la región que contiene la ubicación de interés y se agrega el símbolo
-correspondiente al código. La región seleccionada se divide en 32 celdas (figura
-\ref{fig:geohash2}), y nuevamente se selecciona la que contiene la ubicación, y
-su símbolo se agrega al código. Este proceso se repite hasta obtener la
-precisión necesaria. Se puede notar que, mientras más largo sea el prefijo
-común entre dos códigos, más cercanas entre sí son las ubicaciones que
-representan. En el apédice \ref{app:b} se explica con más detalle cómo
-codificar una ubicación para obtener un código Geohash.
+celdas (figura \ref{fig:geohash1}), y cada una tiene asignado un símbolo. Se
+elige la región que contiene la ubicación/región de interés y se agrega el
+símbolo correspondiente al código. La región seleccionada se divide en 32
+celdas (figura \ref{fig:geohash2}), y se selecciona la celda que contiene la
+ubicación/región de interés, y su símbolo se agrega al código. Este proceso se
+repite hasta obtener la precisión necesaria. Nótese que, mientras más largo sea
+el prefijo común entre dos códigos, más cercanas entre sí son las ubicaciones
+que representan. En el apédice \ref{app:b} se muestra un algoritmo para generar
+un código Geohash a partir de una ubicación geográfica.
 
 \begin{figure}[th!]
 \centering
@@ -143,12 +135,12 @@ codificar una ubicación para obtener un código Geohash.
 \label{fig:geohash2}
 \end{figure}
 
-Un mismo código se puede interpretar con una región o como una ubicación, en
-cuyo caso, generalmente, se considera el centro de la región. En la tabla
+Un mismo código se puede interpretar con una región o como una ubicación
+puntual, en cuyo caso, se considera el centro de la región. En la tabla
 \ref{tab:tamaño_celdas_geohash} se muestra el tamaño aproximado de las celdas
 que se obtienen de acuerdo a la longitud del código. Se debe considerar que el
-tamaño de las celdas es más pequeño a medida de que se alejan del ecuador
-\cite{GeohashBolivia}.
+tamaño de las celdas es más pequeño a medida que la latitud se aleja del
+ecuador.
 
 \begin{table}[th]
 \caption{Tamaño de las celdas para diferentes longitudes de código
@@ -177,57 +169,39 @@ tamaño de las celdas es más pequeño a medida de que se alejan del ecuador
 
 A partir de aquí, se llamará código \textbf{Geohash-\textit{n}} a un código
 Geohash de longitud \textit{n}. También, se entenderá como \textbf{región
-Geohash} o \textbf{ubicación Geohash} a una región o ubicación, respectivamente,
-representadas por un código Geohash.
+Geohash} o \textbf{ubicación Geohash} a una región o ubicación representada por
+un código Geohash.
 
-% La división de las regiones se hace con base en la división que se deriva de
-% este sistema de codificación. La longitud de códigos que se usa es 6, por lo que
-% las regiones resultantes miden aproximadamente 1.22 km en longitud y 0.61
-% km en latitud, según la tabla \ref{tab:tamaño_celdas_geohash}. Este tipo de
-% códigos se pueden traducir de manera directa a cadenas de bits, por lo que se
-% peden incorporar fácilmente a las direcciones IP. Cada símbolo del código se
-% convierte en una secuencia de 5 bits, así que la longitud total del código es de
-% 30 bits. Cuando un vehículo necesita saber en qué región se encuentra, calcula
-% el código Geohash de su ubicación con una precisión de 6 símbolos, con lo que
-% genera el identificador de subred para su dirección \textit{unicast} y el
-% identificador de grupo para la dirección \textit{multicast}.
-
+\subsection{Subredes Geohash}
 %-----------------------------------
 %   SUBREDES GEOHASH
 %-----------------------------------
-\subsection{Subredes Geohash}
-
 \label{subsec:subredes_geohash}
 
-La codificación Geohash nos permite delimitar regiones y asociar un código a
-cada una, por lo que sirve para resolver el problema planteado al final de la
-sección \ref{sec:formacion_de_subredes}. Por esta razón, denominamos como
-\textbf{subred Geohash} a una subred formada por los vehículos que se encuentran
-dentro de una región Geohash. Ahora, se debe definir de qué tamaño deben ser
-estas regiones.
+Utilizando códigos Geohash, se definen las regiones con las que se formarán las
+subredes, que se denominan \textbf{subredes geohash}. Estas subredes se forman
+por los vehículos que se encuentran dentro de los límites de la región. Pero
+falta determinar cuál es el mejor tamaño para estas regiones.
 
 Si las regiones fueran muy grandes, habría muy pocas subredes con muchos
-vehículos cada una, por lo que no se aprovecharía la jerarquización de
-direcciones que ofrece el protocolo IPv6, y esto complicaría el enrutamiento.
-En la figura \ref{fig:region_geohash5} se puede notar que las regiones
-Geohash-5 abarcan un área muy grande, por lo que se presentaría esta situación
-si se eligiera este tamaño.
+vehículos cada una, por lo que la jerarquización de direcciones sería muy débil,
+y no ayudaría a simplificar el enrutamiento. Por ejemplo, en la figura
+\ref{fig:region_geohash5} se puede notar que las regiones Geohash-5 abarcan un
+área muy grande, aproximadamente de 4.89x4.89km, seún la tabla
+\ref{tab:tamaño_celdas_geohash}, que es un ejemplo de este caso. Por otra parte,
+si las regiones fueran muy pequeñas, habría muchas subredes con muy pocos
+vehículos. En la figura \ref{fig:region_geohash7} se observa que las regiones
+Geohash-7 son tan pequeñas, que algunas apenas abarcan un segmento de alguna
+calle, en cuyo caso, podría llegar a haber regiones sin ningún vehículo. Además,
+algunos pares de celdas adyacentes no cuentan con algún segmento de calle que
+las conecte, por lo que los vehículos no podrían pasar de una región a otra.
 
-Por otra parte, si las regiones fueran muy pequeñas, habría muchas subredes con
-muy pocos vehículos. En la figura \ref{fig:region_geohash7} podemos ver que las
-regiones Geohash-7 son tan pequeñas, que algunas apenas abarcan un pequeño
-segmento de alguna calle. Si se eligiera este tamaño, en algunos casos
-podría llegar a haber regiones sin ningún vehículo. Además, algunos pares de
-celdas adyacentes no cuentan con algún segmento de calle que las conecte, por
-lo que los vehículos no podrían pasar de una región a otra.
-
-Según la tabla \ref{tab:tamaño_celdas_geohash}, las regiones Geohash-6 son de
-1.22 km de ancho y 0.61 km de alto, aproximadamente. En la figura
-\ref{fig:region_geohash6} se puede ver que estas regiones tienen un tamaño más
-apropiado que los de las regiones consideradas anteriormente.
-Además, todas las regiones tienen al menos un segmento de calle que
-las conecte con las cuatro regiones adyacentes. Es por esto que se decidió que
-cada subred Geohash abarcará una región Geohash-6.
+Por otro lado, las regiones Geohash-6 tienen un tamaño más razonable, como se
+puede ver en la figura \ref{fig:region_geohash6}. Según la tabla
+\ref{tab:tamaño_celdas_geohash}, las dimensiones de estas regiones son de
+1.22x0.61km, aproximadamente, y todas tienen al menos un segmento de calle que
+las conecta con sus regiones asyacentes. Es por esto, que eligió que las
+regiones para las subredes serán definidas por códigos Geohash-6.
 
 \begin{figure}[th!]
 \centering
@@ -265,23 +239,40 @@ cada subred Geohash abarcará una región Geohash-6.
 
 \end{figure}
 
-Ya que se tiene definido el tamaño de cada región, en las siguientes
-secciones se describe cómo se utilizan los códigos Geohash de cada una para
-determinar formar las direcciones IP con las que los vehículos podrán
-autoconfigurarse.
-
+\section{Formato de las direcciones IPv6}
 %-----------------------------------
-%   FORMATO DE LAS DIRECCIONES IPV6 UNICAST
+%   FORMATO DE LAS DIRECCIONES IPV6
 %-----------------------------------
-\subsection{Formato de las direcciones IPv6 \textit{unicast}}
+\label{sec:formato_direcciones_ipv6}
 
-\label{subsec:formato_direcciones_ipv6_unicast}
+Cuando un vehículo o \textit{host} necesita transmitir un paquete hacia otro,
+debe conocer su dirección \textit{unicast} para referiste a exclusivamente a
+este, por lo que cada uno debe tener forzosamente una dirección
+\textit{unicast}. Por otro lado, los protocolos de enrutamiento requieren que
+todos los nodos de una red compartan mensajes con todos sus vecinos, y el
+protocolo propuesto no es la excepción. Es por esto que todos los vehículos y
+\textit{hosts} tengan también una dirección \textit{multicast}.
 
-Para que un vehículo pueda compartir paquetes con otro, ambos necesitan tener
-una dirección IP \textit{unicast}. Este tipo de direcciones identifican de
-manera única a un dispositivo dentro de una red. El protocolo IPv6 define
-diferentes tipos de direcciones \textit{unicast}, que se describen a
-continuación \cite{CiscoIpv62011}:
+Tanto las direcciones \textit{unicast} como \textit{multicast} deben contener el
+identificador de la subred. Cuando un nodo conoce su ubicación, con ella puede
+calcular el código Geohash correspondiente. Todos los nodos que se encuentren en
+la misma región obtendrán un código Geohash con los mismos primeros 6 símbolos,
+que forman el código Geohash-6 que identifica la subred en la que se
+encuentran. De este modo, todos pueden obtener directamente el identificador de
+la subred en la que se encuentran.
+
+El protocolo de autoconfiguración de direcciones define reglas para que cada
+nodo de la red pueda generar sus propias direcciones y configurarse sin ayuda de
+los demás. A continuación, se describe cómo se forman estas direcciones.
+
+\subsection{Direcciones IPv6 \textit{unicast}}
+%-----------------------------------
+%   DIRECCIONES UNICAST
+%-----------------------------------
+\label{subsec:direcciones_unicast}
+
+El protocolo IPv6 define diferentes tipos de direcciones \textit{unicast}, que
+se describen a continuación \cite{CiscoIpv62011}:
 
 \keyword{Dirección global agregable} -- Estas direcciones tienen un prefijo de
 enrutamiento global de 48 bits que comienza con \code{2000::/3}. En seguida,
@@ -304,9 +295,9 @@ direcciones únicas globalmente, y son destinadas únicamente para comunicación
 local; es decir, no se enrutan hacia Internet. Su asignación no depende del ISP
 o de alguna otra entidad reguladora.
 
-Debido a que no hay restricciones para la asignación de direcciones locales
+Debido a que no hay restricciones para la utilización de direcciones locales
 únicas, este es el tipo de dirección \textit{unicast} que se usarán para
-identificar a los vehículos. La figura \ref{fig:formato_direccion_unicast}
+identificar a los nodos. La figura \ref{fig:formato_direccion_unicast}
 muestra el formato de una dirección local única \cite{CiscoIpv62011}.
 
 \begin{figure}[th!]
@@ -318,11 +309,9 @@ local única.}
 \label{fig:formato_direccion_unicast}
 \end{figure}
 
-El identificador de la subred contiene el código Geohash asociado a esta, por
-lo que las direcciones \textit{unicast} se denominan \keyword{direcciones
-\textit{unicast} Geohash}. El formato destas direcciones se muestra en la
-figura \ref{fig:formato_direccion_unicast_geohash}, y se conforma de la
-siguiente manera:
+El formato de las direcciones \textit{unicast} se muestra en la figura
+\ref{fig:formato_direccion_unicast_geohash}, y se conforma de la siguiente
+manera:
 
 \begin{figure}[th!]
 \centering
@@ -336,28 +325,22 @@ dirección \textit{unicast} Geohash.}
 \keyword{Bits 0 - 6} -- Prefijo \code{FC00::/7}, que indica que se trata de
 una dirección local única.
 
-\keyword{Bits 7 - 33} -- No se usan; se fijan en 0.
+\keyword{Bits 7 - 33} -- No se usan; valen 0.
 
-\keyword{Bits 34 - 63} -- Código Geohash de la subred. Cuando un vehículo
-conoce su ubicación, calcula el código Geohash, y los primeros 6 símbolos
-corresponden al código de la subred. Este código se convierte a una cadena de
-30 bits, de acuerdo con la tabla \ref{tab:base32}.
+\keyword{Bits 34 - 63} -- Código Geohash de la subred.
 
 \keyword{Bits 64 - 127} -- Identificador de la interfaz en el formato
 EUI-64.
 
+\section{Direcciones IPv6 \textit{multicast}}
 %-----------------------------------
-%   FORMATO DE DIRECCIONES IPV6 MULTICAST
+%   DIRECCIONES IPV6 MULTICAST
 %-----------------------------------
-\subsection{Formato de direcciones IPv6 \textit{multicast}}
+\label{subsec:direcciones_ipv6_multicast}
 
-\label{subsec:formato_direcciones_ipv6_multicast}
-
-Además de una dirección \textit{unicast}, cada vehículo necesita unirse a un
-grupo \textit{multicast} para poder comunicarse con los demás de su misma
-subred. En el protocolo IPv6, una dirección \textit{multicast} se forma por dos
-partes: el prefijo \code{FF02::/16}, como se muestra en la figura
-\ref{fig:formato_direccion_multicast}.
+En el protocolo IPv6, una dirección \textit{multicast} se forma por dos partes:
+el prefijo \code{FF02::/16} y el identificador del grupo \textit{multicast},
+como se muestra en la figura \ref{fig:formato_direccion_multicast}.
 
 \begin{figure}[th!]
 \centering
@@ -368,22 +351,9 @@ partes: el prefijo \code{FF02::/16}, como se muestra en la figura
 \label{fig:formato_direccion_multicast}
 \end{figure}
 
-La dirección \textit{multicast} de cada subred también incluye el código
-Geohash de esta, por lo que las direcciones \textit{mutlicast} se denominan
-\keyword{direcciones \textit{multicast} Geohash}. El formato de estas
-direcciones se muestra en la figura
+El formato de las direcciones \textit{multicast} se muestra en la figura
 \ref{fig:formato_direccion_multicast_geohash}, y se conforma de la siguiente
 manera:
-
-\keyword{Bits 0 - 15} -- Prefijo \code{FF02::/16}, que indica que se trata
-de una dirección multicast.
-
-\keyword{Bits 16 - 97} -- No se usan; se fijan en 0.
-
-\keyword{Bits 98 - 127} -- Código Geohash de la subred. Cuando un vehículo
-conoce su ubicación, calcula el código Geohash, y los primeros 6 símbolos
-corresponden al código de la subred. Este código se convierte a una cadena de
-30 bits, de acuerdo con la tabla \ref{tab:base32}.
 
 \begin{figure}[th!]
 \centering
@@ -394,136 +364,59 @@ la dirección \textit{multicast} para cada región.}
 \label{fig:formato_direccion_multicast_geohash}
 \end{figure}
 
+\keyword{Bits 0 - 15} -- Prefijo \code{FF02::/16}, que indica que se trata
+de una dirección multicast.
+
+\keyword{Bits 16 - 97} -- No se usan; se fijan en 0.
+
+\keyword{Bits 98 - 127} -- Código Geohash de la subred.
+
+\section{Cambio de subred}
 %-----------------------------------
 %   CAMBIO DE SUBRED
 %-----------------------------------
-\section{Cambio de subred}
-
 \label{sec:cambio_subred}
 
-Cuando un vehículo enciende su interfaz de red, lo único que necesita para
-autoconfigurarse es conocer su ubicación. Con este dato, podrá obtener su
-dirección \textit{unicast} y su dirección \textit{multicast}, como se explicó
-en la sección anterior. Sin embargo, se necesita definir cómo llevará a cabo la
-autoconfiguración cuando se mueva de una región Geohash a otra.
+Para que un vehículo o \textit{host} se pueda configurar para unirse a una
+subred, lo único que necesita es conocer su ubicación geográfica, y con ella
+puede generar sus direcciones \textit{unicast} y \textit{multicast}, como se
+describió anteriormente. Sin embargo, los vehículos deben seguir ciertas reglas
+cuando se mueven de una subred a otra.
 
-Si un vehículo, al consultar su ubicación, detecta que se encuentra en una nueva
-región Geohash, lo más simple sería eliminar de la configuración de su interfaz
-las direcciones \textit{unicast} y \textit{multicast} de la subred anterior, y
-configurar las direcciones para unirse a la nueva subred. Pero, de este modo,
-las subredes estarían completamente aisladas una de otra, por lo que no se
-podría hacer un enrutamiento a través de varias subredes.
-
-En la figura \ref{fig:gateways}, se muestra la frontera entre las subredes
-A y B. Durante el enrutamiento, un paquete necesita ser transmitido del vehículo
-A$_1$ al vehículo B$_1$. Para esto, A$_1$ primero debe transmitirlo a A$_2$,
-que se encuentra en su misma subred. Después, A$_2$ debe retransmitirlo a B$_2$,
-a pesar de que pertenecen a redes distintas. Finalmente, B$_2$ lo retransmite
-hacia B$_1$, que está en su misma subred. Los vehículos A$_2$ y B$_2$ se
-denominan \textbf{\textit{gateways}}.
+Cuando un vehículo entra a una nueva subred, no es conveniente que deseche las
+direcciones correspondientes a la subred anterior, ya que, como se explicará en
+el siguiente capítulo, el protocolo de enrutamiento requiere que se comunique
+con vehículos de ambas subredes. Es por esto que necesita mantener sus
+direcciones \textit{unicast} y \textit{multicast} de la subred anterior por un
+tiempo después de que entra a otra subred mientras se encuentra en una región
+llamada \textbf{región \textit{gateway}}, que se muestra de color gris en la
+figura \ref{fig:region_gateway}. Un vehículo que se encuentra en una región
+\textit{gateway}, se denomina simplemente \textbf{gateway}, ya que funciona como
+un enlace entre dos subredes adyacentes.
 
 \begin{figure}[th]
 \centering
-\includegraphics[width=8cm]{gateways}
+\includegraphics{region_gateway}
 \decoRule
-\caption[Transmisión de paquetes de una subred a otra]{Transmisión de paquetes
-de una subred a otra.}
-\label{fig:gateways}
+\caption[Región \textit{gateway}]{Región \textit{gateway}.}
+\label{fig:region_gateway}
 \end{figure}
 
-Cuando un vehículo se encuentra dentro de los límites de una región Geohash, y
-forma parte de la subred correspondiente a esa región, esta se denomina como
-\textbf{subred primaria} del vehículo. La región resaltada de color gris en la
-figura \ref{fig:gateways} se denota \textbf{región \textit{gateway}}.
-Cuando un vehículo entra a la región \textit{gateway}, se auto-asigna las
-direcciones \textit{unicast} y \textit{multicast} correspondientes a la subred
-vecina. En el momento en que el vehículo forma parte también de la subred
-vecina, esta se llama \textbf{subred secundaria} del vehículo. En la figura
-\ref{fig:gateways}, el nodo A$_1$ tiene como subred primaria la subred A, y
-no tiene subred secundaria, ya que no se encuentra dentro de la región gateway.
-Para el nodo A$_2$, la subred primaria es la subred A, y la subred secundaria es
-la B. Para el nodo B$_2$, la subred primaria es la B, y la secundaria es la A; y
-para el nodo B$_1$, la subred primaria es la B, y no tiene subred secundaria.
-
-Un \textit{gateway} deben tener la capacidad de recibir y transmitir paquetes
-desde y hacia una subred vecina, por lo que debe ser parte de dos subredes a la
-vez. Cualquier vehículo puede ser un \textit{gateway} si se encuentra cerca de
-la frontera entre dos subredes. En el momento en que un vehículo se encuentre a
-cierta distancia de la frontera, éste informa a los demás vehículos que se ha
-convertido en un \textit{gateway}. Así, los demás podrán saber que a través de
-él pueden transmitir paquetes hacia la subred vecina.
-
-A continuación, se describe el procedimiento que lleva a cabo un vehículo cuando
-se mueve de una subred a otra.
-
-\begin{enumerate}
-  \item El vehículo se encuentra dentro de una región Geohash, y su subred
-  primaria es la correspondiente a la región. En la figura
-  \ref{fig:cambio_subred1}, la subred primaria es la A.
-  \item El vehículo entra a la región \textit{gateway} de la región Geohash
-  donde se encuentra. En este momento, se une a la subred vecina como subred
-  secundaria, y sigue siendo parte de la subred primaria. En la figura
-  \ref{fig:cambio_subred2}, la subred secundaria es la B.
-  \item El vehículo sale de la primera región Geohash y entra a la región
-  \textit{gateway} de la nueva región. Aquí, la subred secundaria pasa a ser la
-  región primaria --ya que ahora se encuentra físicamente en la nueva región--,
-  y la región primaria pasa a ser la región secundaria. Sin embargo, todavía
-  forma parte de ambas subredes. En la figura \ref{fig:cambio_subred3}, ahora la
-  subred primaria es la B y la subred secundaria es la A.
-  \item El vehículo sale de la región \textit{gateway} de la nueva región. A
-  partir de aquí, el vehículo deja de pertenecer a la subred secundaria, ya que
-  no es \textit{gateway} hacia ninguna otra subred. En la figura
-  \ref{fig:cambio_subred4}, la subred primaria del vehículo es la B, y ya no
-  tiene subred secundaria.
-\end{enumerate}
+En la figura \ref{fig:cambio_subred}, se muestran dos subredes adyacentes y las
+fronteras de sus regiones, además de la ubicación de un vehículo en cuatro
+instantes de tiempo. En el tiempo $t_0$, se encuentra en la región 1, pero fuera
+de la región \textit{gateway}, por lo que únicamente forma parte de esta. En el
+tiempo $t_1$, está en la región \textit{gateway} de la región 1, así que
+también debe formar parte de la subred 2. En el tiempo $t_2$, entró a la región
+2, y se encuentra en la región \textit{gateway} de esta. En este caso, también
+debe formar parte de ambas subredes. En el tiempo $t_3$, se encuentra en la
+región 2, pero fuera de la región \textit{gateway}, así que únicamente forma
+parte de la subred 2.
 
 \begin{figure}[th]
 \centering
-
-\begin{subfigure}{\textwidth}
-\centering
-\includegraphics[width=8cm]{cambio_subred1} 
-\caption[Vehículo dentro de la primera región Geohash.]{Vehículo dentro de la
-primera región Geohash.}
-\label{fig:cambio_subred1}
-\end{subfigure}
-
-\vspace{0.5cm}
-
-\begin{subfigure}{\textwidth}
-\centering
-\includegraphics[width=8cm]{cambio_subred2} 
-\caption[El vehículo entra a la región \textit{gateway}.]{El vehículo entra a la
-región \textit{gateway}.}
-\label{fig:cambio_subred2}
-\end{subfigure}
-
-\vspace{0.5cm}
-
-\begin{subfigure}{\textwidth}
-\centering
-\includegraphics[width=8cm]{cambio_subred3} 
-\caption[El vehículo se mueve de una región Geohash a otra.]{El vehículo se
-mueve de una región Geohash a otra.}
-\label{fig:cambio_subred3}
-\end{subfigure}
-
-\vspace{0.5cm}
-
-\begin{subfigure}{\textwidth}
-\centering
-\includegraphics[width=8cm]{cambio_subred4} 
-\caption[El vehículo sale de la región \textit{gateway}.]{El vehículo sale de
-la región \textit{gateway}.}
-\label{fig:cambio_subred4}
-\end{subfigure}
-
-\vspace{0.5cm}
-
+\includegraphics{cambio_subred}
 \decoRule
-\caption[Vehículo cambiando de una subred a otra]{Vehículo cambiando de una
-subred a otra.}
+\caption[Cambio de subred de un vehículo]{Cambio de subred de un vehículo.}
 \label{fig:cambio_subred}
-
 \end{figure}
-
