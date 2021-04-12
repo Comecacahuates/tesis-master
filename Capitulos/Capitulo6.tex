@@ -32,10 +32,10 @@ Los protocolos basados en la posición, como se mencionó en la sección
 dispositivos para tomar decisiones sobre el enrutamiento. Por ejemplo, en el
 protocolo GPSR, discutido en la sección \ref{subsubsec:retransmision_voraz},
 cada nodo únicamente considera su ubicación, la del destinatario y las de los
-vecinos, y selecciona el más cercano al destino. Sin embargo, en un ambiente
-urbano es frecuente que existan obstáculos (principalmente edificios) que
-pueden bloquear las transmisiones. Este tipo de transmisiones se conocen como
-transmisiones sin \textbf{línea de visión}. La figura
+vecinos, y selecciona el más cercano al destino como siguiente salto. Sin
+embargo, en un entorno urbano es frecuente que existan obstáculos, como
+edificios, que pueden bloquear las transmisiones. Este tipo de transmisiones se
+conocen como \textbf{transmisiones sin línea de visión}. La figura
 \ref{fig:transmision_sin_linea_de_vision} muestra una transmisión en la que un
 edificio se encuentra entre los vehículos A y B.
 
@@ -47,13 +47,13 @@ edificio se encuentra entre los vehículos A y B.
 \label{fig:transmision_sin_linea_de_vision}
 \end{figure}
 
-Una transmisión sin línea de visión tiene más probabilidad de terminar como un
-paquete perdido, y cuando un paquete se pierde, en la mayoría de los casos, debe
-ser retransmitido. Si se pierden paquetes frecuentemente, la capacidad del canal
-de comunicación comienza a utilizarse más para retransmitir paquetes perdidos en
-vez de paquetes nuevos, y, como el canal inalámbrico es compartido por todos los
-dispositivos, se generan cuellos de botella que causan pérdidas de paquetes en
-las colas de paquetes de los enrutadores \cite{Kurose2013}.
+Una transmisión sin línea de visión tiene alta posibilidad de provocar la
+pérdida de un paquete, y cuando un paquete se pierde, debe ser retransmitido en
+la mayoría de los casos. Si se pierden paquetes frecuentemente, la capacidad del
+canal de comunicación comienza a utilizarse más para retransmitir paquetes
+perdidos en vez de paquetes nuevos, y, como el canal inalámbrico es compartido
+por todos los dispositivos, se generan cuellos de botella que causan pérdidas de
+paquetes en las colas de paquetes de los enrutadores \cite{Kurose2013}.
 
 Para reducir la pérdida de paquetes, el protocolo prupuesto busca que la mayoría
 de las transmisiones entre los vehículos tengan línea de visión. Por ejemplo, en
@@ -375,9 +375,9 @@ de la ruta.
 \label{subsec:opcion_de_ubicacion_vial_del_destino}
 
 Cuando un vehículo recibe un paquete, puede revisar la opción de ubicación del
-destino para saber la ubicación geográfica a donde este tiene que llegar. Sin
-embargo, para calcular una ruta vial, también se debe conocer la ubicación vial
-destino.
+destino para saber la ubicación geográfica a donde este tiene que llegar. Pero
+para calcular una ruta vial hacia este, también se debe conocer la ubicación
+vial destino.
 
 Si un vehículo recibe un paquete cuyo destino se encuentra en la misma subred,
 debe calcular la ubicación vial del destino y agregarla a la cabecera de
@@ -422,7 +422,7 @@ agregar esta opción.
 %-----------------------------------
 \label{subsec:opcion_de_vertices_visitados}
 
-Para evitar que un paquete pase más de una vez por el mismo vértice, debe
+Para evitar que un paquete pase más de una vez por el mismo vértice, este debe
 llevar un registro de los vértices por los que ya ha pasado. Estos se indican en
 la \keyword{opción de vértices visitados}. El formato de esta opción se indica
 en la figura \ref{fig:formato_opcion_vertices_visitados}, y contiene los
@@ -464,7 +464,7 @@ de saber hacia dónde se debe enrutar.
 
 Si un vehículo recibe un paquete, primero verifica que tenga la opción de
 ubicación del destino. De ser así, después se verifica si la ubicación del
-destino está en su misma región. En este caso, si el paquete no contiene la
+destino está en su misma región. Si este es el caso, y el paquete no contiene la
 opción de ubicación vial del destino, esta se calcula y se agrega a la cabecera
 de opciones de salto por salto. Esta opción únicamente es necesaria cuando un
 paquete se encuentra en la misma región que su destino.
@@ -941,11 +941,11 @@ vial.}
 \label{fig:tramo_recto}
 \end{figure}
 
-\section{Parámetros de configuración}
+\section{Lista de parámetros de configuración}
 %-----------------------------------
-%   PARÁMETROS DE CONFIGURACIÓN
+%   LISTA DE PARÁMETROS DE CONFIGURACIÓN
 %-----------------------------------
-\label{sec:parametros_configuracion}
+\label{sec:lista_de_parametros_de_configuracion}
 
 Los parámetros de configuración del protocolo de enrutamiento propuesto son los
 siguientes:
