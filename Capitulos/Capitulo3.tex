@@ -1,8 +1,7 @@
-﻿%-----------------------------------
+﻿\chapter{Autoconfiguración de direcciones en redes descentralizadas}
+%-----------------------------------
 %   AUTOCONFIGURACIÓN DE DIRECCIONES
 %-----------------------------------
-\chapter{Autoconfiguración de direcciones en redes descentralizadas}
-
 \label{ch:autoconfiguracion_de_direcciones_en_redes_descentralizadas}
 
 Antes de que cualquier dispositivo pueda comunicarse a través de una red,
@@ -41,11 +40,10 @@ funcionamiento de la retransmisión de paquetes, y especifica el formato de las
 direcciones. Posteriormente, se presentan diferentes protocolos que se han
 propuesto para la configuración autmática de direcciones para MANETs.
 
+\section{Protocolo IPv6}
 %-----------------------------------
 %   PROTOCOLO IPV6
 %-----------------------------------
-\section{Protocolo IPv6}
-
 \label{sec:protocolo_ipv6}
 
 El protocolo \textit{Internet Protocol} (IP)\footnote{Protocolo de Internet.}
@@ -69,11 +67,10 @@ las direcciones, ya que ofrece un espacio de direcciones más que suficiente
 para identificar a todos los dispositivos del mundo, a diferencia de su
 predecesor \cite{Hagen2006}.
 
+\subsection{Datagrama IPv6}
 %-----------------------------------
 %   DATAGRAMA IPV6
 %-----------------------------------
-\subsection{Datagrama IPv6}
-
 \label{subsec:datagrama_ipv6}
 
 En la capa de red, la unidad de datos del protocolo se conoce como datagrama.
@@ -124,11 +121,10 @@ que originó el datagrama.
 \keyword{Dirección IPv6 de destino (16 bytes)} -- Dirección IPv6 del dispositivo
 al que va dirigido el datagrama.
 
+\subsection{Direccionamiento IPv6}
 %-----------------------------------
 %   DIRECCIONAMIENTO IPV6
 %-----------------------------------
-\subsection{Direccionamiento IPv6}
-
 \label{subsec:direccionamiento_ipv6}
 
 Una dirección IP es un número que identifica de manera única cada interfaz de
@@ -185,11 +181,10 @@ se envía a una dirección \textit{multicast}, éste llega a todas las interface
 que pertenecen al gurpo.
 
 
+\section{Autoconfiguración de direcciones con estado}
 %-----------------------------------
 %   AUTOCONFIGURACIÓN DE DIRECCIONES CON ESTADO
 %-----------------------------------
-\section{Autoconfiguración de direcciones con estado}
-
 \label{sec:autoconfiguracion_de_direcciones_con_estado}
 
 El protocolo DHCP es el ejemplo más claro de este tipo de protocolos. Se dice
@@ -242,11 +237,10 @@ incrementa confome se incorporan nuevos nodos. Esto hace que, mientras más
 grande se hace la red, se necesitan más recursos, tanto computacionales como de
 comunicación.
 
+\section{Autoconfiguración de direcciones sin estado}
 %-----------------------------------
 %   AUTOCONFIGURACIÓN DE DIRECCIONES SIN ESTADO
 %-----------------------------------
-\section{Autoconfiguración de direcciones sin estado}
-
 \label{sec:autoconfiguracion_de_direcciones_sin_estado}
 
 En la configuración automática sin estado, cada nodo se asigna su propia

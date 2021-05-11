@@ -1,49 +1,62 @@
-﻿\chapter{Simulaciones}
+﻿\chapter{Evaluación del protocolo de enrutamiento propuesto}
 %-----------------------------------
-%   SIMULACIONES
+%   EVALUACIÓN DEL PROTOCOLO VE ENRUTAMIENTO PROPUESTO
 %-----------------------------------
-\label{ch:simulaciones}
+\label{ch:evaluacion_del_protocolo_de_enrutamiento_propuesto}
 
 Debido a que no es factible implementar una red vehicular para poner a prueba el
 protocolo de enrutamiento propuesto, la evaluación se hizo mediante
-simulaciones. Se recurrió a la herramienta SUMO para modelar y simular el flujo
-de vehículos por las calles \cite{SUMO}. Para simular la comunicación entre
-vehículos y \textit{hosts}, se usó OMNET++, un simulador de eventos discretos
-con el que se pueden evaluar protocolos de comunicaciones \cite{OMNeT}. Este se
-utilizó en conjunto con el \textit{framework} INET, que proporciona modelos de
-simulación de muchos protocolos estándar, como los protocolos de la pila TCP/IP
-\cite{INET}. Para simular la red vehicular, se utilizó el \textit{framework}
-Veins, que permite la interacción entre la simulación de los vehículos de SUMO y
-la simulación de comunicaciones de OMNeT++ \cite{Veins}. Otras herramientas que
-se utilizaron fueron el programa JOSM, para descargar y acondicionar mapas de
-OpenStreetMap para realizar de las simulaciones de SUMO \cite{OpenStreetMap}
-\cite{JOSM}, y QGIS, para la creación de la base de datos de redes viales.
+simulaciones. Es por esto que en este capítulo, se muestra cómo se llevó a cabo
+el desarrollo de las simulaciones, así como los escenarios que se diseñaron para
+la evaluación y los parámetros de simulación que utilizados para evaluar el
+desempeño del protocolo de enrutamiento propuesto. Finalmente, se presentan las
+métricas de evaluación y los resultados de las simulaciones, y una comparación
+con otros protocolos existentes.
 
-En este capítulo, se explica cómo se utilizaron estas herramientas para el
-desarrollo de las simulaciones que se llevaron a cabo para evaluar el desempeño
-del protocolo propuesto. El código fuente, scripts y otros recursos se  pueden
-consultar en el siguiente repositorio:
+\section{Desarrollo de las simulaciones}
+%-----------------------------------
+%   DESARROLLO DE LAS SIMULACIONES
+%-----------------------------------
+\label{sec:desarrollo_de_las_simulaciones}
+
+Para realizar las simulaciones, se recurrió a la herramienta SUMO para modelar y
+simular el flujo de vehículos por las calles \cite{SUMO}. Para simular la
+comunicación entre vehículos y \textit{hosts}, se usó OMNET++, un simulador de
+eventos discretos con el que se pueden evaluar protocolos de comunicaciones
+\cite{OMNeT}. Este se utilizó en conjunto con el \textit{framework} INET, que
+proporciona modelos de simulación de muchos protocolos estándar, como los
+protocolos de la pila TCP/IP \cite{INET}. Para simular la red vehicular, se
+utilizó el \textit{framework} Veins, que permite la interacción entre la
+simulación de los vehículos de SUMO y la simulación de comunicaciones de OMNeT++
+\cite{Veins}. Otras herramientas que se utilizaron fueron el programa JOSM, para
+descargar y acondicionar mapas de OpenStreetMap para realizar de las
+simulaciones de SUMO \cite{OpenStreetMap} \cite{JOSM}, y QGIS, para la creación
+de la base de datos de redes viales.
+
+En esta sección, se explica cómo se utilizaron estas herramientas para el
+desarrollo de las simulaciones. El código fuente del proyecto, scripts y otros
+recursos se pueden consultar en el siguiente repositorio:
 
 \begin{center}
 \href{https://gitlab.com/Comecacahuates/simulacion-protocolo-erutamiento}
 {https://gitlab.com/Comecacahuates/simulacion-protocolo-erutamiento}
 \end{center}
 
-\section{Instalación de las herramientas}
+\subsection{Instalación de las herramientas}
 %-----------------------------------
 %	INSTALACIÓN DE LAS HERRAMIENTAS
 %-----------------------------------
-\label{sec:instalacion_herramientas}
+\label{subsec:instalacion_herramientas}
 
-En esta sección, se explica cómo instalar las herramientas utilizadas para
+A continuación, se explica cómo instalar las herramientas utilizadas para
 realizar las simulaciones en el sistema operativo Debian Buster, que se utilizó
 para el desarrollo del proyecto.
 
-\subsection{Instalación de SUMO}
+\subsubsection{Instalación de SUMO}
 %-----------------------------------
 %   INSTALACIÓN DE SUMO
 %-----------------------------------
-\label{subsec:instalacion_sumo}
+\label{subsubsec:instalacion_sumo}
 
 Primero, se descarga el
 \href{https://sourceforge.net/projects/sumo/files/sumo/}{código fuente de SUMO
@@ -61,8 +74,7 @@ El código fuente se compila ejecutando los siguientes comandos:
 \begin{lstlisting}[language=bash]
 $ cd ~/src/sumo-1.8.0
 $ export SUMO_HOME=$HOME/src/sumo-1.8.0
-$ mkdir build/cmake-build
-$ cd build/cmake-build
+$ mkdir build/cmake-build && cd build/cmake-build
 $ cmake ../..
 $ make -j $(nproc)
 \end{lstlisting}
@@ -82,11 +94,11 @@ Las instrucciones de compilación detalladas se pueden consultar en
 
 % TODO: Escribir la evaluación de protocolos de enrutamiento: \cite{Nishat2011}.
 
-\subsection{Instalación de OMNeT++}
+\subsubsection{Instalación de OMNeT++}
 %-----------------------------------
 %	INSTALACIÓN DE OMNET++
 %-----------------------------------
-\label{subsec:instalacion_omnet}
+\label{subsubsec:instalacion_omnet}
 
 Primero, se descarga el \href{https://omnetpp.org/download/}{código fuente de
 OMNeT++ 6.0}, y se descomprime el directorio
@@ -123,11 +135,11 @@ export PATH=$HOME/src/omnetpp-6.0pre10:$PATH
 Las instrucciones de compilación detalladas se pueden consultar en
 \cite{CompilacionOMNeT}.
 
-\subsection{Instalación de QGIS}
+\subsubsection{Instalación de QGIS}
 %-----------------------------------
 %   INSTALACIÓN DE QGIS
 %-----------------------------------
-\label{subsec:instalacion_qgis}
+\label{subsubsec:instalacion_qgis}
 
 Para instalar QGIS 3.10, se ejecutan los siguientes comandos:
 
@@ -138,11 +150,11 @@ $ sudo apt-get install qgis qgis-plugin-grass
 Se pueden consultar más detalles sobre la instalación en
 \cite{InstalacionQGIS}.
 
-\subsection{Instalación de JOSM}
+\subsubsection{Instalación de JOSM}
 %-----------------------------------
 %	INSTALACIÓN DE JOSM
 %-----------------------------------
-\label{subsec:instalacion_josm}
+\label{subsubsec:instalacion_josm}
 
 JOSM es una aplicación Java, por lo que primero se debe instalar la máquina
 virtual de Java con el siguiente comando:
@@ -161,11 +173,11 @@ $ java -jar josm-tested.jar
 
 Se pueden consultar más detalles en \cite{DescargaJOSM}.
 
-\section{Base de datos de redes viales}
+\subsection{Base de datos de redes viales}
 %-----------------------------------
 %   BASE DE DATOS DE REDES VIALES
 %-----------------------------------
-\label{sec:creacion_base_de_la_datos_de_redes_viales}
+\label{subsec:creacion_base_de_la_datos_de_redes_viales}
 
 Para cada red vial, se utilizó QGIS para crear un par de archivos Shapefile, uno
 llamado \code{vertices.shp} para los vértices, y otro llamado \code{edges.shp}
@@ -220,8 +232,6 @@ $ scripts/shp2xml.py roadnetwork-database/shapefile \
 Los archivos XML se encuentran dentro del directorio
 \code{roadnetwork-database/xml}, como se muestra a continuación:
 
-\newpage
-
 \dirtree{%
 .1
 \href{https://gitlab.com/Comecacahuates/simulacion-protocolo-erutamiento/-/tree/main/roadnetwork-database}{roadnetwork-database}.
@@ -256,11 +266,11 @@ El formato de los archivos XML de la base de datos es el siguiente:
 </roadnetwork>
 \end{lstlisting}
 
-\section{Simulaciones de SUMO}
+\subsection{Simulaciones de SUMO}
 %-----------------------------------
 %   SIMULACIÓNES DE SUMO
 %-----------------------------------
-\label{sec:simulaciones_sumo}
+\label{subsec:simulaciones_sumo}
 
 Para hacer una simulación del movimiento de los vehículos, primero se necesita
 definir una red vial de SUMO por la que los vehículos puedan circular. Para
@@ -360,11 +370,11 @@ la simulación de OMNeT++ mediante el uso de Veins.
 \label{fig:sumo_simulacion}
 \end{figure}
 
-\section{Proyecto de OMNeT++}
+\subsection{Proyecto de OMNeT++}
 %-----------------------------------
 %   PROYECTO DE OMNET++
 %-----------------------------------
-\label{sec:proyecto_omnet}
+\label{subsec:proyecto_omnet}
 
 Para crear el proyecto de OMNeT++, primero se descarga
 \href{https://inet.omnetpp.org/Download.html}{INET 4.3.1} y
@@ -388,11 +398,25 @@ relativas a la raíz del repositorio. Por conveniencia, se utilizó una
 nomenclatura similar a la que se utiliza en INET y Veins para los nombres de
 los archivos y el código fuente.
 
-\subsection{Base de datos de redes viales}
+El proyecto depende de las bibliotecas Boost y GeographicLib, que se instalan
+con los siguientes comandos:
+
+\begin{lstlisting}[language=bash]
+$ sudo apt-get install libboost-all-dev
+$ git clone \
+    git://git.code.sourceforge.net/p/geographiclib/code geographiclib
+$ cd geographiclib
+$ mkdir BUILD && cd BUILD
+$ cmake ..
+$ make
+$ make install 
+\end{lstlisting}
+
+\subsubsection{Base de datos de redes viales}
 %-----------------------------------
 %   BASE DE DATOS DE REDES VIALES
 %-----------------------------------
-\label{subsec:base_de_datos_de_redes_viales}
+\label{subsubsec:base_de_datos_de_redes_viales}
 
 Como se mencionó en el capítulo \ref{ch:protocolo_de_enrutamiento_propuesto},
 cada vehículo debe contar con una base de datos de redes viales. Sin embargo,
@@ -424,8 +448,7 @@ acceso. Este módulo se define en los siguientes archivos:
 }
 
 En \code{RoadNetworkGraph.h}, se declaran los tipos de datos para la creación de
-los grafos, además de algunas funciones útiles relacionadas con estos. Para la
-implementación de los grafos, se utilizó la biblioteca Boost \cite{Boost}.
+los grafos, además de algunas funciones útiles relacionadas con estos.
 
 En \code{RoadNetwork.h} y \code{RoadNetwork.cc}, se define la clase
 \code{RoadNetwork}, que se encarga de crear un grafo a partir de un archivo XML
@@ -440,11 +463,11 @@ partir de cada archivo. Su comportamiento se describe en
 \code{RoadNetworkDatabase.h} y \code{RoadNetworkDatabase.cc}.
 \end{sloppypar}
 
-\subsection{Movilidad de los nodos}
+\subsubsection{Movilidad de los nodos}
 %-----------------------------------
 %   MOVILIDAD DE LOS NODOS
 %-----------------------------------
-\label{subsec:movilidad_de_los_nodos}
+\label{subsubsec:movilidad_de_los_nodos}
 
 Cada nodo de la red necesita tener un módulo de movilidad, que permita, entre
 otras cosas, conocer su ubicación. Es por esto, que se creó un módulo de
@@ -465,11 +488,11 @@ los siguiente archivos:
       .4
       \href{https://gitlab.com/Comecacahuates/simulacion-protocolo-erutamiento/-/blob/main/src/veins_proj/mobility/StaticHostMobility.cc}{StaticHostMobility.cc}.
       .4
-      \href{https://gitlab.com/Comecacahuates/simulacion-protocolo-erutamiento/-/blob/main/src/veins_proj/mobility/CarMobility.ned}{CarMobility.ned}.
+      \href{https://gitlab.com/Comecacahuates/simulacion-protocolo-erutamiento/-/blob/main/src/veins_proj/mobility/VehicleMobility.ned}{VehicleMobility.ned}.
       .4
-      \href{https://gitlab.com/Comecacahuates/simulacion-protocolo-erutamiento/-/blob/main/src/veins_proj/mobility/CarMobility.h}{CarMobility.h}.
+      \href{https://gitlab.com/Comecacahuates/simulacion-protocolo-erutamiento/-/blob/main/src/veins_proj/mobility/VehicleMobility.h}{VehicleMobility.h}.
       .4
-      \href{https://gitlab.com/Comecacahuates/simulacion-protocolo-erutamiento/-/blob/main/src/veins_proj/mobility/CarMobility.cc}{CarMobility.cc}.
+      \href{https://gitlab.com/Comecacahuates/simulacion-protocolo-erutamiento/-/blob/main/src/veins_proj/mobility/VehicleMobility.cc}{VehicleMobility.cc}.
 }
 
 \begin{sloppypar}
@@ -482,20 +505,20 @@ de INET. Este módulo establece la ubicación geográfica inicial del
 
 \begin{sloppypar}
 Por otro lado, la ubicación de los vehículos cambia de acuerdo a la simulación
-de SUMO. Es por esto que se creó el módulo \code{CarMobility}, que hereda del
+de SUMO. Es por esto que se creó el módulo \code{VehicleMobility}, que hereda del
 módulo
 \href{https://veins.car2x.org/documentation/modules/#veins_inet}{\code{VeinsInetMobility}},
 proporcionado por Veins, para obtener información del estatus del vehículo. El
-módulo \code{CarMobility} permite acceder a la ubicación geográfica, velocidad y
+módulo \code{VehicleMobility} permite acceder a la ubicación geográfica, velocidad y
 dirección de movimiento de un vehículo, así como la red vial en la que se
 encuentra y su ubicación vial dentro de esta.
 \end{sloppypar}
 
-\subsection{Servicio de localización}
+\subsubsection{Servicio de localización}
 %-----------------------------------
 %   SERVICIO DE LOCALIZACIÓN
 %-----------------------------------
-\label{subsec:servicio_de_localizacion_sim}
+\label{subsubsec:servicio_de_localizacion_sim}
 
 Desarrollar un servicio de localización está fuera del alcance de este trabajo.
 Sin embargo, cada \textit{host} necesita conocer la ubicación de todos los demás
@@ -511,28 +534,28 @@ simulación. Este se define en los siguientes archivos:
     .3
   \href{https://gitlab.com/Comecacahuates/simulacion-protocolo-erutamiento/-/tree/main/src/veins_proj/locationservice}{locationservice}.
       .4
-      \href{https://gitlab.com/Comecacahuates/simulacion-protocolo-erutamiento/-/blob/main/src/veins_proj/locationservice/HostsLocationTable.ned}{HostsLocationTable.ned}.
+      \href{https://gitlab.com/Comecacahuates/simulacion-protocolo-erutamiento/-/blob/main/src/veins_proj/locationservice/LocationService.ned}{LocationService.ned}.
       .4
-      \href{https://gitlab.com/Comecacahuates/simulacion-protocolo-erutamiento/-/blob/main/src/veins_proj/locationservice/HostsLocationTable.h}{HostsLocationTable.h}.
+      \href{https://gitlab.com/Comecacahuates/simulacion-protocolo-erutamiento/-/blob/main/src/veins_proj/locationservice/LocationService.h}{LocationService.h}.
       .4
-      \href{https://gitlab.com/Comecacahuates/simulacion-protocolo-erutamiento/-/blob/main/src/veins_proj/locationservice/HostsLocationTable.cc}{HostsLocationTable.cc}.
+      \href{https://gitlab.com/Comecacahuates/simulacion-protocolo-erutamiento/-/blob/main/src/veins_proj/locationservice/LocationService.cc}{LocationService.cc}.
 }
 
 \begin{sloppypar}
-El módulo \code{HostsLocationTable} es un módulo global que contiene la
+El módulo \code{LocationService} es un módulo global que contiene la
 dirección IP \textit{unicast} de cada \textit{host} y su ubicación. Cuando el
 módulo \code{StaticHostConfigurator} de un \textit{host} realiza la
 configuración de la interfaz, también registra su dirección \textit{unicast} y
-su ubicación en el módulo \code{HostsLocationTable}. Cuando un \textit{host}
+su ubicación en el módulo \code{LocationService}. Cuando un \textit{host}
 necesita conocer la ubicación de otro para enviarle un paquete, la obtiene del
-módulo \code{HostsLocationTable}.
+módulo \code{LocationService}.
 \end{sloppypar}
 
-\subsection{Autoconfiguración de direcciones}
+\subsubsection{Autoconfiguración de direcciones}
 %-----------------------------------
 %   AUTOCONFIGURACIÓN DE DIRECCIONES
 %-----------------------------------
-\label{subsec:autoconfiguracion_de_direcciones_sim}
+\label{subsubsec:autoconfiguracion_de_direcciones_sim}
 
 Para implementar el protocolo de autoconfiguración de direcciones, se crearos
 dos módulos, uno para los vehículos y uno para los \textit{hosts}. Estos se
@@ -560,11 +583,11 @@ definen en los siguientes archivos:
         .5
       \href{https://gitlab.com/Comecacahuates/simulacion-protocolo-erutamiento/-/blob/main/src/veins_proj/networklayer/configurator/StaticHostConfigurator.cc}{StaticHostConfigurator.cc}.
         .5
-      \href{https://gitlab.com/Comecacahuates/simulacion-protocolo-erutamiento/-/blob/main/src/veins_proj/networklayer/configurator/CarConfigurator.ned}{CarConfigurator.ned}.
+      \href{https://gitlab.com/Comecacahuates/simulacion-protocolo-erutamiento/-/blob/main/src/veins_proj/networklayer/configurator/VehicleConfigurator.ned}{VehicleConfigurator.ned}.
         .5
-      \href{https://gitlab.com/Comecacahuates/simulacion-protocolo-erutamiento/-/blob/main/src/veins_proj/networklayer/configurator/CarConfigurator.h}{CarConfigurator.h}.
+      \href{https://gitlab.com/Comecacahuates/simulacion-protocolo-erutamiento/-/blob/main/src/veins_proj/networklayer/configurator/VehicleConfigurator.h}{VehicleConfigurator.h}.
         .5
-      \href{https://gitlab.com/Comecacahuates/simulacion-protocolo-erutamiento/-/blob/main/src/veins_proj/networklayer/configurator/CarConfigurator.cc}{CarConfigurator.cc}.
+      \href{https://gitlab.com/Comecacahuates/simulacion-protocolo-erutamiento/-/blob/main/src/veins_proj/networklayer/configurator/VehicleConfigurator.cc}{VehicleConfigurator.cc}.
 }
 
 En \code{Ipv6GeohashAddress.h} e \code{Ipv6GeohashAddress.cc} se incluyen
@@ -578,22 +601,21 @@ mediante el módulo \code{StaticHostMobility}, y crea las direcciones
 los \textit{hosts} no se mueven, este procedimiento se realiza sólo una vez para
 cada uno.
 
-Para el caso de los vehículos, se creó el módulo \code{CarConfigurator}. Este
-solicita periódicamente la ubicación del vehículo al módulo \code{CarMobility},
+Para el caso de los vehículos, se creó el módulo \code{VehicleConfigurator}. Este
+solicita periódicamente la ubicación del vehículo al módulo \code{VehicleMobility},
 y, si es necesario, crea las direcciones \textit{unicast} y \textit{multicast} y
 asignarlas a la interfaz. Además, este módulo se encarga de realizar el
 procedimiento de cambio de subred (sección \ref{sec:cambio_subred}).
 
-\subsection{Protocolo de enrutamiento}
+\subsubsection{Protocolo de enrutamiento}
 %-----------------------------------
 %   PROTOCOLO DE ENRUTAMIENTO
 %-----------------------------------
-\label{subsec:protocolo_de_enrutamiento_sim}
+\label{subsubsec:protocolo_de_enrutamiento_sim}
 
-Los vehículos y \textit{hosts} tienen un módulo que se encarga de realizar el
-proceso de enrutamiento del protocolo propuesto (capítulo
-\ref{ch:protocolo_de_enrutamiento_propuesto}). Estos se definen en los
-siguientes archivos:
+Los vehículos y \textit{hosts} tienen un módulo que implementa el protocolo de
+enrutamiento propuesto (capítulo \ref{ch:protocolo_de_enrutamiento_propuesto}).
+Estos se definen en los siguientes archivos:
 
 \dirtree{%
 .1
@@ -617,11 +639,11 @@ siguientes archivos:
       .4
       \href{https://gitlab.com/Comecacahuates/simulacion-protocolo-erutamiento/-/blob/main/src/veins_proj/routing/StaticHostRoutingProtocol.cc}{StaticHostRoutingProtocol.cc}.
       .4
-      \href{https://gitlab.com/Comecacahuates/simulacion-protocolo-erutamiento/-/blob/main/src/veins_proj/routing/CarRoutingProtocol.ned}{CarRoutingProtocol.ned}.
+      \href{https://gitlab.com/Comecacahuates/simulacion-protocolo-erutamiento/-/blob/main/src/veins_proj/routing/VehicleRoutingProtocol.ned}{VehicleRoutingProtocol.ned}.
       .4
-      \href{https://gitlab.com/Comecacahuates/simulacion-protocolo-erutamiento/-/blob/main/src/veins_proj/routing/CarRoutingProtocol.h}{CarRoutingProtocol.h}.
+      \href{https://gitlab.com/Comecacahuates/simulacion-protocolo-erutamiento/-/blob/main/src/veins_proj/routing/VehicleRoutingProtocol.h}{VehicleRoutingProtocol.h}.
       .4
-      \href{https://gitlab.com/Comecacahuates/simulacion-protocolo-erutamiento/-/blob/main/src/veins_proj/routing/CarRoutingProtocol.cc}{CarRoutingProtocol.cc}.
+      \href{https://gitlab.com/Comecacahuates/simulacion-protocolo-erutamiento/-/blob/main/src/veins_proj/routing/VehicleRoutingProtocol.cc}{VehicleRoutingProtocol.cc}.
 }
 
 Los mensajes de enrutamiento (sección \ref{sec:mensajes_de_enrutamiento})
@@ -639,26 +661,26 @@ protocolo (sección \ref{sec:lista_de_parametros_de_configuracion}).
 \begin{sloppypar}
 El módulo \code{StaticHostRoutingProtocol} hereda del módulo
 \code{RoutingProtocolBase}, e implementa la transmisión de mensajes
-\mbox{HOLA\_HOST} (sección \ref{subsec:mensaje_hola_host}), así como seleccionar
+\mbox{HOLA-HOST} (sección \ref{subsec:mensaje_hola_host}), así como seleccionar
 el vehículo más cercano como siguiente salto para cada paquete.
 \end{sloppypar}
 
 \begin{sloppypar}
-El módulo \code{CarRoutingProtocol} hereda del módulo
+El módulo \code{VehicleRoutingProtocol} hereda del módulo
 \code{RoutingProtocolBase}, e implementa la transmisión de mensajes
-\mbox{HOLA\_VEHIC} (sección \ref{subsec:mensaje_hola_vehic}) y el directorio de \textit{hosts}
-vecinos (sección \ref{sec:directorio_hosts_vecinos}).
+\mbox{HOLA-VEHIC} (sección \ref{subsec:mensaje_hola_vehic}) y el directorio de
+\textit{hosts} vecinos (sección \ref{sec:directorio_hosts_vecinos}).
 Además, este módulo se encarga del cálculo de rutas viales, determinar el vértice de destino
 local y seleccionar el siguiente salto para cada paquete (secciones
 \ref{sec:enrutamiento_vial}, \ref{sec:computo_rutas_viales} y
 \ref{sec:seleccion_siguiente_salto}).
 \end{sloppypar}
 
-\subsection{Nodos de la red}
+\subsubsection{Nodos de la red}
 %-----------------------------------
 %   NODOS DE LA RED
 %-----------------------------------
-\label{subsec:nodos_de_la_red_sim}
+\label{subsubsec:nodos_de_la_red_sim}
 
 INET proporciona modelos base para nodos de una red, como el módulo
 \href{https://doc.omnetpp.org/inet/api-current/neddoc/inet.node.inet.AdhocHost.html}{\code{AdhocHost}},
@@ -677,24 +699,23 @@ definen en los siguientes archivos:
       .4
       \href{https://gitlab.com/Comecacahuates/simulacion-protocolo-erutamiento/-/blob/main/src/veins_proj/node/StaticHost.ned}{StaticHost.ned}.
       .4
-      \href{https://gitlab.com/Comecacahuates/simulacion-protocolo-erutamiento/-/blob/main/src/veins_proj/node/Car.ned}{Car.ned}.
+      \href{https://gitlab.com/Comecacahuates/simulacion-protocolo-erutamiento/-/blob/main/src/veins_proj/node/Vehicle.ned}{Vehicle.ned}.
 }
 
 \begin{sloppypar}
 El módulo \code{StaticHost} incluye los módulos \code{StaticHostMobility},
-\code{StaticHostConfigurator} y \code{RoutingProtocolStaticHost}, y su
-estructura se muestra en la figura \ref{fig:static_host}. De manera similar, el
-módulo \code{Car} incluye los módulos \code{CarMobility}, \code{CarConfigurator}
-y \code{RoutingProtocolCar}, y su estructura se muestra en la figura
-\ref{fig:car}.
+\code{StaticHostConfigurator} y \code{RoutingProtocolStaticHost}, como se
+muestra en la figura \ref{fig:static_host}. De manera similar, el módulo
+\code{Vehicle} incluye los módulos \code{VehicleMobility},
+\code{VehicleConfigurator} y \code{VehicleRoutingProtocol}, como se muestra en
+la figura \ref{fig:car}.
 \end{sloppypar}
 
 \begin{figure}[th!]
 \centering
 \includegraphics[width=1\textwidth]{static_host}
 \decoRule
-\caption[Estructura del módulo \code{StaticHost}]{Estructura del módulo
-\code{StaticHost}.}
+\caption[Módulo \code{StaticHost}]{Módulo \code{StaticHost}.}
 \label{fig:static_host}
 \end{figure}
 
@@ -702,6 +723,80 @@ y \code{RoutingProtocolCar}, y su estructura se muestra en la figura
 \centering
 \includegraphics[width=1\textwidth]{car}
 \decoRule
-\caption[Estructura del módulo \code{Car}]{Estructura del módulo \code{Car}.}
+\caption[Módulo \code{Vehicle}]{Módulo \code{Vehicle}.}
 \label{fig:car}
 \end{figure}
+
+\section{Metodología de evaluación}
+%-----------------------------------
+%   METODOLOGÍA DE EVALUACIÓN
+%-----------------------------------
+\label{sec:metodologia_de_evaluacion}
+
+La evaluación del protocolo se realiza con las siguientes métricas, que se
+describen en \cite{Nishat2011} y \cite{Oubbati2019}:
+
+\keyword{Razón de paquetes entregados} -- Proporción de los paquetes que
+llegaron a su destino del total de paquetes enviados.
+
+\keyword{Demora mínima} -- Tiempo mínimo que tarda un paquete en llegar a su
+destino.
+
+\keyword{Demora máxima} --  Tiempo máximo que tarda un paquete en llegar a su
+destino.
+
+\keyword{Demora promedio} -- Tiempo promedio que tarda un paquete en llegar a su
+destino.
+
+\keyword{Rendimiento} -- Tasa de paquetes transmitidos con éxito por segundo.
+
+\keyword{Sobrecarga de enrutamiento} -- Número de paquetes de enrutamiento
+dividido entre el número de paquetes de datos que llegan a su destino.
+
+Para tener una perspectiva del desempeño del protocolo propuesto, se compara su
+desempeño con el de los siguientes protocolos, que se discutieron en el capítulo
+\ref{ch:protocolos_de_enrutamiento}:
+
+\begin{itemize}
+  \item DSDV (proactivo)
+  \item AODV (reactivo)
+  \item GPSR (basado en la posición)
+\end{itemize}
+
+\section{Configuración de la simulación}
+%-----------------------------------
+%   CONFIGURACIÓN DE LA SIMULACIÓN
+%-----------------------------------
+\label{sec:configuracion_de_la_simulacion}
+
+% TODO: Terminar.
+
+El área que abarcan las regiones \{regiones\} es el área de la simulación. Esta
+tiene unas dimensiones de \{dimensiones\}, y se muestra en la figura \{figura\}.
+
+% TODO: Hacer figura.
+
+
+
+En la tabla \ref{tab:parametros_de_simulacion}, se muestran los diferentes
+parámetros de simulación que se utilizaron para evaluar el protocolo.
+
+\begin{table}[th]
+\caption{Parámetros de simulación.}
+\label{tab:parametros_de_simulacion}
+\centering
+\begin{tabular}{l c}
+\toprule
+\tabhead{Parámetro} & \tabhead{Valor}\\
+\midrule
+Tiempo de simulación & 300s\\
+Área de simulación & 1km$\times$1km\\
+Radio de comunicación & 250m\\
+Protocolo MAC & 802.11p\\
+Tamaño de los paquetes de datos & 1kB\\
+Número de \textit{hosts} & 20\\
+Número de vehículos promedio & 200\\
+Velocidad de los vehículos & 0-60km/h\\
+\bottomrule\\
+\end{tabular}
+\end{table}

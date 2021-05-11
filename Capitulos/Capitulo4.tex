@@ -1,8 +1,7 @@
-﻿%-----------------------------------
+﻿\chapter{Protocolos de enrutamiento}
+%-----------------------------------
 %   PROTOCOLOS DE ENRUTAMIENTO
 %-----------------------------------
-\chapter{Protocolos de enrutamiento}
-
 \label{ch:protocolos_de_enrutamiento}
 
 Los protocolos de enrutamiento se encargan de determinar las rutas que deben
@@ -18,11 +17,10 @@ retransmitir los datagramas de nodo a nodo. Después, se presentan diferentes
 enfoques de enrutamiento para redes descentralizadas, y algunos de los
 protocolos que se han propuesto.
 
+\section{Tablas de enrutamiento}
 %-----------------------------------
 %   TABLAS DE ENRUTAMIENTO
 %-----------------------------------
-\section{Tablas de enrutamiento}
-
 \label{sec:tablas_de_enrutamiento}
 
 Generalmente, cuando un dispositivo debe transmitir un paquete de información,
@@ -68,11 +66,10 @@ se utilizan protocolos de enrutamiento para hacerlo. Los protocolos de
 enrutamiento consisten en el intercambio de información entre los enrutadores
 que sirve para determinar las rutas y llenar las tablas de enrutamiento.
 
+\section{Enrutamiento basado en la topología}
 %-----------------------------------
 %   ENRUTAMIENTO BASADO EN LA TOPOLOGÍA
 %-----------------------------------
-\section{Enrutamiento basado en la topología}
-
 \label{sec:enrutamiento_basado_en_la_topologia}
 
 El enrutamiento basado en la topología es ideal para las redes de
@@ -81,11 +78,10 @@ tipo de redes. No obstante, se han diseñado protocolos para redes móviles con
 este enfoque. Existen principalmente dos técnicas usadas en este tipo de
 enrutamiento, que se describen a continuación.
 
+\subsection{Enrutamiento proactivo}
 %-----------------------------------
 %   ENRUTAMIENTO PROACTIVO
 %-----------------------------------
-\subsection{Enrutamiento proactivo}
-
 \label{subsec:enrutamiento_proactivo}
 
 Los protocolos de enrutamiento proactivos se caracterizan porque mantienen
@@ -108,11 +104,10 @@ nodos pueden transmitir: actualizaciones de la tabla de enrutamiento completa,
 que se transmiten cuando hay cambios importantes en las rutas, y actualizaciones
 de cambios menores, que son los que se transmiten más comúnmente.
 
+\subsection{Enrutamiento reactivo}
 %-----------------------------------
 %   ENRUTAMIENTO REACTIVO
 %-----------------------------------
-\subsection{Enrutamiento reactivo}
-
 \label{subsec:enrutamiento_reactivo}
 
 El enrutamiento reactivo, también conocido como enrutamiento bajo demanda,
@@ -154,11 +149,10 @@ embargo, AODV usa tablas de enrutamiento tradicionales para almacenar las
 rutas. También usa números de secuencia, como el protocolo DSDV, para prevenir
 bucles en las rutas y saber qué rutas son más viejas que otras.
 
+\section{Enrutamiento basado en la posición}
 %-----------------------------------
 %   ENRUTAMIENTO BASADO EN LA POSICIÓN
 %-----------------------------------
-\section{Enrutamiento basado en la posición}
-
 \label{sec:enrutamiento_basado_en_la_posicion}
 
 En los protocolos de enrutamiento basados en la topología, es necesario
@@ -181,11 +175,10 @@ localización para MANETs. Después, se muestran diferentes protocolos de
 enrutamiento que utilizan diversos criterios para retransmitir un paquete. Por
 último, se exponen diferentes protocolos específicos para VANETs.
 
+\subsection{Servicios de localización}
 %-----------------------------------
 %   SERVICIOS DE LOCALIZACIÓN
 %-----------------------------------
-\subsection{Servicios de localización}
-
 \label{subsec:servicios_de_localizacion}
 
 Un servicio de localización permite a un nodo consultar la ubicación de otro
@@ -308,21 +301,19 @@ del nodo 29 la ubicación del nodo 10 (orden 2), como se observa en la figura
 
 \footnotetext{Adaptación del esquema presentado por Mauve\cite{Mauve2001}.}
 
+\subsection{Estrategias de retransmisión de paquetes}
 %-----------------------------------
 %   ESTRATEGIAS DE RETRANSMISIÓN DE PAQUETES
 %-----------------------------------
-\subsection{Estrategias de retransmisión de paquetes}
-
 \label{subsec:estrategias_de_retransmision_de_paquetes}
 
 En esta sección se presentan algunos de los criterios que se consideran para la
 retransmisión de paquetes a la hora de hacer el enrutamiento.
 
+\subsubsection{Retransmisión voraz}
 %-----------------------------------
 %   RETRANSMISIÓN VORAZ
 %-----------------------------------
-\subsubsection{Retransmisión voraz}
-
 \label{subsubsec:retransmision_voraz}
 
 La retransmisión voraz consiste en considerar únicamente la información que se
@@ -422,11 +413,10 @@ GPSR\protect\footnotemark.}
 
 \footnotetext{Adaptación del esquema presentado por Mauve\cite{Mauve2001}.}
 
+\subsubsection{Inundación direccional restringida}
 %-----------------------------------
 %   INUNDACIÓN DIRECCIONAL RESTRINGIDA
 %-----------------------------------
-\subsubsection{Inundación direccional restringida}
-
 \label{subsubsec:inundacion_direccional_restringida}
 
 El protoclo DREAM, discutido en la sección
@@ -464,11 +454,10 @@ la ubicación del nodo D. En caso de que no haya disponible un vecino que cumpla
 con este criterio, se requiere un método de recuperación; sin embargo, este no
 se especifica en el protocolo DREAM.
 
+\subsubsection{Enrutamiento jerárquico}
 %-----------------------------------
 %   ENRUTAMIENTO JERÁRQUICO
 %-----------------------------------
-\subsubsection{Enrutamiento jerárquico}
-
 \label{subsubsec:enrutamiento_jerarquico}
 
 Las redes de infraestructura fija pueden llegar a ser increíblemente complejas,
@@ -519,11 +508,10 @@ de origen solicita esta información a los nodos con los que tiene contacto
 mediante TLR. Una vez que el nodo consigue esta información, debe verificar que
 esta ruta de ubicaciones sigue vigente y si se puede optimizar.
 
+\subsection{Protocolos de enrutamiento basados en la posición para VANETs}
 %-----------------------------------
 %   PROTOCOLOS DE ENRUTAMIENTO BASADOS EN LA POSICIÓN
 %-----------------------------------
-\subsection{Protocolos de enrutamiento basados en la posición para VANETs}
-
 \label{subsec:protocolos_de_enrutamiento_basados_en_la_posicion_para_vanets}
 
 Las características particulares de las VANETs introducen retos que no se
@@ -531,11 +519,10 @@ presentan en otros tipos de redes durante el proceso de enrutamiento. En esta
 sección, se discuten algunos protocolos de enrutamiento especialmente diseñados
 para lidiar con algunas de estas dificultades.
 
+\subsubsection{GSR}
 %-----------------------------------
 %   GSR
 %-----------------------------------
-\subsubsection{GSR}
-
 \label{subsubsec:gsr}
 
 En \cite{Lochert2003}, Locher \textit{et al.} analizan las debilidades del
@@ -561,11 +548,10 @@ solicitud. Si el nodo buscado recibe el mensaje, envía una respuesta con su
 ubicación al nodo que hizo la solicitud. Este mecanismo incluye algunos
 optimizaciones para evitar saturar toda la red con este tipo de solicitudes.
 
+\subsubsection{SRPMT}
 %-----------------------------------
 %   SRPMT
 %-----------------------------------
-\subsubsection{SRPMT}
-
 \label{subsubsec:srpmt}
 
 El protocolo \textit{Street-centric Routing Protocol based on Microtopologies}
@@ -623,11 +609,10 @@ una MT. El primero es el desempeño del enlace, que incluye la tasa de éxito de
 transmisión de paquetes, y la demora en la entrega de paquetes. El otro factor
 determinante es la estrategia de enrutamiento interna de la MT.
 
+\subsubsection{MM-GPSR}
 %-----------------------------------
 %   MM-GPSR
 %-----------------------------------
-\subsubsection{MM-GPSR}
-
 \label{subsubsec:mm_gpsr}
 
 El protocolo GPSR, presentado en la sección \ref{subsubsec:retransmision_voraz},
@@ -699,11 +684,10 @@ estabilidad.
 T_i = T_{i-1} + t_i - t_{i-1}
 \end{equation}
 
+\subsubsection{VBRP}
 %-----------------------------------
 %   VBRP
 %-----------------------------------
-\subsubsection{VBRP}
-
 \label{subsubsec:vbpr}
 
 Ji \textit{et al.} desarrollaron el protocolo \textit{Virtual Backbone-based

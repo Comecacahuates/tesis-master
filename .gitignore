@@ -56,3 +56,9 @@ Thumbs.db
 *.wmv
 
 >>>>>>> branch 'main' of https://comecacahuates@bitbucket.org/comecacahuates/tesis.git
+/Principal.aux
+/Principal.lof
+/Principal.lot
+/Principal.out
+/Principal.run.xml
+/Principal.toc

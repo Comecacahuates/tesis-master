@@ -1,5 +1,5 @@
 % $ biblatex auxiliary file $
-% $ biblatex bbl format version 3.1 $
+% $ biblatex bbl format version 3.0 $
 % Do not modify the above lines!
 %
 % This is an auxiliary file used by the 'biblatex' package.
@@ -1643,18 +1643,40 @@
     \field{title}{JOSM}
   \endentry
 
-  \entry{QGIS}{misc}{}
-    \field{labeltitlesource}{title}
-    \field{howpublished}{\url{https://www.qgis.org/en/site/}}
-    \field{note}{Accessed: 2021-02-03 09:59:23}
-    \field{title}{Welcome to the QGIS project!}
-  \endentry
-
   \entry{CompilacionSUMO}{misc}{}
     \field{labeltitlesource}{title}
     \field{howpublished}{\url{https://sumo.dlr.de/docs/Installing.html}}
     \field{note}{Accessed: 2021-02-03 09:49:48}
     \field{title}{Installing - SUMO Documentation}
+  \endentry
+
+  \entry{CompilacionOMNeT}{misc}{}
+    \field{labeltitlesource}{title}
+    \field{howpublished}{\url{https://omnetpp.org/documentation/}}
+    \field{note}{Accessed: 2021-02-04 03:54:30}
+    \field{title}{OMNeT++ Documentation}
+  \endentry
+
+  \entry{InstalacionQGIS}{misc}{}
+    \field{labeltitlesource}{title}
+  \field{howpublished}{\url{https://www.qgis.org/en/site/forusers/alldownloads.html}}
+    \field{note}{Accessed: 2021-02-04 04:19:40}
+    \field{title}{QGIS Installers}
+  \endentry
+
+  \entry{DescargaJOSM}{misc}{}
+    \field{labeltitlesource}{title}
+    \field{howpublished}{\url{https://josm.openstreetmap.de/wiki/Download}}
+    \field{note}{Accessed: 2021-02-04 08:43:56}
+    \field{title}{Download – JOSM}
+  \endentry
+
+  \entry{SUMOTrafico}{misc}{}
+    \field{labeltitlesource}{title}
+  \field{howpublished}{\url{https://sumo.dlr.de/docs/Demand/Introduction_to_demand_modelling_in_SUMO.html}}
+    \field{note}{Accessed: 2021-02-01 12:55:27}
+    \field{title}{Introduction to demand modelling in SUMO - SUMO
+  Documentation}
   \endentry
 
   \entry{Nishat2011}{article}{}
@@ -1692,47 +1714,82 @@
     \field{year}{2011}
   \endentry
 
-  \entry{CompilacionOMNeT}{misc}{}
+  \entry{Oubbati2019}{article}{}
+    \name{author}{4}{}{%
+      {{hash=OOS}{%
+         family={Oubbati},
+         familyi={O\bibinitperiod},
+         given={Omar\bibnamedelima Sami},
+         giveni={O\bibinitperiod\bibinitdelim S\bibinitperiod},
+      }}%
+      {{hash=CN}{%
+         family={Chaib},
+         familyi={C\bibinitperiod},
+         given={Noureddine},
+         giveni={N\bibinitperiod},
+      }}%
+      {{hash=LA}{%
+         family={Lakas},
+         familyi={L\bibinitperiod},
+         given={Abderrahmane},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=BS}{%
+         family={Bitam},
+         familyi={B\bibinitperiod},
+         given={Salim},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \list{language}{1}{%
+      {en}%
+    }
+    \keyw{Computer Science - Information Theory, Computer Science - Networking
+  and Internet Architecture, Computer Science - Social and Information
+  Networks, evaluacion}
+    \strng{namehash}{OOSCNLA+1}
+    \strng{fullhash}{OOSCNLABS1}
+    \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
-    \field{howpublished}{\url{https://omnetpp.org/documentation/}}
-    \field{note}{Accessed: 2021-02-04 03:54:30}
-    \field{title}{OMNeT++ Documentation}
-  \endentry
-
-  \entry{InstalacionQGIS}{misc}{}
-    \field{labeltitlesource}{title}
-  \field{howpublished}{\url{https://www.qgis.org/en/site/forusers/alldownloads.html}}
-    \field{note}{Accessed: 2021-02-04 04:19:40}
-    \field{title}{QGIS Installers}
-  \endentry
-
-  \entry{DescargaJOSM}{misc}{}
-    \field{labeltitlesource}{title}
-    \field{howpublished}{\url{https://josm.openstreetmap.de/wiki/Download}}
-    \field{note}{Accessed: 2021-02-04 08:43:56}
-    \field{title}{Download – JOSM}
-  \endentry
-
-  \entry{Cookiecutter}{misc}{}
-    \field{labeltitlesource}{title}
-    \field{howpublished}{\url{https://cookiecutter.readthedocs.io/en/1.7.2/}}
-    \field{note}{Accessed: 2021-02-04 04:06:18}
-    \field{title}{Cookiecutter: Better Project Templates — cookiecutter 1.7.2
-  documentation}
-  \endentry
-
-  \entry{TutorialVeins}{misc}{}
-    \field{labeltitlesource}{title}
-    \field{howpublished}{\url{https://veins.car2x.org/tutorial/}}
-    \field{note}{Accessed: 2021-02-04 04:16:25}
-    \field{title}{Tutorial - Veins}
-  \endentry
-
-  \entry{Boost}{misc}{}
-    \field{labeltitlesource}{title}
-  \field{howpublished}{\url{https://www.boost.org/doc/libs/1_75_0/libs/graph/doc/index.html}}
-    \field{note}{Accessed: 2021-02-06 09:53:27}
-    \field{title}{The Boost Graph Library - 1.75.0}
+    \field{abstract}{%
+    Vehicular ad hoc networks (VANETs) are characterized by frequent routing
+  path failures due to the high mobility caused by the sudden changes of the
+  direction of vehicles. The routing paths between two different vehicles
+  should be established with this challenge in mind. Stability and
+  connectedness are a mandatory condition to ensure a robust and reliable data
+  delivery. The idea behind this work is to exploit a new reactive routing
+  technique to provide regulated and well-connected routing paths. Unmanned
+  Aerial Vehicles (UAVs) or what are referred to as drones can be both involved
+  in the discovery process and be full members in these discovered paths in
+  order to avoid possible disconnections on the ground when the network is
+  sparsely connected. The different tests of this technique are performed based
+  on NS-2 simulator and the outcomes are compared with those of related
+  on-demand routing protocols dedicated for VANETs. Interesting results are
+  distinguished showing a reduced end-to-end delay and a high delivery ratio,
+  which proving that this heterogeneous communication between vehicles and UAVs
+  is able to extend the network connectivity.%
+    }
+    \verb{doi}
+    \verb 10.1109/SaCoNeT.2018.8585453
+    \endverb
+    \field{note}{arXiv: 1908.05905}
+    \field{title}{On-{Demand} {Routing} for {Urban} {VANETs} using
+  {Cooperating} {UAVs}}
+    \verb{url}
+    \verb http://arxiv.org/abs/1908.05905
+    \endverb
+    \verb{file}
+    \verb Oubbati et al. - 2019 - On-Demand Routing for Urban VANETs using Coop
+    \verb erati.pdf:/home/adrian/Zotero/storage/GZC622X6/Oubbati et al. - 2019
+    \verb - On-Demand Routing for Urban VANETs using Cooperati.pdf:application/
+    \verb pdf
+    \endverb
+    \field{journaltitle}{arXiv:1908.05905 [cs, math]}
+    \field{month}{08}
+    \field{year}{2019}
+    \field{urlday}{15}
+    \field{urlmonth}{04}
+    \field{urlyear}{2021}
   \endentry
 \enddatalist
 \endinput

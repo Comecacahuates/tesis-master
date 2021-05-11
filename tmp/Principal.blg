@@ -1,5 +1,5 @@
-This is BibTeX, Version 0.99d (TeX Live 2020)
-Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+This is BibTeX, Version 0.99d (TeX Live 2019/dev/Debian)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: Principal.aux
 The style file: biblatex.bst
 A level-1 auxiliary file: Capitulos/Capitulo1.aux
@@ -9,10 +9,11 @@ A level-1 auxiliary file: Capitulos/Capitulo4.aux
 A level-1 auxiliary file: Capitulos/Capitulo5.aux
 A level-1 auxiliary file: Capitulos/Capitulo6.aux
 A level-1 auxiliary file: Capitulos/Capitulo7.aux
+A level-1 auxiliary file: Capitulos/Capitulo8.aux
 A level-1 auxiliary file: Apendices/ApendiceA.aux
 A level-1 auxiliary file: Apendices/ApendiceB.aux
 Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
-Reallocated global_strs (elt_size=200001) to 20 items from 10.
+Reallocated global_strs (elt_size=20001) to 20 items from 10.
 Reallocated glb_str_end (elt_size=4) to 20 items from 10.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
@@ -25,51 +26,55 @@ Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
-Reallocated singl_function (elt_size=4) to 100 items from 50.
-Reallocated field_info (elt_size=4) to 11811 items from 5000.
+Reallocated field_info (elt_size=4) to 11533 items from 5000.
 Database file #1: Principal-blx.bib
 Database file #2: bibliografia.bib
-Biblatex version: 3.13
+Repeated entry---line 705 of file bibliografia.bib
+ : @article{Nishat2011
+ :                    ,
+I'm skipping whatever remains of this entry
+Biblatex version: 3.11
 Reallocated wiz_functions (elt_size=4) to 9000 items from 6000.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
-You've used 49 entries,
-            6365 wiz_defined-function locations,
-            1619 strings with 38325 characters,
-and the built_in function-call counts, 262412 in all, are:
-= -- 18278
-> -- 4724
-< -- 1390
-+ -- 6077
-- -- 2108
-* -- 18410
-:= -- 25771
+You've used 47 entries,
+            6304 wiz_defined-function locations,
+            1610 strings with 39674 characters,
+and the built_in function-call counts, 264726 in all, are:
+= -- 18820
+> -- 4855
+< -- 1357
++ -- 6370
+- -- 2193
+* -- 18630
+:= -- 26693
 add.period$ -- 0
-call.type$ -- 49
-change.case$ -- 797
-chr.to.int$ -- 80
-cite$ -- 96
-duplicate$ -- 26720
-empty$ -- 25181
-format.name$ -- 2470
-if$ -- 55059
+call.type$ -- 47
+change.case$ -- 801
+chr.to.int$ -- 98
+cite$ -- 92
+duplicate$ -- 27009
+empty$ -- 25250
+format.name$ -- 2510
+if$ -- 54529
 int.to.chr$ -- 0
 int.to.str$ -- 112
 missing$ -- 0
-newline$ -- 1502
-num.names$ -- 1851
-pop$ -- 16377
+newline$ -- 1541
+num.names$ -- 1894
+pop$ -- 15812
 preamble$ -- 1
-purify$ -- 1048
+purify$ -- 1063
 quote$ -- 0
-skip$ -- 8213
+skip$ -- 7643
 stack$ -- 0
-substring$ -- 32119
+substring$ -- 33360
 swap$ -- 6658
-text.length$ -- 987
+text.length$ -- 945
 text.prefix$ -- 1
 top$ -- 1
-type$ -- 1648
+type$ -- 1580
 warning$ -- 0
-while$ -- 3230
+while$ -- 3366
 width$ -- 0
-write$ -- 1454
+write$ -- 1495
+(There was 1 error message)
